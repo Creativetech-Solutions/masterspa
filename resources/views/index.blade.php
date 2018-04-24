@@ -62,5 +62,115 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
 
 @endsection
 @section('content')
+<div class="container-fluid">
+    
+        <div class="container-page">   
+                <h3 class="dark-grey">Personal Details</h3>
+                
+            <form action="/masterspa/public/prefrences">             
+                <div class="col-lg-12">
+                    <div class="form-group col-lg-4">
+                        <label>Company Name:</label>
+                        <input type="text" name="cname" required class="form-control" id="" value="">
+                    </div>
+                    
+                    <div class="form-group col-lg-4">
+                        <label>Contact First Name:</label>
+                        <input type="text" name="" class="form-control" required id="" value="" placeholder="Micheal">
+                    </div>
+                    
+                    <div class="form-group col-lg-4">
+                        <label>Contact Last Name:</label>
+                        <input type="text" name="" class="form-control" required id="" value="" placeholder="Osborne">
+                    </div>
+                </div>
 
+
+                <div class="col-lg-12">
+                    <div class="form-group col-lg-4 ">
+                     <label>Telephone:</label>
+                     <input class="form-control" required type="tel" name="tphone" value="" id="" placeholder="(555)-555-5555" >
+                     </div>
+                                    
+                    <div class="form-group col-lg-4">
+                        <label>Cell Phone for Reaching Attendee When Traveling:</label>
+                        <input type="text" name="cellphone" class="form-control" id="" value="">
+                    </div>
+                    
+                    <div class="form-group col-lg-4">
+                        <label>Email Address</label>
+                        <input type="email" required name="email" class="form-control" id="" value="" placeholder="Michael@theislandservices.com">
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="form-group col-lg-4">
+                        <label>Retype Email Address</label>
+                        <input type="email" name="reemail" required class="form-control" id="" value="" placeholder="Michael@theislandservices.com">
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label>Please enter a second Email if you would like your guest or someone else to receive the trip information: </label>
+                        <input type="email" name="secondemail" class="form-control" id="" value="">
+                    </div>          
+                    
+                    <div class="form-group col-lg-4">
+                        <label>Please retype your second email address:</label>
+                        <input type="email" name="resecondemail" class="form-control" id="" value="">
+                    </div>
+
+                </div> 
+
+
+                <div class="col-lg-12">
+                    <div class="form-group col-lg-4">
+                        <label>Address:</label>
+                        <input type="text" name="address" required class="form-control" id="" value="" placeholder="8911 Collins Ave">
+                    </div>
+                                    
+                    <div class="form-group col-lg-4">
+                        <label>City:</label>
+                        <input type="text" name="city" required class="form-control" id="" value="" placeholder="Surfside">
+                    </div>
+                    
+                    <div class="form-group col-lg-4">
+                        <label>State/Province/Region:</label>
+                        <input type="text" name="region" required class="form-control" id="" value="" placeholder="FL">
+                    </div>
+
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group col-lg-4">
+                     <label>Zip/Postal Code:</label>
+                     <input class="form-control" type="tel" required name="pcode" value="" id="" placeholder="55555-5555" >
+                     </div>
+
+                     <div class="form-group col-lg-4">
+                        <label>Country:</label>
+                        <input type="text" name="country" class="form-control" id="" value="">
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label>Emergency Contact ( Someone NOT Traveling with you ):</label>
+                        <input type="text" name="emcontact" required class="form-control" id="" value="">
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                     <div class="form-group col-lg-4">
+                        <label>Emergency Contact's Phone Number:</label>
+                        <input type="text" name="emergcontact" required class="form-control" id="" value="">
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    
+                    
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </div>
+            </form>
+        </div>
+    
+</div>
 @endsection

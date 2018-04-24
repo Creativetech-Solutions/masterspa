@@ -85,6 +85,10 @@ blockquote,.entry-meta,.entry-footer,.comment-list li .comment-meta .says,.comme
 <link rel="apple-touch-icon-precomposed" href="http://groupregistration.net/wp-content/uploads/2018/04/Favicon2-300x300.jpg" />
 <meta name="msapplication-TileImage" content="http://groupregistration.net/wp-content/uploads/2018/04/Favicon2-300x300.jpg" />
 
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 
 <body class="home page-template-default page page-id-156 custom-header-image layout-one-column-wide">

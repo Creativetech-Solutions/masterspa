@@ -66,6 +66,6 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
 
 @endsection
 @section('content')
-<p>Contact us with any questions that you might have &#8211; we&#8217;ll be in touch within 24 hours. We look forward to hearing from you!</p>
+<h3>Contact us with any questions that you might have &#8211; we&#8217;ll be in touch within 24 hours. We look forward to hearing from you!</h3>
 
 @endsection

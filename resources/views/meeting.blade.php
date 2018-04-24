@@ -59,5 +59,18 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
 
 @endsection
 @section('content')
-
+<form action="/masterspa/public/hotel">
+<div class="col-lg-12">
+                    
+                     <div class="form-group col-lg-4">
+                        <label>So we can provide appropriate seating in the meeting room, how many people from this registration will be attending the actual MEETING on October 30th?</label>
+                        <input type="text" name="meeting" class="form-control" id="" value="">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    
+                    
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </div>
+            </form>
 @endsection
