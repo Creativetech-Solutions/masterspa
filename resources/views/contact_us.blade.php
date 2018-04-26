@@ -2,7 +2,7 @@
 
 @section('header')
 <style id='activation-inline-css' type='text/css'>
-.site-header{background-image:url(http://groupregistration.net/wp-content/uploads/2018/04/WebPhotoHeader_08.jpg);}
+.site-header{background-image:url({{ asset('public/images/WebPhotoHeader_08.jpg') }});}
 </style>
 <div class="site-header-wrapper">
 
@@ -40,7 +40,7 @@
 
             <div class="page-content">
 
-	
+    
         
 
 </div><!-- .page-content -->
@@ -49,4 +49,6 @@
 @section('content')
 <h3>Contact us with any questions that you might have &#8211; we&#8217;ll be in touch within 24 hours. We look forward to hearing from you!</h3>
 
+
+Contact us form coming soon ...
 @endsection

@@ -2,7 +2,7 @@
 
 @section('header')
 <style id='activation-inline-css' type='text/css'>
-.site-header{background-image:url(http://groupregistration.net/wp-content/uploads/2018/04/WebPhotoHeader_06.jpg);}
+.site-header{background-image:url({{ asset('public/images/WebPhotoHeader_06.jpg') }});}
 </style>
 <div class="site-header-wrapper">
 
@@ -40,18 +40,25 @@
 
 @endsection
 @section('content')
-<form action="/masterspa/public/hotel">
-<div class="col-lg-12">
-                    
-                     <div class="form-group col-lg-4">
-                        <label>So we can provide appropriate seating in the meeting room, how many people from this registration will be attending the actual MEETING on October 30th?</label>
-                        <input type="text" name="meeting" class="form-control" id="" value="">
-                    </div>
+<div class="container-fluid">
+    <div class="container-page">   
+        <h3 class="dark-grey">Meeting <br></h3>
+        <form action="{{ url('/hotel') }}" method="POST"> 
+            {{ csrf_field() }}          
+            <div class="col-lg-12">
+                 <div class="form-group col-xs-12 col-sm-6">
+                    <label>So we can provide appropriate seating in the meeting room, how many people from this registration will be attending the actual MEETING on October 30th?</label>
                 </div>
-                <div class="col-md-8">
-                    
-                    <a href="/masterspa/public/additional" class="btn btn-danger">&laquo; Previous</a>
-                    <button type="submit" class="btn btn-primary">Next</button>
+                <div class="form col-xs-12 col-sm-6">
+                    <input type="text" name="meeting" class="form-control" id="" value="">
                 </div>
-            </form>
+            </div>
+            <div class="col-md-8">
+                    
+                <a href="#" class="btn btn-danger">&laquo; Previous</a>
+                <button type="submit" class="btn btn-primary">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection

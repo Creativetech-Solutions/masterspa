@@ -2,7 +2,7 @@
 
 @section('header')
 <style id='activation-inline-css' type='text/css'>
-.site-header{background-image:url(http://groupregistration.net/wp-content/uploads/2018/04/WebPhotoHeader_01-1.jpg);}
+.site-header{background-image:url({{ asset('public/images//WebPhotoHeader_01-1.jpg') }});}
 </style>
 <div class="site-header-wrapper">
 
@@ -39,29 +39,48 @@
             </div><!-- .site-header-wrapper -->
 
 @endsection
-@section('content')
-<h3>Bed Types Are Based on Availablity, And Are Not Guaranteed. 
-All rooms are non-smoking, there are designated outside areas for smoking.</h3>
 
-<form action="/masterspa/public/guests">             
-                <div class="col-lg-12">
-                    <div class="form-group col-lg-6">
-                        <label>Prefrences:</label><br>
-                        <input type="checkbox" name="beds" value="king">King<br>
-                        <input type="checkbox" name="beds" value="beds">2 Beds<br>
-                    </div>
-                    
-                    <div class="form-group col-lg-6">
-                        <label>Does Anyone in this room have any Special Needs or Dietary/Physical Restrictions?</label><br>
-                        <input type="checkbox" name="needs" value="yes">Yes<br>
-                        <input type="checkbox" name="needs" value="no">No<br>
-                    </div>
-                    
+
+@section('content')
+<h3></h3>
+
+<div class="container-fluid">
+    <div class="container-page">
+         @if (!empty($errors->all())) 
+            <div class="alert alert-danger" role="alert">
+                @foreach ($errors->all() as $message)
+                    {{$message}} <br>
+                @endforeach
+            </div>
+        @endif   
+        <h3 class="dark-grey">Preferences</h3>
+        <div class="col-xs-12">
+            <h4>Bed Types Are Based on Availablity, And Are Not Guaranteed. 
+                All rooms are non-smoking, there are designated outside areas for smoking..</h4>
+            <br>
+        </div>
+        <form action="{{ url('/guests') }}"  method="POST">
+            {{ csrf_field() }}                       
+            <div class="col-lg-12">
+                <div class="form-group col-lg-6">
+                    <label>Prefrences:</label><br>
+                    <input type="checkbox" name="beds" value="king" /> King<br>
+                    <input type="checkbox" name="beds" value="beds" /> 2 Beds<br>
                 </div>
-                <div class="col-md-8">
-                    
-                    <a href="/masterspa/public/" class="btn btn-danger">&laquo; Previous</a>
-                    <button type="submit" class="btn btn-primary">Next</button>
+                
+                <div class="form-group col-lg-6">
+                    <label>Does Anyone in this room have any Special Needs or Dietary/Physical Restrictions?</label><br>
+                    <input type="checkbox" name="needs" value="yes" /> Yes<br>
+                    <input type="checkbox" name="needs" value="no" /> No<br>
                 </div>
-            </form>
+                
+            </div>
+            <div class="col-md-8">
+                
+                <a href="#" class="btn btn-danger">&laquo; Previous</a>
+                <button type="submit" class="btn btn-primary">Next</button>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection

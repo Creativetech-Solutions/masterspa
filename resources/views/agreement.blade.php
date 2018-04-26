@@ -2,7 +2,8 @@
 
 @section('header')
 <style id='activation-inline-css' type='text/css'>
-.site-header{background-image:url(http://groupregistration.net/wp-content/uploads/2018/04/WebPhotoHeader_01-1.jpg);}
+
+.site-header{background-image:url({{ asset('public/images/WebPhotoHeader_01-1.jpg') }});}
 </style>
 <div class="site-header-wrapper">
 
@@ -40,42 +41,48 @@
 
 @endsection
 @section('content')
-<h3>CANCELLATIONS ARE SUBJECT TO CHARGES:
-120-61 DAYS PRIOR TO CONFERENCE: 1 NIGHT PER PERSON CHARGE;
-60-31 DAYS PRIOR: 2 NIGHTS PER PERSON CHARGE;
-30 DAYS AND LESS: 100% CHARGE.
-</h3>
-<form action="/masterspa/public/agreement">
-	<div class="col-lg-12">
-                    <div class="form-group col-lg-4">
-                        <br>
-                        <label>If Applicable, An Invoice Will Be Sent Based On Your Above Selections and Their Availability, Once Confirmed:</label><br>
-                        <input type="radio" name="agreement" value="I agree to Pay The Charges Based on My Selections Once Available and Approved.">I agree to Pay The Charges Based on My Selections Once Available and Approved.<br>
-                        
-                       
-                        
-                        </div>
-                    
-                    <div class="form-group col-lg-8">
-                    	<br>	
-                        <label>Special Circumstances or Notes:</label><br>
-                        <input type="textarea"  name="specialnotes" class="form-control" id="" value="" placeholder="">
-                    </div>
-                        
-                    </div>
+<div class="container-fluid">
+    <div class="container-page">   
+        <h3 class="dark-grey">Agreement</h3>
+        <div class="col-xs-12">
+            <h4>Cancellations are subject to charges:
+                120-61 days prior to conference: 1 night per person charge;
+                60-31 days prior: 2 nights per person charge;
+                30 days and less: 100% charge.</h4>
+            <br>
+        </div>
+        <form action="{{ url('/agreement') }}">
+        	<div class="col-xs-12">
+                <div class="form-group col-xs-12 col-sm-6">
+                    <label>If Applicable, An Invoice Will Be Sent Based On Your Above Selections and Their Availability, Once Confirmed:</label>
+                </div>
+                <div class="form-group col-xs-12 col-sm-6">
+                    <input type="radio" name="agreement" value="I agree to Pay The Charges Based on My Selections Once Available and Approved.">I agree to Pay The Charges Based on My Selections Once Available and Approved.<br>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                
+                <div class="form-group col-xs-12 col-sm-6">
+                    <label>Special Circumstances or Notes:</label>
+                </div>
+                <div class="form-group col-xs-12 col-sm-6">
+                    <input type="textarea"  name="specialnotes" class="form-control" id="" value="" placeholder="">
+                </div>
+            </div>
 
-    <div class="col-lg-12">
-                  
-                    <div class="form-group col-lg-6">
-                    	<br>	
-                        <label>Save Information:</label><br>
-                        <input type="checkbox" name="agreement" value="Checking this option will save your information for future registrations">{Checking this option will save your information for future registrations}<br>
-                        
-                    </div>
+            <div class="col-lg-12">
+                <div class="form-group col-xs-12">
+                	<br>	
+                    <label>Save Information:</label><br>
+                    <input type="checkbox" name="agreement" value="Checking this option will save your information for future registrations">{Checking this option will save your information for future registrations}<br>
+                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <a href="#" class="btn btn-danger">&laquo; Previous</a>
+                <button type="submit" class="btn btn-primary">Submit Registration</button><br>
+            </div>
+        </form>
     </div>
-    <div class="col-md-6">
-    	            <a href="/masterspa/public/flights" class="btn btn-primary">&laquo; Previous</a>
-                    <button type="submit" class="btn btn-primary">Submit Registration</button><br>
-    </div>
-            </form>
+</div>
 @endsection
