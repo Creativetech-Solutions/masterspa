@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $registration = [];
+        $registration = "";
         if(session()->has('register_id')){
             $registration = Register::find(session()->get('register_id'));
         }

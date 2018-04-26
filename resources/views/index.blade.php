@@ -43,7 +43,8 @@
 @endsection
 @section('content')
 @php
-    if(empty($registration)){
+    if(empty($registration)){ 
+            $registration = new \stdClass();
             $registration->comp_name = "Company name";
             $registration->fname = "Cont First name";
             $registration->lname = "Cont last name";
