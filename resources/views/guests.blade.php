@@ -150,4 +150,4 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
 	   }
 	});
 </script>
-@endsection
+@endsectionn
