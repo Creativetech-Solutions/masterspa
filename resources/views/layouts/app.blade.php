@@ -36,7 +36,7 @@ img.emoji {
     padding: 0 !important;
 }
 </style>
-<link type="text/css" id="activation-css" rel="stylesheet" href="style.css" media="all" />
+
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 <style id='activation-inline-css' type='text/css'>
