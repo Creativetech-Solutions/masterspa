@@ -2,7 +2,7 @@
 
 @section('header')
 <style type="text/css">
-.site-header{background-image:url(http://groupregistration.net/wp-content/uploads/2018/04/WebPhotoHeader_07.jpg);}
+.site-header{background-image:url({{ url('/') }}wp-content/uploads/2018/04/WebPhotoHeader_07.jpg);}
 .site-title a,.site-title a:visited{color:#blank;}.site-title a:hover,.site-title a:visited:hover{color:rgba(, 0.8);}
 .site-description{color:#ffffff;}
 .hero,.hero .widget h1,.hero .widget h2,.hero .widget h3,.hero .widget h4,.hero .widget h5,.hero .widget h6,.hero .widget p,.hero .widget blockquote,.hero .widget cite,.hero .widget table,.hero .widget ul,.hero .widget ol,.hero .widget li,.hero .widget dd,.hero .widget dt,.hero .widget address,.hero .widget code,.hero .widget pre,.hero .widget .widget-title,.hero .page-header h1{color:#ffffff;}
@@ -32,7 +32,7 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
 <div class="site-title-wrapper">
 
     
-    <h1 class="site-title"><a href="http://groupregistration.net/" rel="home">Group Registration</a></h1>
+    <h1 class="site-title"><a href="{{ url('/') }}" rel="home">Group Registration</a></h1>
     <div class="site-description">Travel With Us</div>
 </div><!-- .site-title-wrapper -->
 
@@ -67,21 +67,22 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
         <div class="container-page">   
                 <h3 class="dark-grey">Personal Details</h3>
                 
-            <form action="/masterspa/public/prefrences">             
+            <form action="{{ url('/prefrences') }}">   
+                {{ csrf_field() }}          
                 <div class="col-lg-12">
                     <div class="form-group col-lg-4">
                         <label>Company Name:</label>
-                        <input type="text" name="cname" required class="form-control" id="" value="">
+                        <input type="text" name="cname" required class="form-control"  value="Comp name">
                     </div>
                     
                     <div class="form-group col-lg-4">
                         <label>Contact First Name:</label>
-                        <input type="text" name="" class="form-control" required id="" value="" placeholder="Micheal">
+                        <input type="text" name="" class="form-control" required id="" value="Cont First name" placeholder="Micheal">
                     </div>
                     
                     <div class="form-group col-lg-4">
                         <label>Contact Last Name:</label>
-                        <input type="text" name="" class="form-control" required id="" value="" placeholder="Osborne">
+                        <input type="text" name="" class="form-control" required id="" value="con last name" placeholder="Osborne">
                     </div>
                 </div>
 
@@ -89,17 +90,17 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
                 <div class="col-lg-12">
                     <div class="form-group col-lg-4 ">
                      <label>Telephone:</label>
-                     <input class="form-control" required type="tel" name="tphone" value="" id="" placeholder="(555)-555-5555" >
+                     <input class="form-control" required type="tel" name="tphone" value="tel" placeholder="(555)-555-5555" >
                      </div>
                                     
                     <div class="form-group col-lg-4">
                         <label>Cell Phone for Reaching Attendee When Traveling:</label>
-                        <input type="text" name="cellphone" class="form-control" id="" value="">
+                        <input type="text" name="cellphone" class="form-control" value="cell">
                     </div>
                     
                     <div class="form-group col-lg-4">
                         <label>Email Address</label>
-                        <input type="email" required name="email" class="form-control" id="" value="" placeholder="Michael@theislandservices.com">
+                        <input type="email" required name="email" class="form-control" value="email@yopmail.com" placeholder="Michael@theislandservices.com">
                     </div>
 
                 </div>
@@ -107,17 +108,17 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
                 <div class="col-lg-12">
                     <div class="form-group col-lg-4">
                         <label>Retype Email Address</label>
-                        <input type="email" name="reemail" required class="form-control" id="" value="" placeholder="Michael@theislandservices.com">
+                        <input type="email" name="re_email" required class="form-control" value="email@yopmail.com1" placeholder="Michael@theislandservices.com">
                     </div>
 
                     <div class="form-group col-lg-4">
                         <label>Please enter a second Email if you would like your guest or someone else to receive the trip information: </label>
-                        <input type="email" name="secondemail" class="form-control" id="" value="">
+                        <input type="email" name="email_alt" class="form-control" value="email@yopmail.com22">
                     </div>          
                     
                     <div class="form-group col-lg-4">
                         <label>Please retype your second email address:</label>
-                        <input type="email" name="resecondemail" class="form-control" id="" value="">
+                        <input type="email" name="re_email_alt" class="form-control" id="" value="email@yopmail.com12">
                     </div>
 
                 </div> 
@@ -126,48 +127,48 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
                 <div class="col-lg-12">
                     <div class="form-group col-lg-4">
                         <label>Address:</label>
-                        <input type="text" name="address" required class="form-control" id="" value="" placeholder="8911 Collins Ave">
+                        <input type="text" name="address" required class="form-control" id="" value="address" placeholder="8911 Collins Ave">
                     </div>
                                     
                     <div class="form-group col-lg-4">
                         <label>City:</label>
-                        <input type="text" name="city" required class="form-control" id="" value="" placeholder="Surfside">
+                        <input type="text" name="city" required class="form-control" id="" value="city" placeholder="Surfside">
                     </div>
                     
                     <div class="form-group col-lg-4">
                         <label>State/Province/Region:</label>
-                        <input type="text" name="region" required class="form-control" id="" value="" placeholder="FL">
+                        <input type="text" name="region" required class="form-control" id="" value="region" placeholder="FL">
                     </div>
 
                 </div>
                 <div class="col-lg-12">
                     <div class="form-group col-lg-4">
                      <label>Zip/Postal Code:</label>
-                     <input class="form-control" type="tel" required name="pcode" value="" id="" placeholder="55555-5555" >
+                     <input class="form-control" type="tel" required name="pcode" value="tel" id="pcode" placeholder="55555-5555" >
                      </div>
 
                      <div class="form-group col-lg-4">
                         <label>Country:</label>
-                        <input type="text" name="country" class="form-control" id="" value="">
+                        <input type="text" name="country" class="form-control" id="" value="country">
                     </div>
 
                     <div class="form-group col-lg-4">
                         <label>Emergency Contact ( Someone NOT Traveling with you ):</label>
-                        <input type="text" name="emcontact" required class="form-control" id="" value="">
+                        <input type="text" name="emerg_contact" required class="form-control" id="emerg_contact" value="Emergency Contact">
                     </div>
                 </div>
 
                 <div class="col-lg-12">
                      <div class="form-group col-lg-4">
                         <label>Emergency Contact's Phone Number:</label>
-                        <input type="text" name="emergcontact" required class="form-control" id="" value="">
+                        <input type="text" name="emerg_phone" required class="form-control" value="emerg_phone">
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-xs-12 text-center">
                     
                     
-                    <button type="submit" class="btn btn-primary">Next</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Next</button>
                 </div>
             </form>
         </div>

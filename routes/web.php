@@ -24,5 +24,6 @@ Route::get('/guests', 'HomeController@getguests');
 Route::get('/hotel', 'HomeController@gethotel');
 Route::get('/meeting', 'HomeController@getmeeting');
 Route::get('/prefrences', 'HomeController@getprefrences');
+Route::post('/prefrences', 'HomeController@getprefrences');
 Route::get('/contact_us', 'HomeController@getcontactus');
 Route::get('/flights', 'HomeController@getflights');

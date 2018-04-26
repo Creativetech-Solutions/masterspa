@@ -38,8 +38,29 @@ class HomeController extends Controller
     {
         return view('hotel');
     }
-     public function getprefrences()
+     public function getprefrences(Request $request)
     {
+
+        Validator::make($request->all(),[
+            'cname' => 'required|max:191',
+            'tphone' => 'required|max:191',
+            'cellphone' => 'required',
+            'email' => 'required',
+            're_email' => 'required',
+            'email_alt' => 'required',
+            're_email_alt' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'region' => 'required',
+            'pcode' => 'required',
+            'country' => 'required',
+            'emerg_contact' => 'required',
+            'emerg_phone' => 'required',
+        ])->validate();
+
+        $user = User::find($id);
+
+        dd($request->input());
         return view('prefrences');
     }
      public function getguests()

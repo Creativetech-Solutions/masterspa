@@ -5,39 +5,39 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="profile" href="http://gmpg.org/xfn/11">
 
-    <link rel="pingback" href="http://groupregistration.net/xmlrpc.php">
+<link rel="pingback" href="http://groupregistration.net/xmlrpc.php">
 
-    <title>Group Registration &#8211; Travel With Us</title>
+<title>Group Registration &#8211; Travel With Us</title>
 <link rel='dns-prefetch' href='//fonts.googleapis.com' />
 <link rel='dns-prefetch' href='//s.w.org' />
 <link rel="alternate" type="application/rss+xml" title="Group Registration &raquo; Feed" href="http://groupregistration.net/feed/" />
 <link rel="alternate" type="application/rss+xml" title="Group Registration &raquo; Comments Feed" href="http://groupregistration.net/comments/feed/" />
-        <script type="text/javascript">
-            window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.4\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.4\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/groupregistration.net\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.5"}};
-            !function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56692,8205,9792,65039],[55357,56692,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
-        </script>
-        <style type="text/css">
+<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.4\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.4\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/groupregistration.net\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.5"}};
+!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56692,8205,9792,65039],[55357,56692,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
 img.wp-smiley,
 img.emoji {
-    display: inline !important;
-    border: none !important;
-    box-shadow: none !important;
-    height: 1em !important;
-    width: 1em !important;
-    margin: 0 .07em !important;
-    vertical-align: -0.1em !important;
-    background: none !important;
-    padding: 0 !important;
+display: inline !important;
+border: none !important;
+box-shadow: none !important;
+height: 1em !important;
+width: 1em !important;
+margin: 0 .07em !important;
+vertical-align: -0.1em !important;
+background: none !important;
+padding: 0 !important;
 }
 </style>
 
-<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+<link href="{{ asset('public/css/style.css') }}" rel="stylesheet">
 
 <style id='activation-inline-css' type='text/css'>
 .site-title a,.site-title a:visited{color:#blank;}.site-title a:hover,.site-title a:visited:hover{color:rgba(, 0.8);}
@@ -93,116 +93,91 @@ blockquote,.entry-meta,.entry-footer,.comment-list li .comment-meta .says,.comme
 
 <body class="home page-template-default page page-id-156 custom-header-image layout-one-column-wide">
 
-    
-    <div id="page" class="hfeed site">
 
-        <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+<div id="page" class="hfeed site">
 
-        
-        <header id="masthead" class="site-header" role="banner">
+<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
 
-            
-            @yield('header')
 
-            
-        </header><!-- #masthead -->
+<header id="masthead" class="site-header" role="banner">
 
-        
-<div class="main-navigation-container">
 
-    
-<div class="menu-toggle" id="menu-toggle">
-    <div></div>
-    <div></div>
-    <div></div>
-</div><!-- #menu-toggle -->
+@yield('header')
 
-    <nav id="site-navigation" class="main-navigation">
 
-        <div class="menu-primary-menu-container"><ul id="menu-primary-menu" class="menu"><li id="menu-item-353" class="{{Request::is('/') ? 'active' : ''}}"><a href="/masterspa/public/">Personal Details</a></li>
-<li id="menu-item-330" class="{{Request::is('/masterspa/public/prefrences') ? 'active' : ''}}"><a href="/masterspa/public/prefrences">Prefrences</a></li>
-<li id="menu-item-357" class="{{Request::is('guests') ? 'active' : ''}}"><a href="/masterspa/public/guests">Guests</a></li>
-<li id="menu-item-358" class="{{Request::is('additional') ? 'active' : ''}}"><a href="/masterspa/public/additional">Additional Attandees</a></li>
-<li id="menu-item-354" class="{{Request::is('meeting') ? 'active' : ''}}"><a href="/masterspa/public/meeting">Meetings</a></li>
-<li id="menu-item-359" class="{{Request::is('hotel') ? 'active' : ''}}"><a href="/masterspa/public/hotel">Hotel</a></li>
-<li id="menu-item-355" class="{{Request::is('flights') ? 'active' : ''}}"><a href="/masterspa/public/flights">Flights</a></li>
-<li id="menu-item-352" class="{{Request::is('agreement') ? 'active' : ''}}"><a href="/masterspa/public/agreement">Agreement</a></li>
-<li id="menu-item-171" class="{{Request::is('contact_us') ? 'active' : ''}}"><a href="/masterspa/public/contact_us">Contact Us</a></li>
-</ul></div>
-    </nav><!-- #site-navigation -->
+</header><!-- #masthead -->
 
-    
-</div>
+@include('layouts/nav_bar')
 
-        <div id="content" class="site-content">
+<div id="content" class="site-content">
 
 <div id="primary" class="content-area">
 
-    <main id="main" class="site-main" role="main">
+<main id="main" class="site-main" role="main">
 
-        
-            
+
+
 <article id="post-156" class="post-156 page type-page status-publish hentry">
 
-    
-        
-    
-    
+
+
+
+
 <div class="page-content">
 @yield('content')
-    
+
 </div><!-- .page-content -->
 
 
-    
+
 </article><!-- #post-## -->
 
-            
-        
-    </main><!-- #main -->
+
+
+</main><!-- #main -->
 
 </div><!-- #primary -->
 
 
 
 
-        </div><!-- #content -->
+</div><!-- #content -->
 
-        
-        <footer id="colophon" class="site-footer">
 
-            <div class="site-footer-inner">
+<footer id="colophon" class="site-footer">
 
-                
-            </div><!-- .site-footer-inner -->
+<div class="site-footer-inner">
 
-        </footer><!-- #colophon -->
 
-        
+</div><!-- .site-footer-inner -->
+
+</footer><!-- #colophon -->
+
+
 <div class="site-info-wrapper">
 
-    <div class="site-info">
+<div class="site-info">
 
-        <div class="site-info-inner">
+<div class="site-info-inner">
 
-            
+
 <div class="site-info-text">
 
-    Copyright &copy; 2018 Group Registration &mdash; Activation WordPress theme by <a href="https://www.godaddy.com/" rel="author nofollow">GoDaddy</a>
+Copyright &copy; 2018 Group Registration &mdash; Activation WordPress theme by <a href="https://www.godaddy.com/" rel="author nofollow">GoDaddy</a>
 </div>
 
-        </div><!-- .site-info-inner -->
+</div><!-- .site-info-inner -->
 
-    </div><!-- .site-info -->
+</div><!-- .site-info -->
 
 </div><!-- .site-info-wrapper -->
 
-    </div><!-- #page -->
+</div><!-- #page -->
 
 
-    @yield('scripts')
-    
-    <script type='text/javascript' src='http://groupregistration.net/wp-content/themes/primer/assets/js/navigation.min.js?ver=1.7.0'></script>
+@yield('scripts')
+
+<script type='text/javascript' src='http://groupregistration.net/wp-content/themes/primer/assets/js/navigation.min.js?ver=1.7.0'></script>
 <script type='text/javascript' src='http://groupregistration.net/wp-content/themes/primer/assets/js/skip-link-focus-fix.min.js?ver=1.7.0'></script>
 <script type='text/javascript' src='http://groupregistration.net/wp-includes/js/wp-embed.min.js?ver=4.9.5'></script>
 
