@@ -55,6 +55,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.
 	.main-navigation-container,.main-navigation.open,.main-navigation ul ul,.main-navigation .sub-menu{background-color:#78c3fb;}
 	.site-footer{background-color:#303d4c;}
 	.site-info-wrapper{background-color:#2c3845;}.site-info-wrapper .social-menu a,.site-info-wrapper .social-menu a:visited,.site-info-wrapper .social-menu a:hover,.site-info-wrapper .social-menu a:visited:hover{color:#2c3845;}
+	.active-menu{background-color:rgba(0, 0, 0, 0.1); }
 </style>
 <link rel='stylesheet' id='activation-fonts-css'  href='//fonts.googleapis.com/css?family=Lato%3A300%2C400%2C700&#038;subset=latin&#038;ver=4.9.5' type='text/css' media='all' />
 <style id='activation-fonts-inline-css' type='text/css'>
