@@ -198,7 +198,10 @@ blockquote,.entry-meta,.entry-footer,.comment-list li .comment-meta .says,.comme
 </div><!-- .site-info-wrapper -->
 
     </div><!-- #page -->
+
+
     @yield('scripts')
+    
     <script type='text/javascript' src='http://groupregistration.net/wp-content/themes/primer/assets/js/navigation.min.js?ver=1.7.0'></script>
 <script type='text/javascript' src='http://groupregistration.net/wp-content/themes/primer/assets/js/skip-link-focus-fix.min.js?ver=1.7.0'></script>
 <script type='text/javascript' src='http://groupregistration.net/wp-includes/js/wp-embed.min.js?ver=4.9.5'></script>

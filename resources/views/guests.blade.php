@@ -131,23 +131,23 @@ body{background-color:#ffffff;}.navigation.pagination .nav-links .page-numbers.c
 
 @section('scripts')
 <script type="text/javascript">
-	$(document).on('click','input[name="num_of_travler"]', function() {
-	   $('.attendi-one').show();
-	   var val = $(this).val();
-	   var currAttendi = $('.attendi-wraper').length;
-	   console.log('Val :'+val);
-	   console.log('currAttendi : '+currAttendi);
-	   if(currAttendi > val){
-	   		for(var i = val; i<currAttendi; i++){
-	   			console.log(i);
-	   			$('.attendi-wraper')[i].remove();
-	   		}
-	   } else {
-	   		for(var i = currAttendi; i<val; i++){
-	   			var attendi = $('#attendi_1').clone().prop('id','attendi_'+(i+1));
-	   			$('.main-attendi-wrapper').append(attendi);
-	   		}
-	   }
-	});
+    $(document).on('click','input[name="num_of_travler"]', function() {
+       $('.attendi-one').show();
+       var val = $(this).val();
+       var currAttendi = $('.attendi-wraper').length;
+       console.log('Val :'+val);
+       console.log('currAttendi : '+currAttendi);
+       if(currAttendi > val){
+            for(var i = currAttendi-1; i>=val; i--){
+                $('.attendi-wraper')[i].remove();
+            }
+       } else {
+            for(var i = currAttendi; i<val; i++){
+                var attendi = $('#attendi_1').clone().prop('id','attendi_'+(i+1));
+                $('.main-attendi-wrapper').append(attendi);
+                $('#attendi_'+(i+1)).find('.attendi-num').html(i+1);
+            }
+       }
+    });
 </script>
-@endsectionn
+@endsection
