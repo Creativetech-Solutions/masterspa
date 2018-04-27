@@ -41,23 +41,32 @@
 
 @endsection
 @section('content')
+@php 
+    if(empty($registration->id)){ 
+        $registration = new \stdClass();
+        $registration->save_info = "";
+        $registration->send_invoice = "";
+        $registration->special_circumstances = "";
+    }
+@endphp
 <div class="container-fluid">
     <div class="container-page">   
         <h3 class="dark-grey">Agreement</h3>
         <div class="col-xs-12">
-            <h4>Cancellations are subject to charges:
+            <label><h4>Cancellations are subject to charges:
                 120-61 days prior to conference: 1 night per person charge;
                 60-31 days prior: 2 nights per person charge;
-                30 days and less: 100% charge.</h4>
+                30 days and less: 100% charge.</h4></label>
             <br>
         </div>
-        <form action="{{ url('/agreement') }}">
+        <form action="{{ url('/submission') }}" method="POST">
+            {{ csrf_field() }}          
         	<div class="col-xs-12">
                 <div class="form-group col-xs-12 col-sm-6">
                     <label>If Applicable, An Invoice Will Be Sent Based On Your Above Selections and Their Availability, Once Confirmed:</label>
                 </div>
                 <div class="form-group col-xs-12 col-sm-6">
-                    <input type="radio" name="agreement" value="I agree to Pay The Charges Based on My Selections Once Available and Approved.">I agree to Pay The Charges Based on My Selections Once Available and Approved.<br>
+                    <input type="radio" name="agreement" {{ $registration->send_invoice == 1 ? 'checked':'' }} value="1"> I agree to Pay The Charges Based on My Selections Once Available and Approved.<br>
                 </div>
             </div>
             <div class="col-xs-12">
@@ -65,8 +74,8 @@
                 <div class="form-group col-xs-12 col-sm-6">
                     <label>Special Circumstances or Notes:</label>
                 </div>
-                <div class="form-group col-xs-12 col-sm-6">
-                    <input type="textarea"  name="specialnotes" class="form-control" id="" value="" placeholder="">
+                <div class="form-group col-xs-12">
+                    <textarea name="specialnotes" class="form-control" id="" placeholder="">{{ $registration->special_circumstances }}</textarea>
                 </div>
             </div>
 
@@ -74,7 +83,7 @@
                 <div class="form-group col-xs-12">
                 	<br>	
                     <label>Save Information:</label><br>
-                    <input type="checkbox" name="agreement" value="Checking this option will save your information for future registrations">{Checking this option will save your information for future registrations}<br>
+                    <input type="checkbox" name="save_info" {{ $registration->save_info == 1 ? 'checked':'' }} value="1"> {Checking this option will save your information for future registrations}<br>
                     
                 </div>
             </div>

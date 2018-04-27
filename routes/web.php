@@ -38,3 +38,4 @@ Route::post('/hotel', 'HomeController@gethotel');
 Route::post('/meeting', 'HomeController@getmeeting');
 Route::post('/contact_us', 'HomeController@getcontactus');
 Route::post('/flights', 'HomeController@getflights');
+Route::post('/submission', 'HomeController@submission');

@@ -42,8 +42,8 @@
 
 @endsection
 @section('content')
-@php
-    if(empty($registration)){ 
+@php 
+    if(empty($registration->id)){ 
             $registration = new \stdClass();
             $registration->comp_name = "Company name";
             $registration->fname = "Cont First name";
@@ -63,16 +63,10 @@
 @endphp
 
 <div class="container-fluid">
-    
+        
         <div class="container-page">  
-                @if (!empty($errors->all())) 
-                <div class="alert alert-danger" role="alert">
-                    @foreach ($errors->all() as $message)
-                        {{$message}} <br>
-                    @endforeach
-                </div>
-                @endif
-                <h3 class="dark-grey">Personal Details</h3>
+            @include('layouts/notify')
+            <h3 class="dark-grey">Personal Details</h3>
                 
             <form action="{{ url('/prefrences') }}" method="POST">   
                 {{ csrf_field() }}          

@@ -40,34 +40,49 @@
 
 @endsection
 @section('content')
+@php 
+    if(empty($registration->id)){ 
+        $registration = new \stdClass();
+        $registration->airfare_quote = "";
+        $registration->service_class = "";
+        $registration->dpt_city = "";
+        $registration->dpt_date = "";
+        $registration->pref_dpt_time = "";
+        $registration->ret_date = "";
+        $registration->pref_ret_time = "";
+        $registration->pref_airline = "";
+        $registration->freq_flyer_no = "";
+        $registration->payment_method = "";
+        $registration->special_notes = "";
+    }
+@endphp
 <div class="container-fluid">
     <div class="container-page">   
         <h3 class="dark-grey">Flights</h3>
         <div class="col-xs-12">
-            <h4>
+            <label><h4>
         If you would like to extend your trip AT THE SWAN Resort - please fill out the below information.
         We will confirm availability for you.
         Master Spas has special rates 3 days before and 3 days after the program, however rooms are based on availability. Rates include all taxes and fees including resort fee.  Meals are NOT included on extended nights
         For Pre and Post Rooms - all Children under the age of 18 years are Free in the room with 2 Adults.
-        Please DO NOT book any flights for additional nights prior to receiving confirmation that the room is available.</h4>
+        Please DO NOT book any flights for additional nights prior to receiving confirmation that the room is available.</h4></label>
             <br>
         </div>
-        <form action="{{ url('/agreement') }}">
+        <form action="{{ url('/agreement') }}" method="POST">
+            {{ csrf_field() }}        
             <div class="col-lg-12">
                 <div class="form-group col-lg-6">
-                    <br><br>
                     <label>Would You Like A Quote for Airfare?</label><br>
-                    <input type="radio" name="flights" value="yes"> YES<br>
-                    <input type="radio" name="flights" value="NO. I am driving."> NO. I am driving.<br>
-                    <input type="radio" name="flights" value="NO, I will be booking my own airfare and will email my itinerary once booked."> NO, I will be booking my own airfare and will email my itinerary once booked.<br>
+                    <input type="radio" name="quote_airfare" value="yes" {{ $registration->airfare_quote == 'yes' ? 'checked':''}}> YES<br>
+                    <input type="radio" name="quote_airfare" value="NO. I am driving." {{ $registration->airfare_quote == 'NO. I am driving.' ? 'checked':''}}> NO. I am driving.<br>
+                    <input type="radio" name="quote_airfare" value="NO, I will be booking my own airfare and will email my itinerary once booked." {{ $registration->airfare_quote == 'NO, I will be booking my own airfare and will email my itinerary once booked.' ? 'checked':''}}> NO, I will be booking my own airfare and will email my itinerary once booked.<br>
                     
                     </div>
                 
                 <div class="form-group col-lg-6">
-                	<br><br>	
                     <label>Class of Service:</label><br>
-                    <input type="checkbox" name="flights" value="Coach"> Coach<br>
-                    <input type="checkbox" name="flights" value="Business/First Class"> Business/First Class<br>
+                    <input type="checkbox" {{ $registration->service_class == 'Coach' ? 'checked':''}} name="service" value="Coach"> Coach<br>
+                    <input type="checkbox" {{ $registration->service_class == 'Business/First Class' ? 'checked':''}} name="service" value="Business/First Class"> Business/First Class<br>
                     
                 </div>
             </div>
@@ -75,17 +90,17 @@
             <div class="col-lg-12">
                 <div class="form-group col-lg-4">
                     <label>Departure City:</label>
-                    <input type="text" name="dcity"  class="form-control" id="" value="">
+                    <input type="text" name="dcity"  class="form-control" id="" value="{{ $registration->dpt_city }}">
                 </div>
                 
                 <div class="form-group col-lg-4">
                     <label>Departure Date:</label>
-                    <input type="date" name="ddate" class="form-control"  id="" value="" placeholder="">
+                    <input type="date" name="ddate" class="form-control"  id="" value="{{ $registration->dpt_date }}" placeholder="">
                 </div>
                 
                 <div class="form-group col-lg-4">
                     <label>Preferred Departure Time:</label>
-                    <input type="time" name="pdtime" class="form-control"  id="" value="" placeholder="">
+                    <input type="time" name="pdtime" class="form-control"  id="" value="{{ $registration->pref_dpt_time }}" placeholder="">
                 </div>
             </div>
 
@@ -93,17 +108,17 @@
             <div class="col-lg-12">
                 <div class="form-group col-lg-4 ">
                  <label>Return Date:</label>
-                 <input class="form-control"  type="date" name="rdate" value="" id="" placeholder="" >
+                 <input class="form-control"  type="date" name="rdate" value="{{ $registration->ret_date }}" id="" placeholder="" >
                  </div>
                                 
                 <div class="form-group col-lg-4">
                     <label>Preferred Return Time:</label>
-                    <input type="time" name="prtime" class="form-control" id="" value="">
+                    <input type="time" name="prtime" class="form-control" id="" value="{{ $registration->pref_ret_time }}">
                 </div>
                 
                 <div class="form-group col-lg-4">
                     <label>Preferred Airline:</label>
-                    <input type="text"  name="pairline" class="form-control" id="" value="" placeholder="">
+                    <input type="text"  name="pairline" class="form-control" id="" value="{{ $registration->pref_airline }}" placeholder="">
                 </div>
 
             </div>
@@ -111,25 +126,25 @@
             <div class="col-lg-12">
                 <div class="form-group col-lg-4">
                     <label>Frequent Flyer #:</label>
-                    <input type="text" name="fflyer"  class="form-control" id="" value="" placeholder="">
+                    <input type="text" name="fflyer"  class="form-control" id="" value="{{ $registration->freq_flyer_no }}" placeholder="">
                 </div>
 
+                <div class="form-group col-lg-8">
+                    <br>
+                    <label>Method of Payment:</label><br>
+                    <input type="radio" name="pay_method" {{ $registration->payment_method == 'An Invoice Will Be Sent If Applicable' ? 'checked':''}} value="An Invoice Will Be Sent If Applicable"> An Invoice Will Be Sent If Applicable &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="pay_method" {{ $registration->payment_method == 'Credit Card' ? 'checked':''}} value="Credit Card"> Credit Card<br>
+                   
+                    
+                </div>
             </div> 
 
             <div class="col-lg-12">
-                <div class="form-group col-lg-4">
-                    <br>
-                    <label>Method of Payment:</label><br>
-                    <input type="radio" name="flights" value="An Invoice Will Be Sent If Applicable"> An Invoice Will Be Sent If Applicable<br>
-                    <input type="radio" name="flights" value="Credit Card"> Credit Card<br>
-                   
-                    
-                    </div>
                 
-                <div class="form-group col-lg-8">
+                <div class="form-group col-xs-12">
                 	<br>	
                     <label>Special Notes:</label><br>
-                    <input type="textarea"  name="snotes" class="form-control" id="" value="" placeholder="">
+                    <textarea name="snotes" class="form-control" id="" value="" placeholder="">{{ $registration->special_notes }}</textarea>
                 </div>
                     
             </div>

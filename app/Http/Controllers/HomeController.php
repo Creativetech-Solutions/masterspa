@@ -13,9 +13,13 @@ class HomeController extends Controller
      *
      * @return void
      */
+    public $register;
     public function __construct()
-    {
-       // $this->middleware('auth');
+    {   
+        if(!session()->has('register_id'))
+            $this->register = new Register;
+        else 
+            $this->register = Register::find(session('register_id'));
     }
 
     /**
@@ -25,28 +29,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $registration = "";
-        if(session()->has('register_id')){
-            $registration = Register::find(session()->get('register_id'));
-        }
+        $registration = $this->register;
         return view('index')->with(compact('registration'));
     }
-    public function getadditional()
-    {
-        return view('additional_attandees');
-    }
-     public function getagreement()
-    {
-        return view('agreement');
-    }
-     public function gethotel()
-    {
-        return view('hotel');
-    }
-     public function getprefrences(Request $request)
-    {
-        $method = $request->method();
 
+    public function getprefrences(Request $request)
+    {   
         if ($request->isMethod('post')) {
             $validation = [
                 'cname' => 'required|max:191',
@@ -64,19 +52,15 @@ class HomeController extends Controller
                 'emerg_phone' => 'required|max:191',
             ];
 
+            $register = $this->register;
             if(!session()->has('register_id')){
                 $validation['email'] = 'required|unique:registers|max:191|same:re_email';
-                $register = new Register;
                 $register->email = $request->email;
-            } else {
-                $register = Register::find(session()->get('register_id'));
             }
             $validator = Validator::make($request->all(),$validation);
-
             if ($validator->fails()) {
                 return redirect('/')->withErrors($validator)->withInput();
             }
-
             $register->comp_name = $request->cname;
             $register->fname = $request->cfname;
             $register->lname = $request->clname;
@@ -90,22 +74,18 @@ class HomeController extends Controller
             $register->country = $request->country;
             $register->emerg_contact = $request->emerg_contact;
             $register->emerg_phone = $request->emerg_phone;
-            if($register->save()){
-                session()->put('register_id', $register->id);
-                return view('prefrences');
-            } else {
+            if(!$register->save())
                 return redirect('/');
-            }
-        }
-        else {
-            return view('prefrences');
+            else 
+                session()->put('register_id', $register->id);
         }
 
+        $registration = $this->register;
+        return view('prefrences')->with(compact('registration'));
     }
-    public function getguests(Request $request)
-    {  
-        $method = $request->method();
 
+    public function getguests(Request $request)
+    {
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(),[
                 'needs' => 'required|max:191',
@@ -115,28 +95,152 @@ class HomeController extends Controller
                 return redirect('/prefrences')->withErrors($validator)->withInput();
             }
 
-            $register = new Register;
-            $register->comp_name = $request->cname;
-            if($register->save()){
-                return view('guests');
-            } else {
+            $register = $this->register;
+            $register->special_need = $request->needs;
+            if(isset($request['preference']))
+                $register->preference = $request->preference;
+
+            if(!$register->save())
                 return redirect('/prefrences');
+            else 
+                session()->put('register_id', $register->id);
+        }
+
+        $registration = $this->register;
+        return view('guests')->with(compact('registration'));
+    }
+
+    public function getadditional(Request $request)
+    {
+
+        if ($request->isMethod('post')) {
+            $validation = [
+                'num_of_travler' => 'required',
+                'gfname' => 'required',
+                'gbadgefname' => 'required',
+                'gmiddle_name' => 'required',
+                'glname' => 'required',
+                'gshirtsize' => 'required',
+            ];
+            $validator = Validator::make($request->all(),$validation);
+            if ($validator->fails()) {
+                return redirect('/guests')->withErrors($validator)->withInput();
+            }
+
+            $register = $this->register;
+            $register->num_of_travlers = $request->num_of_travler;
+            if(!$register->save())
+                return redirect('/guests');
+            else{
+                // delete extra if any
+                $ids = $register->attendees()->pluck('id')->toArray();
+                $extraIds = array_diff($ids, $request->attendie_ids);
+                \App\Attendees::destroy($extraIds);
+
+                session()->put('register_id', $register->id);
+
+                foreach($request->gfname as $key => $val){
+                    $attendieData = [
+                        'fname' => $request->gfname[$key],
+                        'badge_fname' => $request->gbadgefname[$key],
+                        'middle_fname'  => $request->gmiddle_name[$key],
+                        'lname'  => $request->glname[$key],
+                        'tshirt_size' => $request->gshirtsize[$key]
+                    ];
+                    if(empty($request->attendie_ids[$key])){
+                        // insert when new attendei
+                        $register->attendees()->create($attendieData);    
+                    } else {
+                        // update attendie on base of id
+                        $attendie = \App\Attendees::find($request->attendie_ids[$key])->update($attendieData);
+                    }
+                }
             }
         }
-        else {
-            return view('guests');
-        }
+
+        $registration = $this->register;
+        return view('additional_attandees')->with(compact('registration'));
     }
-     public function getflights()
+    public function getmeeting()
     {
-        return view('flights');
+        $registration = $this->register;
+        return view('meeting')->with(compact('registration'));
     }
-     public function getcontactus()
+    public function gethotel(Request $request)
+    {
+        if ($request->isMethod('post')) {
+
+            $register = $this->register;
+            $register->meeting_participants = $request->meeting;
+            if(!$register->save())
+                return redirect('/meeting');
+            else 
+                session()->put('register_id', $register->id);
+        }
+
+        $registration = $this->register;
+        return view('hotel')->with(compact('registration'));
+    }
+
+    public function getflights()
+    {
+        $registration = $this->register;
+        return view('flights')->with(compact('registration'));
+    }
+    public function getagreement(Request $request)
+    {
+
+        if ($request->isMethod('post')) {
+            $register = $this->register;
+            $register->dpt_date = date('Y-m-d',strtotime($request->ddate));
+            $register->dpt_city = $request->dcity;
+            $register->pref_dpt_time = date('Y-m-d h:i:s',strtotime($request->pdtime));
+            $register->ret_date = date('Y-m-d',strtotime($request->rdate));
+            $register->pref_ret_time = date('Y-m-d h:i:s',strtotime($request->prtime));
+            $register->pref_airline = $request->pairline;
+            $register->freq_flyer_no = $request->fflyer;
+            $register->special_notes = $request->snotes;
+            // optional inputs
+            $optionalInput = ['airfare_quote'=>'quote_airfare', 'service_class'=>'service', 'payment_method'=>'pay_method'];
+            foreach ($optionalInput as $key => $value) {
+                $register->$key = $request->$value;
+            }
+
+            if(!$register->save())
+                return redirect('/flights');
+            else 
+                session()->put('register_id', $register->id);
+        }
+
+        $registration = $this->register;
+        return view('agreement')->with(compact('registration'));
+    }
+
+    public function submission(Request $request){
+
+
+        if ($request->isMethod('post')) {
+            $register = $this->register;
+            $register->special_circumstances = $request->specialnotes;
+            // optional inputs
+            $optionalInput = ['send_invoice'=>'agreement', 'save_info'=>'save_info'];
+            foreach ($optionalInput as $key => $value) {
+                $register->$key = $request->$value;
+            }
+
+            if(!$register->save())
+                return redirect('/agreement');
+            else 
+                session()->put('register_id', $register->id);
+        }
+
+        return redirect('/');
+    }
+
+
+
+    public function getcontactus()
     {
         return view('contact_us');
-    }
-     public function getmeeting()
-    {
-        return view('meeting');
     }
 }

@@ -40,6 +40,13 @@
 
 @endsection
 @section('content')
+
+@php 
+    if(empty($registration->id)){ 
+        $registration = new \stdClass();
+        $registration->meeting_participants = "";
+    }
+@endphp
 <div class="container-fluid">
     <div class="container-page">   
         <h3 class="dark-grey">Meeting <br></h3>
@@ -50,7 +57,7 @@
                     <label>So we can provide appropriate seating in the meeting room, how many people from this registration will be attending the actual MEETING on October 30th?</label>
                 </div>
                 <div class="form col-xs-12 col-sm-6">
-                    <input type="text" name="meeting" class="form-control" id="" value="">
+                    <input type="text" name="meeting" class="form-control" id="" value="{{$registration->meeting_participants}}">
                 </div>
             </div>
             <div class="col-md-8">
