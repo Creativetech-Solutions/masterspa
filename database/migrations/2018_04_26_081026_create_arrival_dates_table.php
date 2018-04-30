@@ -17,7 +17,7 @@ class CreateArrivalDatesTable extends Migration
             $table->increments('id');
             $table->string('arrival_date');
             $table->string('rate');
-            $table->integer('register_id');
+            //$table->integer('register_id');
             $table->timestamps();
         });
     }

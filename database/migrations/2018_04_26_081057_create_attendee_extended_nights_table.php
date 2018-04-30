@@ -17,7 +17,7 @@ class CreateAttendeeExtendedNightsTable extends Migration
             $table->increments('id');
             $table->string('extended_night');
             $table->string('rate');
-            $table->integer('register_id');
+            //$table->integer('register_id');
             $table->timestamps();
         });
     }
