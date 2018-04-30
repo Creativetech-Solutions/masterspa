@@ -121,7 +121,7 @@
             <div class="col-md-8">
                 
                 
-                <a href="#" class="btn btn-danger">&laquo; Previous</a>
+                <a href="{{ url('/prefrences') }}" class="btn btn-danger">&laquo; Previous</a>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>

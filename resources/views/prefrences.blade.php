@@ -71,15 +71,25 @@
                     <label>Does Anyone in this room have any Special Needs or Dietary/Physical Restrictions?</label><br>
                     <input type="radio" name="needs" {{ $registration->special_need=='yes' ? 'checked':'' }}  value="yes" /> Yes<br>
                     <input type="radio" name="needs" {{ $registration->special_need=='no' ? 'checked':'' }}  value="no" /> No<br>
+                    <input type="hidden" name="url" value="Guests" /> No<br>
                 </div>
                 
             </div>
             <div class="col-md-8">
                 
-                <a href="#" class="btn btn-danger">&laquo; Previous</a>
+                <a href=""  onclick="previouspage()" class="btn btn-danger">&laquo; Previous</a>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        function previouspage(e){
+            event.preventDefault();
+            console.log('Val');
+        }
+    </script>
 @endsection

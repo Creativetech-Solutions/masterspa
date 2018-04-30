@@ -30,6 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         $registration = $this->register;
+        $pre   = 'index';
         return view('index')->with(compact('registration'));
     }
 
@@ -79,7 +80,6 @@ class HomeController extends Controller
             else 
                 session()->put('register_id', $register->id);
         }
-
         $registration = $this->register;
         return view('prefrences')->with(compact('registration'));
     }
