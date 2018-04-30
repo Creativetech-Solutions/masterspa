@@ -50,5 +50,36 @@
 <h3>Contact us with any questions that you might have &#8211; we&#8217;ll be in touch within 24 hours. We look forward to hearing from you!</h3>
 
 
-Contact us form coming soon ...
+
+
+<h3 class="dark-grey">Contact Form</h3>
+                
+            <form action="{{ url('/prefrences') }}" method="POST">   
+                {{ csrf_field() }}          
+                <div class="col-xl-12">
+                    <div class="form-group col-xl-12">
+                        <label>Name:</label>
+                        <input type="text" name="contactname"  class="form-control"  value="" placeholder="Your name">
+                    </div>
+                    
+                    <div class="form-group col-xl-12">
+                        <label>Email:</label>
+                        <input type="email" name="contactmail" class="form-control"  id="" value="contactmail" placeholder="your email">
+                    </div>
+                    
+                    <div class="form-group col-xl-12">
+                        <label>Message:</label>
+                        <textarea name="contactmessage" rows='5' class="form-control" id=""  value="contactmessage" placeholder=""></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group col-xl-12">
+                        <label>What is thirteen minus 6?:</label>
+                        <input type="text" name="question"  class="form-control"  value="">
+                    </div>
+                 <div class="col-xl-12">
+               
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
 @endsection
