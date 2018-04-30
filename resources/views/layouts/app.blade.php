@@ -86,6 +86,20 @@ blockquote,.entry-meta,.entry-footer,.comment-list li .comment-meta .says,.comme
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<style> 
+input[type=text],input[type=email] {
+    width: 100%;
+    padding: 25px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+ 
+
+
+</style>
+
+
 </head>
 
 <body class="home page-template-default page page-id-156 custom-header-image layout-one-column-wide">
