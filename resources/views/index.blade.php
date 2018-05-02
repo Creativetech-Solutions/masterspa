@@ -68,7 +68,7 @@
             @include('layouts/notify')
             <h3 class="dark-grey">Personal Details</h3>
                 
-            <form action="{{ url('/prefrences') }}" method="POST">   
+            <form class="pref-form" action="{{ url('/prefrences') }}" method="POST">
                 {{ csrf_field() }}          
                 <div class="col-lg-12">
                     <div class="form-group col-lg-4">
@@ -176,7 +176,7 @@
 
                 <div class="col-xs-12 text-center">
                     
-                    
+                    <input type="hidden" name="url" />
                     <button type="submit" class="btn btn-primary btn-lg">Next</button>
                 </div>
             </form>
@@ -193,6 +193,7 @@
             e.preventDefault();
             var url = $(this).attr('href');
             var result = url.substring(url.lastIndexOf("/") + 1);
+            console.log(result);
             previouspage(result);
         });
         function previouspage(url){

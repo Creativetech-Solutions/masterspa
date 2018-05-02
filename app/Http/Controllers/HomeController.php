@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Arrival_date;
+use App\Attendee_date;
+use App\Attendee_extended_night;
+use App\Departure_date;
 use Illuminate\Http\Request;
 use App\Register;
+use Illuminate\Support\Facades\App;
 use Validator;
 
 class HomeController extends Controller
@@ -15,10 +20,10 @@ class HomeController extends Controller
      */
     public $register;
     public function __construct()
-    {   
+    {
         if(!session()->has('register_id'))
             $this->register = new Register;
-        else 
+        else
             $this->register = Register::find(session('register_id'));
     }
 
@@ -35,7 +40,7 @@ class HomeController extends Controller
     }
 
     public function getprefrences(Request $request)
-    {   
+    {
         if ($request->isMethod('post')) {
             $validation = [
                 'cname' => 'required|max:191',
@@ -77,7 +82,7 @@ class HomeController extends Controller
             $register->emerg_phone = $request->emerg_phone;
             if(!$register->save())
                 return redirect('/');
-            else 
+            else
                 session()->put('register_id', $register->id);
         }
         $registration = $this->register;
@@ -102,7 +107,7 @@ class HomeController extends Controller
 
             if(!$register->save())
                 return redirect('/prefrences');
-            else 
+            else
                 session()->put('register_id', $register->id);
         }
 
@@ -115,7 +120,6 @@ class HomeController extends Controller
 
     public function getadditional(Request $request)
     {
-
         if ($request->isMethod('post')) {
             $validation = [
                 'num_of_travler' => 'required',
@@ -152,7 +156,7 @@ class HomeController extends Controller
                     ];
                     if(empty($request->attendie_ids[$key])){
                         // insert when new attendei
-                        $register->attendees()->create($attendieData);    
+                        $register->attendees()->create($attendieData);
                     } else {
                         // update attendie on base of id
                         $attendie = \App\Attendees::find($request->attendie_ids[$key])->update($attendieData);
@@ -163,13 +167,31 @@ class HomeController extends Controller
         }
         if(!empty($request->url))
         return redirect($request->url);
-  
+
         $registration = $this->register;
-        return view('additional_attandees')->with(compact('registration'));
+        $additional_attendees = Attendee_date::all();
+        return view('additional_attandees')->with(compact('registration','additional_attendees'));
     }
+
     public function getmeeting(Request $request)
     {
-        $registration = $this->register;
+        if ($request->isMethod('post')) {
+            $validation = [
+                'attandees' => 'required'
+            ];
+
+            $register = $this->register;
+            $validator = Validator::make($request->all(),$validation);
+            if ($validator->fails()) {
+                return redirect('/additional')->withErrors($validator)->withInput();
+            }
+            $register->attendee_date_id = $request->attandees;
+            if(!$register->save())
+                return redirect('/');
+            else
+                session()->put('register_id', $register->id);
+        }
+            $registration = $this->register;
         if(!empty($request->url))
             return redirect($request->url);
 
@@ -183,15 +205,18 @@ class HomeController extends Controller
             $register->meeting_participants = $request->meeting;
             if(!$register->save())
                 return redirect('/meeting');
-            else 
+            else
                 session()->put('register_id', $register->id);
         }
         $registration = $this->register;
         if(!empty($request->url))
             return redirect($request->url);
-
-        return view('hotel')->with(compact('registration'));
+        $extended_nights = Attendee_extended_night::all();
+        $departure_dates = Departure_date::all();
+        $arrival_dates = Arrival_date::all();
+        return view('hotel')->with(compact('registration','extended_nights', 'departure_dates','arrival_dates'));
     }
+
 
     public function getflights(Request $request)
     {
@@ -222,7 +247,7 @@ class HomeController extends Controller
 
             if(!$register->save())
                 return redirect('/flights');
-            else 
+            else
                 session()->put('register_id', $register->id);
         }
 
@@ -247,7 +272,7 @@ class HomeController extends Controller
 
             if(!$register->save())
                 return redirect('/agreement');
-            else 
+            else
                 session()->put('register_id', $register->id);
         }
         if(!empty($request->url))
