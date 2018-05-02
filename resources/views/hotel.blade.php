@@ -52,7 +52,7 @@
         Please DO NOT book any flights for additional nights prior to receiving confirmation that the room is available.</h4></label>
             <br>
         </div>
-        <form action="{{ url('/flights') }}">
+        <form action="{{ url('/flights') }}"  class="pref-form">
             <div class="col-xs-12">
                 <div class="form-group col-xs-12 col-sm-6">
                     <br><br>
@@ -156,10 +156,31 @@
             </div>
 
              <div class="col-md-6">
-             	<a href="#" class="btn btn-danger">&laquo; Previous</a>
+                 <input type="hidden" name="url" value="" />
+                 <button class="btn btn-danger previous">&laquo; Previous</button>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(document).on('click','.selecturl', function(e){
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var result = url.substring(url.lastIndexOf("/") + 1);
+            previouspage(result);
+        });
+        $(document).on('click','.previous', function(e){
+            e.preventDefault();
+            previouspage('meeting');
+        });
+        function previouspage(url){
+            $('input[name="url"]').val(url);
+            $('.pref-form').submit();
+        }
+
+
+    </script>
 @endsection

@@ -59,7 +59,7 @@
                 30 days and less: 100% charge.</h4></label>
             <br>
         </div>
-        <form action="{{ url('/submission') }}" method="POST">
+        <form action="{{ url('/submission') }}" method="POST" class="pref-form">
             {{ csrf_field() }}          
         	<div class="col-xs-12">
                 <div class="form-group col-xs-12 col-sm-6">
@@ -88,10 +88,29 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <a href="#" class="btn btn-danger">&laquo; Previous</a>
+                <input type="hidden" name="url" value="" />
+                <button class="btn btn-danger previous">&laquo; Previous</button>
                 <button type="submit" class="btn btn-primary">Submit Registration</button><br>
             </div>
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(document).on('click','.selecturl', function(e){
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var result = url.substring(url.lastIndexOf("/") + 1);
+            previouspage(result);
+        });
+        $(document).on('click','.previous', function(e){
+            e.preventDefault();
+            previouspage('flights');
+        })
+        function previouspage(url){
+            $('input[name="url"]').val(url);
+            $('.pref-form').submit();
+        }
+    </script>
 @endsection

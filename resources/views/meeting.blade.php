@@ -50,7 +50,7 @@
 <div class="container-fluid">
     <div class="container-page">   
         <h3 class="dark-grey">Meeting <br></h3>
-        <form action="{{ url('/hotel') }}" method="POST"> 
+        <form action="{{ url('/hotel') }}" method="POST" class="pref-form">
             {{ csrf_field() }}          
             <div class="col-lg-12">
                  <div class="form-group col-xs-12 col-sm-6">
@@ -58,14 +58,35 @@
                 </div>
                 <div class="form col-xs-12 col-sm-6">
                     <input type="text" name="meeting" class="form-control" id="" value="{{$registration->meeting_participants}}">
+                    <input type="hidden" name="url" value="" />
                 </div>
             </div>
             <div class="col-md-8">
-                    
-                <a href="#" class="btn btn-danger">&laquo; Previous</a>
+
+                <button class="btn btn-danger previous">&laquo; Previous</button>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(document).on('click','.selecturl', function(e){
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var result = url.substring(url.lastIndexOf("/") + 1);
+            previouspage(result);
+        });
+        $(document).on('click','.previous', function(e){
+            e.preventDefault();
+            previouspage('additional');
+        });
+        function previouspage(url){
+            $('input[name="url"]').val(url);
+            $('.pref-form').submit();
+        }
+
+
+    </script>
 @endsection

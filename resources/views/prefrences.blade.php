@@ -58,7 +58,7 @@
                 All rooms are non-smoking, there are designated outside areas for smoking..</h4>
             <br></label>
         </div>
-        <form action="{{ url('/guests') }}"  method="POST">
+        <form action="{{ url('/guests') }}" class="pref-form" method="POST">
             {{ csrf_field() }}                       
             <div class="col-lg-12">
                 <div class="form-group col-lg-6">
@@ -71,13 +71,13 @@
                     <label>Does Anyone in this room have any Special Needs or Dietary/Physical Restrictions?</label><br>
                     <input type="radio" name="needs" {{ $registration->special_need=='yes' ? 'checked':'' }}  value="yes" /> Yes<br>
                     <input type="radio" name="needs" {{ $registration->special_need=='no' ? 'checked':'' }}  value="no" /> No<br>
-                    <input type="hidden" name="url" value="Guests" /> No<br>
+                    <input type="hidden" name="url" value="" />
                 </div>
                 
             </div>
             <div class="col-md-8">
                 
-                <a href=""  onclick="previouspage()" class="btn btn-danger">&laquo; Previous</a>
+                <button class="btn btn-danger previous">&laquo; Previous</button>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>
@@ -87,9 +87,21 @@
 
 @section('scripts')
     <script type="text/javascript">
-        function previouspage(e){
-            event.preventDefault();
-            console.log('Val');
+        $(document).on('click','.selecturl', function(e){
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var result = url.substring(url.lastIndexOf("/") + 1);
+            previouspage(result);
+        });
+        $(document).on('click','.previous', function(e){
+            e.preventDefault();
+            previouspage('/');
+        });
+        function previouspage(url){
+            $('input[name="url"]').val(url);
+            console.log(url);
+            $('.pref-form').submit();
+
         }
     </script>
 @endsection

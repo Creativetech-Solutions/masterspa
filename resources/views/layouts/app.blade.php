@@ -191,7 +191,6 @@ Copyright &copy; 2018 Group Registration &mdash; Activation WordPress theme by <
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
-
 </body>
 
 </html>

@@ -68,7 +68,7 @@
         Please DO NOT book any flights for additional nights prior to receiving confirmation that the room is available.</h4></label>
             <br>
         </div>
-        <form action="{{ url('/agreement') }}" method="POST">
+        <form action="{{ url('/agreement') }}" method="POST"  class="pref-form">
             {{ csrf_field() }}        
             <div class="col-lg-12">
                 <div class="form-group col-lg-6">
@@ -149,10 +149,24 @@
                     
             </div>
             <div class="col-md-6">
-            	<a href="#" class="btn btn-danger">&laquo; Previous</a>
+                <input type="hidden" name="url" value="" />
+                <button class="btn btn-danger previous">&laquo; Previous</button>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).on('click','.previous', function(e){
+            e.preventDefault();
+            previouspage('hotel');
+        })
+        function previouspage(url){
+            $('input[name="url"]').val(url);
+            $('.pref-form').submit();
+        }
+    </script>
 @endsection

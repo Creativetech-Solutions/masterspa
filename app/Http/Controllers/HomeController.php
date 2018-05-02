@@ -107,6 +107,9 @@ class HomeController extends Controller
         }
 
         $registration = $this->register;
+        if(!empty($request->url))
+            return redirect($request->url);
+
         return view('guests')->with(compact('registration'));
     }
 
@@ -155,15 +158,21 @@ class HomeController extends Controller
                         $attendie = \App\Attendees::find($request->attendie_ids[$key])->update($attendieData);
                     }
                 }
+
             }
         }
-
+        if(!empty($request->url))
+        return redirect($request->url);
+  
         $registration = $this->register;
         return view('additional_attandees')->with(compact('registration'));
     }
-    public function getmeeting()
+    public function getmeeting(Request $request)
     {
         $registration = $this->register;
+        if(!empty($request->url))
+            return redirect($request->url);
+
         return view('meeting')->with(compact('registration'));
     }
     public function gethotel(Request $request)
@@ -177,14 +186,19 @@ class HomeController extends Controller
             else 
                 session()->put('register_id', $register->id);
         }
-
         $registration = $this->register;
+        if(!empty($request->url))
+            return redirect($request->url);
+
         return view('hotel')->with(compact('registration'));
     }
 
-    public function getflights()
+    public function getflights(Request $request)
     {
         $registration = $this->register;
+        if(!empty($request->url))
+            return redirect($request->url);
+
         return view('flights')->with(compact('registration'));
     }
     public function getagreement(Request $request)
@@ -213,6 +227,9 @@ class HomeController extends Controller
         }
 
         $registration = $this->register;
+        if(!empty($request->url))
+            return redirect($request->url);
+
         return view('agreement')->with(compact('registration'));
     }
 
@@ -233,6 +250,8 @@ class HomeController extends Controller
             else 
                 session()->put('register_id', $register->id);
         }
+        if(!empty($request->url))
+            return redirect($request->url);
 
         return redirect('/');
     }

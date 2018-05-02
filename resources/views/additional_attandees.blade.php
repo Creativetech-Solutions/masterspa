@@ -54,7 +54,7 @@
          can determine your own level of spending.</h4></label>
             <br>
         </div>
-        <form action="{{ url('/meeting') }}">  
+        <form action="{{ url('/meeting') }}" class="pref-form">
                 <div class="col-lg-12">
                     <div class="form-group col-xs-12">
                         <label>I am Registering Additional Attendees for Program Dates 
@@ -94,16 +94,39 @@
                     </div>
                     <div class="form-group col-xs-12 col-sm-6">
                         <input type="radio" name="attandees" value="Children Under 3 years are FREE"> Children Under 3 years are FREE | <label>$0.00</label>
+                        <input type="hidden" name="url" value="" />
                     </div>
                     
                 </div>
                 <div class="col-xs-12">
                     
                      <p>Click here to clear selection for question above</p>
-                    <a href="#" class="btn btn-danger">&laquo; Previous</a>
+
+
+                    <button class="btn btn-danger previous">&laquo; Previous</button>
                     <button type="submit" class="btn btn-primary">Next</button>
                 </div>
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(document).on('click','.selecturl', function(e){
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var result = url.substring(url.lastIndexOf("/") + 1);
+            previouspage(result);
+        });
+        $(document).on('click','.previous', function(e){
+            e.preventDefault();
+            previouspage('guests');
+        });
+        function previouspage(url){
+            $('input[name="url"]').val(url);
+            $('.pref-form').submit();
+        }
+
+
+    </script>
 @endsection
