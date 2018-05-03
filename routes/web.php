@@ -26,6 +26,11 @@ Route::get('/meeting', 'HomeController@getmeeting');
 Route::get('/prefrences', 'HomeController@getprefrences');
 Route::get('/contact_us', 'HomeController@getcontactus');
 Route::get('/flights', 'HomeController@getflights');
+Route::get('/admin', 'admin\HomeController@index');
+Route::get('/flights', 'admin\flightsController@index');
+Route::get('/admin/registration/reg-list', 'admin\flightsController@index');
+
+//Route::post('/admin/cpanel', 'admin\CPanelController@index');
 
 // post methods
 
@@ -39,3 +44,24 @@ Route::post('/meeting', 'HomeController@getmeeting');
 Route::post('/contact_us', 'HomeController@getcontactus');
 Route::post('/flights', 'HomeController@getflights');
 Route::post('/submission', 'HomeController@submission');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
+//Route::post('login', 'Auth\LoginController@login');
+/*Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration Routes...
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');*/
+
+
+Route::get('/home', 'HomeController@index')->name('home');

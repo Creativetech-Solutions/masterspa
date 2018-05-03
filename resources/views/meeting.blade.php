@@ -71,22 +71,11 @@
 </div>
 @endsection
 @section('scripts')
+    @include('layouts/script')
     <script type="text/javascript">
-        $(document).on('click','.selecturl', function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-            var result = url.substring(url.lastIndexOf("/") + 1);
-            previouspage(result);
-        });
         $(document).on('click','.previous', function(e){
             e.preventDefault();
             previouspage('additional');
         });
-        function previouspage(url){
-            $('input[name="url"]').val(url);
-            $('.pref-form').submit();
-        }
-
-
     </script>
 @endsection

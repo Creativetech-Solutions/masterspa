@@ -42,8 +42,8 @@
 
 @endsection
 @section('content')
-@php 
-    if(empty($registration->id)){ 
+@php
+    if(empty($registration->id)){
             $registration = new \stdClass();
             $registration->comp_name = "Company name";
             $registration->fname = "Cont First name";
@@ -192,7 +192,7 @@
         $(document).on('click','.selecturl', function(e){
             e.preventDefault();
             var url = $(this).attr('href');
-            var result = url.substring(url.lastIndexOf("/") + 1);
+           // var result = url.substring(url.lastIndexOf("/") + 1);
             console.log(result);
             previouspage(result);
         });

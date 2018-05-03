@@ -72,14 +72,15 @@
                             Hotel Considers anyone over 9 years as an adult for meal and ticket purposes:</label><br>
                     </div>
                     @foreach ($additional_attendees as $ad_attendee)
-
                         <div class="form-group col-xs-12 col-sm-6">
-                            <input type="radio" name="attandees" {{ $registration->attendee_date_id == $ad_attendee->id ? 'checked':'' }}
+                            <input type="radio" name="attandees"
+                                   {{ $registration->attendee_date_id == $ad_attendee->id ? 'checked':'' }}
                                    value="{{$ad_attendee->id}}"> {{$ad_attendee->attendee_date}} |
                             <label>{{$ad_attendee->rate}}</label>
                         </div>
                     @endforeach
                 </div>
+                <input type="hidden" name="url" value=""/>
 
                 <div class="col-xs-12">
 
@@ -94,22 +95,11 @@
     </div>
 @endsection
 @section('scripts')
+    @include('layouts/script')
     <script type="text/javascript">
-        $(document).on('click', '.selecturl', function (e) {
-            e.preventDefault();
-            var url = $(this).attr('href');
-            var result = url.substring(url.lastIndexOf("/") + 1);
-            previouspage(result);
-        });
         $(document).on('click', '.previous', function (e) {
             e.preventDefault();
             previouspage('guests');
         });
-        function previouspage(url) {
-            $('input[name="url"]').val(url);
-            $('.pref-form').submit();
-        }
-
-
     </script>
 @endsection
