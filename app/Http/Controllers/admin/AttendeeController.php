@@ -11,6 +11,6 @@ class AttendeeController extends Controller
     public function index()
     {
             $guests = Attendees::all();
-            return view('admin.Guests.attendee_listing')->with(compact('guests'));
+            return view('admin.guests.attendee_listing')->with(compact('guests'));
     }
 }
