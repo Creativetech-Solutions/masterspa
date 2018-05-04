@@ -92,7 +92,7 @@
                     <div class="form-group col-lg-4 ">
                      <label>Telephone:</label>
                      <br class="col-xs-12"></br>
-                     <input class="form-control" required type="tel" name="tphone" value="{{ $registration->tel }}" placeholder="(555)-555-5555" >
+                     <input class="form-control" required type="text" name="tphone" value="{{ $registration->tel }}" placeholder="(555)-555-5555" >
                      </div>
                                     
                     <div class="form-group col-lg-4">
@@ -152,13 +152,20 @@
                     <div class="form-group col-lg-4">
                      <label>Zip/Postal Code:</label>
                         <div class="col-xs-12"><br></div>
-                     <input class="form-control" type="tel" required name="pcode" value="{{ $registration->zip }}" id="pcode" placeholder="55555-5555" >
+                     <input class="form-control" type="text" required name="pcode" value="{{ $registration->zip }}" id="pcode" placeholder="55555-5555" >
                      </div>
 
                      <div class="form-group col-lg-4">
                         <label>Country:</label>
                         <div class="col-xs-12"><br></div>
-                        <input type="text" name="country" class="form-control" id="" value="{{ $registration->country }}">
+                        <select name="country" class="form-control" >
+                            <option value="0">Select Country</option>
+                            @foreach($countries as $key => $country) 
+                                <option 
+                                {{ $registration->country ==  $country->id ? 'selected':''}}
+                                value="{{$country->id}}">{{$country->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group col-lg-4">
@@ -188,14 +195,8 @@
 
 
 @section('scripts')
+    @include('layouts/script')
     <script type="text/javascript">
-        $(document).on('click','.selecturl', function(e){
-            e.preventDefault();
-            var url = $(this).attr('href');
-           // var result = url.substring(url.lastIndexOf("/") + 1);
-            console.log(result);
-            previouspage(result);
-        });
         function previouspage(url){
             $('input[name="url"]').val(url);
             $('.pref-form').submit();

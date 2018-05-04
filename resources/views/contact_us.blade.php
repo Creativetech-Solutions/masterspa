@@ -3,7 +3,14 @@
 @section('header')
 <style id='activation-inline-css' type='text/css'>
 .site-header{background-image:url({{ asset('public/images/WebPhotoHeader_08.jpg') }});}
+input[type=text], input[type=email] {
+    width: 100%;
+    padding: 25px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
 </style>
+
 <div class="site-header-wrapper">
 
                 

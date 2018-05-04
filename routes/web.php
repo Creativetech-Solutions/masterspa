@@ -45,13 +45,10 @@ Route::post('/contact_us', 'HomeController@getcontactus');
 Route::post('/flights', 'HomeController@getflights');
 Route::post('/submission', 'HomeController@submission');
 
-
-// admin routes
-
 //admin routes
-Route::group( ['prefix' => 'admin', 'namespace' => 'Admin','middleware' => 'auth'], function (){
+Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth'], function (){
     Route::get('/', 'HomeController@index');
     Route::get('/registrations', 'RegistrationController@index');
-    Route::get('/user/edit/{id}', 'UserController@edit');
+    Route::get('/createReport', 'ReportController@index');
     Route::post('/user/update/{id}', 'UserController@update');
 });

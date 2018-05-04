@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{asset('public/admin')}}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="{{asset('public/admin')}}/dist/css/skins/_all-skins.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,7 +67,6 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-
                 <p>
                   {{Auth::user()->name}}
                   <small>Admin since @php echo date('M, Y', strtotime(Auth::user()->created_at)) @endphp</small>
@@ -129,6 +129,19 @@
           <a href="pages/widgets.html">
             <i class="fa fa-th"></i> <span>Guests</span>
           </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Reports</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('admin/createReport') }}"><i class="fa fa-circle-o"></i> Full Reports</a></li>
+            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Saved Reports</a></li>
+          </ul>
         </li>
       </ul>
     </section>
