@@ -23,7 +23,7 @@
                     <div class="box">
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="reglist" class="table table-bordered table-striped">
+                            <table id="reglist" class="table data-table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>Id</th>

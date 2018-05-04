@@ -58,6 +58,7 @@
 @endphp
 <div class="container-fluid">
     <div class="container-page">   
+            @include('layouts/notify')
         <h3 class="dark-grey">Flights</h3>
         <div class="col-xs-12">
             <label><h4>

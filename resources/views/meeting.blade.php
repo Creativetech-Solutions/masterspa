@@ -49,6 +49,7 @@
 @endphp
 <div class="container-fluid">
     <div class="container-page">   
+            @include('layouts/notify')
         <h3 class="dark-grey">Meeting <br></h3>
         <form action="{{ url('/hotel') }}" method="POST" class="pref-form">
             {{ csrf_field() }}          

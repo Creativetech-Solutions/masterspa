@@ -27,7 +27,6 @@ Route::get('/prefrences', 'HomeController@getprefrences');
 Route::get('/contact_us', 'HomeController@getcontactus');
 Route::get('/flights', 'HomeController@getflights');
 Route::get('/admin', 'admin\HomeController@index');
-Route::get('/flights', 'admin\flightsController@index');
 Route::get('/admin/registration/reg-list', 'admin\flightsController@index');
 
 //Route::post('/admin/cpanel', 'admin\CPanelController@index');
@@ -50,6 +49,7 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::get('/', 'HomeController@index');
     Route::get('/registrations', 'RegistrationController@index');
     Route::get('/createReport', 'ReportController@index');
+    Route::post('/report/defaultCheckboxes', 'ReportController@saveDefultCheckboxes');
     Route::post('/user/update/{id}', 'UserController@update');
 
     // get routes

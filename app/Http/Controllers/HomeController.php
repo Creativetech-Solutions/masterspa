@@ -83,8 +83,12 @@ class HomeController extends Controller
             $register->emerg_phone = $request->emerg_phone;
             if(!$register->save())
                 return redirect('/');
-            else
+            else 
                 session()->put('register_id', $register->id);
+
+            if(!empty($request->url))
+                return redirect($request->url);
+
         }
         $registration = $this->register;
         return view('prefrences')->with(compact('registration'));
@@ -110,11 +114,13 @@ class HomeController extends Controller
                 return redirect('/prefrences');
             else
                 session()->put('register_id', $register->id);
+
+
+            if(!empty($request->url))
+                return redirect($request->url);
         }
 
         $registration = $this->register;
-        if(!empty($request->url))
-            return redirect($request->url);
 
         return view('guests')->with(compact('registration'));
     }
@@ -165,9 +171,9 @@ class HomeController extends Controller
                 }
 
             }
+            if(!empty($request->url))
+                return redirect($request->url);
         }
-        if(!empty($request->url))
-            return redirect($request->url);
 
         $registration = $this->register;
         $additional_attendees = Attendee_date::all();
@@ -191,10 +197,11 @@ class HomeController extends Controller
                 return redirect('/');
             else
                 session()->put('register_id', $register->id);
+
+            if(!empty($request->url))
+                return redirect($request->url);
         }
         $registration = $this->register;
-        if(!empty($request->url))
-            return redirect($request->url);
 
         return view('meeting')->with(compact('registration'));
     }
@@ -208,10 +215,12 @@ class HomeController extends Controller
                 return redirect('/meeting');
             else
                 session()->put('register_id', $register->id);
+
+
+            if(!empty($request->url))
+                return redirect($request->url);
         }
         $registration = $this->register;
-        if(!empty($request->url))
-            return redirect($request->url);
         $extended_nights = Attendee_extended_night::all();
         $departure_dates = Departure_date::all();
         $arrival_dates = Arrival_date::all();
@@ -250,11 +259,13 @@ class HomeController extends Controller
                 return redirect('/flights');
             else
                 session()->put('register_id', $register->id);
+
+
+            if(!empty($request->url))
+                return redirect($request->url);
         }
 
         $registration = $this->register;
-        if(!empty($request->url))
-            return redirect($request->url);
 
         return view('agreement')->with(compact('registration'));
     }
@@ -275,9 +286,11 @@ class HomeController extends Controller
                 return redirect('/agreement');
             else
                 session()->put('register_id', $register->id);
+
+
+            if(!empty($request->url))
+                return redirect($request->url);
         }
-        if(!empty($request->url))
-            return redirect($request->url);
 
         return redirect('/');
     }

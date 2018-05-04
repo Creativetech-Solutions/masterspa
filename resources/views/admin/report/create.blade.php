@@ -29,11 +29,14 @@
           </div>
         </div>
         <div class="box-body">
-            <form class="row" action="{{ url('admin/report/defaultCheckboxes') }}" method="POST">
+            <form class="row report-checkboxes-form" action="{{ url('admin/report/defaultCheckboxes') }}" method="POST">
+                {{ csrf_field() }}          
               <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="col-xs-12 heckboxes">
+                <div class="col-xs-12 checkboxes">
                   <h3>Personal Information</h3>
-                  <div class="form-group">
+                  <label><input type="checkbox" name="select_all" class="flat-red" checked>
+                      Select All</label>
+                  <div class="form-group col-xs-12">
                     <label><input type="checkbox" name="comp_name" class="flat-red" checked>
                       Company Name </label><br>
                     <label><input type="checkbox" name="fname" class="flat-red" checked>
@@ -66,7 +69,9 @@
                 </div>
                 <div class="col-xs-12 checkboxes">
                   <h3>Preferences</h3>
-                  <div class="form-group">
+                  <label><input type="checkbox" name="select_all" class="flat-red" checked>
+                      Select All</label>
+                  <div class="form-group col-xs-12">
                     <label><input type="checkbox" name="preference" class="flat-red" checked>
                       Prefrences </label><br>
                     <label><input type="checkbox" name="special_need" class="flat-red" checked>
@@ -77,7 +82,9 @@
               <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="col-xs-12 checkboxes">
                   <h3>Guests</h3>
-                  <div class="form-group">
+                  <label><input type="checkbox" name="select_all" class="flat-red" checked>
+                      Select All</label>
+                  <div class="form-group col-xs-12">
                     <label><input type="checkbox" name="emerg_phone" class="flat-red" checked>
                       First Name </label><br>
                     <label><input type="checkbox" name="emerg_phone" class="flat-red" checked>
@@ -106,7 +113,9 @@
                 </div>
                 <div class="col-xs-12 checkboxes">
                   <h3>Hotel</h3>
-                  <div class="form-group">
+                  <label><input type="checkbox" name="select_all" class="flat-red" checked>
+                      Select All</label>
+                  <div class="form-group col-xs-12">
                     <label><input type="checkbox" name="extend_trip" class="flat-red" checked>
                       Extend Trip </label><br>
                     <label><input type="checkbox" name="european_dealer" class="flat-red" checked>
@@ -123,7 +132,9 @@
               <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="col-xs-12 checkboxes">
                   <h3>Flights</h3>
-                  <div class="form-group">
+                  <label><input type="checkbox" name="select_all" class="flat-red" checked>
+                      Select All</label>
+                  <div class="form-group col-xs-12">
                     <label><input type="checkbox" name="airfare_quote" class="flat-red" checked>
                      Airfare Quote </label><br>
                     <label><input type="checkbox" name="service_class" class="flat-red" checked>
@@ -150,7 +161,9 @@
                 </div>
                 <div class="col-xs-12 checkboxes">
                   <h3>Agreement</h3>
-                  <div class="form-group">
+                  <label><input type="checkbox" name="select_all" class="flat-red" checked>
+                      Select All</label>
+                  <div class="form-group col-xs-12">
                     <label><input type="checkbox" name="send_invoice" class="flat-red" checked>
                       Agree To Pay Charges </label><br>
                     <label><input type="checkbox" name="special_circumstances" class="flat-red" checked>
@@ -176,9 +189,37 @@
   <!-- /.content-wrapper -->
 
   <script>
-    $(document).on('click','.save-default', function(e){
-      var input_names = $('input')
 
+    $(document).on('click','input[name="select_all"]', function(e){
+      if(!$(this).is(':checked')){
+        $(this).parents('.checkboxes').find('input').prop('checked',false);
+      } else {
+        $(this).parents('.checkboxes').find('input').prop('checked',true);
+      }
     })
+    $(document).on('click','.save-default', function(e){
+      $('.report-checkboxes-form').submit();
+    })
+    $(document).on('submit','.report-checkboxes-form', function(e){
+      e.preventDefault();
+      var form=$(this);
+      $.ajax({
+        type: "POST",
+        url: form.attr( 'action' ),
+        // data: form.serialize(),
+        data:  new FormData(this),
+        contentType: false,
+        cache: false, 
+        processData:false,
+        beforeSend:function(){
+        },
+        success: function( data ) {
+          console.log(data);
+        },
+        error:function(){
+
+        }
+    });
+  });
   </script>
 @endsection

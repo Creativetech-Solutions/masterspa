@@ -50,7 +50,8 @@
     }
 @endphp
 <div class="container-fluid">
-    <div class="container-page">   
+    <div class="container-page">  
+            @include('layouts/notify') 
         <h3 class="dark-grey">Agreement</h3>
         <div class="col-xs-12">
             <label><h4>Cancellations are subject to charges:
@@ -97,8 +98,8 @@
 </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript">
         @include('layouts/script')
+    <script type="text/javascript">
         $(document).on('click','.previous', function(e){
             e.preventDefault();
             previouspage('flights');

@@ -116,6 +116,11 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li>
+          <a href="{{ url('admin')}}">
+            <i class="fa fa-th"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
           <a href="{{ url('admin/registrations')}}">
             <i class="fa fa-th"></i> <span>Registration</span>
           </a>
@@ -208,7 +213,7 @@
 <script src="{{asset('public/admin')}}/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
   $(function () {
-    $('#example1').DataTable({
+    $('.data-table').DataTable({
       'paging'      : true,
       'lengthChange': true,
       'searching'   : true,
