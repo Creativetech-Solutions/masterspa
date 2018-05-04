@@ -44,24 +44,14 @@ Route::post('/meeting', 'HomeController@getmeeting');
 Route::post('/contact_us', 'HomeController@getcontactus');
 Route::post('/flights', 'HomeController@getflights');
 Route::post('/submission', 'HomeController@submission');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('admin/login', 'Auth\LoginController@showLoginForm')->name('login');
-//Route::post('login', 'Auth\LoginController@login');
-/*Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+// admin routes
 
-// Registration Routes...
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');
-
-// Password Reset Routes...
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');*/
-
-
-Route::get('/home', 'HomeController@index')->name('home');
+//admin routes
+Route::group( ['prefix' => 'admin', 'namespace' => 'Admin','middleware' => 'auth'], function (){
+    Route::get('/', 'HomeController@index');
+    Route::get('/registrations', 'RegistrationController@index');
+    Route::get('/user/edit/{id}', 'UserController@edit');
+    Route::post('/user/update/{id}', 'UserController@update');
+});

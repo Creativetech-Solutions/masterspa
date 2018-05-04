@@ -7,8 +7,7 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    //
     public function index(){
-        return view('admin/pages/add-user');
+        return view('admin.home.dashboard');
     }
 }
