@@ -221,6 +221,26 @@ class HomeController extends Controller
 
     public function getflights(Request $request)
     {
+        if ($request->isMethod('post')) {
+            $validation = [
+                'arrival_date' => 'required',
+                'departure' => 'required',
+                'extended_night' => 'required'
+            ];
+
+            $register = $this->register;
+            $validator = Validator::make($request->all(),$validation);
+            if ($validator->fails()) {
+                return redirect('/flights')->withErrors($validator)->withInput();
+            }
+            $register->arrival_date_id = $request->arrival_date;
+            $register->departure_date_id = $request->departure;
+            $register->attende_ext_night_id = $request->extended_night;
+            if(!$register->save())
+                return redirect('/flights');
+            else
+                session()->put('register_id', $register->id);
+        }
         $registration = $this->register;
         if(!empty($request->url))
             return redirect($request->url);
