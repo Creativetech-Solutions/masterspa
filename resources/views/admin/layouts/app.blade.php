@@ -75,7 +75,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{url('admin/profile')}}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
 
@@ -121,12 +121,12 @@
           </a>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="{{url('admin/user')}}">
             <i class="fa fa-th"></i> <span>Users</span>
           </a>
         </li>
         <li>
-          <a href="pages/widgets.html">
+          <a href="{{url('admin/guests')}}">
             <i class="fa fa-th"></i> <span>Guests</span>
           </a>
         </li>
