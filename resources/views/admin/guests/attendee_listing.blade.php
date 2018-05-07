@@ -46,7 +46,7 @@
                                         <td>{{$guest->middle_fname}}</td>
                                         <td>{{$guest->lname}}</td>
                                         <td>{{$guest->tshirt_size}}</td>
-                                        <td><a  href="{{url('admin/profile')}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
+                                        <td><a  href="#" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

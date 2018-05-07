@@ -234,7 +234,9 @@ class HomeController extends Controller
             $validation = [
                 'arrival_date' => 'required',
                 'departure' => 'required',
-                'extended_night' => 'required'
+                'extended_night' => 'required',
+                'extend_trip' => 'required',
+                'eur_dealer' => 'required',
             ];
 
             $register = $this->register;
@@ -245,6 +247,8 @@ class HomeController extends Controller
             $register->arrival_date_id = $request->arrival_date;
             $register->departure_date_id = $request->departure;
             $register->attende_ext_night_id = $request->extended_night;
+            $register->extend_trip = $request->extend_trip;
+            $register->european_dealer = $request->eur_dealer;
             if(!$register->save())
                 return redirect('/flights');
             else

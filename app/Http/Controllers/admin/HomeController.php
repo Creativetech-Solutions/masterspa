@@ -26,7 +26,7 @@ class HomeController extends Controller
             $userdata->name = $request->user_name;
             $userdata->email = $request->email;
             if (!empty($request->password)) {
-                $userdata->password = $request->password;
+                $userdata->password = bcrypt($request->password);
             }
             $userdata->save();
 

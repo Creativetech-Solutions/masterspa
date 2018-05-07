@@ -77,16 +77,16 @@
                         <br><br>
                         <label>Would you like to extend your trip either by arriving before the program starts or
                             staying after the program ends?</label><br>
-                        <input type="radio" name="hotel" value="yes"> Yes<br>
-                        <input type="radio" name="hotel" value="no"> No<br>
+                        <input type="radio" name="extend_trip" {{ $registration->extend_trip == 'yes'?'checked':'' }} value="yes"> Yes<br>
+                        <input type="radio" name="extend_trip" {{ $registration->extend_trip == 'no'?'checked':'' }} value="no"> No<br>
                     </div>
 
                     <div class="form-group col-xs-12 col-sm-6">
                         <br><br>
                         <label>I am a European Dealer:</label><br><br>
-                        <input type="radio" name="hotel" value="no"> No<br>
-                        <input type="radio" name="hotel"
-                               value="Yes - European Dealers arrive October 28 and Depart Oct 31"> Yes - European
+                        <input type="radio" {{ $registration->european_dealer == 'no'?'checked':'' }} name="eur_dealer" value="no"> No<br>
+                        <input type="radio" {{ $registration->european_dealer == 'yes'?'checked':'' }} name="eur_dealer"
+                               value="yes"> Yes - European
                         Dealers arrive October 28 and Depart Oct 31
                     </div>
 
