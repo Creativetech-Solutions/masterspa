@@ -31,6 +31,7 @@ class CreateRegisterTable extends Migration
             $table->string('emerg_phone')->nullable();
             $table->string('preference')->nullable();
             $table->string('special_need')->nullable();
+            $table->string('specify_need')->nullable();
             $table->integer('num_of_travlers')->nullable();
             $table->string('meeting_participants')->nullable();
             $table->string('extend_trip')->nullable();

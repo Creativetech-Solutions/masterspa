@@ -29,8 +29,6 @@ Route::get('/flights', 'HomeController@getflights');
 Route::get('/admin', 'admin\HomeController@index');
 Route::get('/admin/registration/reg-list', 'admin\flightsController@index');
 
-//Route::post('/admin/cpanel', 'admin\CPanelController@index');
-
 // post methods
 
 Route::post('/prefrences', 'HomeController@getprefrences');

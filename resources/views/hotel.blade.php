@@ -49,6 +49,8 @@
             $registration->arrival_date_id = "";
             $registration->departure_date_id = "";
             $registration->attende_ext_night_id = "";
+            $registration->extend_trip = "";
+            $registration->european_dealer = "";
         }
 
     @endphp
@@ -58,15 +60,15 @@
             <h3 class="dark-grey">Hotel</h3>
             <div class="col-xs-12">
                 <label><h4>
-                        If you would like to extend your trip AT THE SWAN Resort - please fill out the below
+                        If you would like to extend your Sheraton Grand at WildHorse Pass - please fill out the below
                         information.
                         We will confirm availability for you.
                         Master Spas has special rates 3 days before and 3 days after the program, however rooms are
-                        based on availability. Rates include all taxes and fees including resort fee. Meals are NOT
-                        included on extended nights
-                        For Pre and Post Rooms - all Children under the age of 18 years are Free in the room with 2
-                        Adults.
-                        Please DO NOT book any flights for additional nights prior to receiving confirmation that the
+                        based on availability. Rates include all taxes and fees including resort fee. Meals are not
+                        included on extended nights.
+                        For pre and post rooms all children under the age of 18 years are free in the room with 2
+                        adults.<br>
+                        Please do not book any flights for additional nights prior to receiving confirmation that the
                         room is available.</h4></label>
                 <br>
             </div>
@@ -94,7 +96,7 @@
 
                 <div class="form-group col-xs-12">
                     <br>
-                    <label>
+                    <label style="color: red" id="dealer_note" hidden>
                         EUROPEAN DEALERS PLEASE NOTE: Master Spas is covering your stay for an additional night:
                         Arriving: October 28, 2017 and Departing: October 31, 2017.
                     </label>
@@ -132,7 +134,7 @@
                 <div class="col-lg-12">
                     <div class="form-group col-xs-12">
                         <br>
-                        <label>I am Registering Additional Attendees for Extended Nights.IN MY ROOM.
+                        <label>I am Registering Additional Attendees for Extended Nights IN MY ROOM.
                             Additional people under 18 years old in a room with 2 Adults are FREE.:</label><br>
                     </div>
                     @foreach($extended_nights as $ex_night)
@@ -157,6 +159,14 @@
 @section('scripts')
     @include('layouts/script')
     <script type="text/javascript">
+        $('input[type="radio"]').click(function(){
+            var val = $(this).val();
+            if (val == 'yes'){
+                $('#dealer_note').show();
+            }else{
+                $('#dealer_note').hide();
+            }
+        });
         $(document).on('click', '.previous', function (e) {
             e.preventDefault();
             previouspage('meeting');

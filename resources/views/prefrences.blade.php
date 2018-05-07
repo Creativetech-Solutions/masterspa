@@ -54,8 +54,8 @@
         @include('layouts/notify')  
         <h3 class="dark-grey">Preferences</h3>
         <div class="col-xs-12">
-            <label><h4>Bed Types Are Based on Availablity, And Are Not Guaranteed. 
-                All rooms are non-smoking, there are designated outside areas for smoking..</h4>
+            <label><h4>Bed types are based on availability, and are not guaranteed.
+                All rooms are non-smoking, there are designated outside areas for smoking.</h4>
             <br></label>
         </div>
         <form action="{{ url('/guests') }}" class="pref-form" method="POST">
@@ -73,8 +73,13 @@
                     <input type="radio" name="needs" {{ $registration->special_need=='no' ? 'checked':'' }}  value="no" /> No<br>
                     <input type="hidden" name="url" value="" />
                 </div>
-                
+                <div id="s_need"  >
+                    <label>Please Specify:</label>
+                    <input type="text" name="specify_need" value="" class="form-control" placeholder="Specify here" >
+                </div>
+
             </div>
+
             <div class="col-md-8">
                 
                 <button class="btn btn-danger previous">&laquo; Previous</button>
@@ -88,6 +93,15 @@
 @section('scripts')
     @include('layouts/script')
     <script type="text/javascript">
+        $('#s_need').hide();
+        $('input[type="radio"]').click(function(){
+            var val = $(this).val();
+            if (val == 'yes'){
+                $('#s_need').show();
+            }else{
+                $('#s_need').hide();
+            }
+        });
         $(document).on('click','.previous', function(e){
             e.preventDefault();
             previouspage('/');

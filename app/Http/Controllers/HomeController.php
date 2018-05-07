@@ -23,8 +23,13 @@ class HomeController extends Controller
     {
         if(!session()->has('register_id'))
             $this->register = new Register;
-        else
-            $this->register = Register::find(session('register_id'));
+        else {
+            if (empty($this->register = Register::find(session('register_id')))) {
+                $this->register = new Register();
+            } else {
+                $this->register = Register::find(session('register_id'));
+            }
+        }
     }
 
     /**
@@ -42,6 +47,7 @@ class HomeController extends Controller
 
     public function getprefrences(Request $request)
     {
+
         if ($request->isMethod('post')) {
             $validation = [
                 'cname' => 'required|max:191',
@@ -68,6 +74,7 @@ class HomeController extends Controller
             if ($validator->fails()) {
                 return redirect('/')->withErrors($validator)->withInput();
             }
+
             $register->comp_name = $request->cname;
             $register->fname = $request->cfname;
             $register->lname = $request->clname;
@@ -99,6 +106,7 @@ class HomeController extends Controller
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(),[
                 'needs' => 'required|max:191',
+                /*'preference' => 'required|max:191'*/
             ]);
 
             if ($validator->fails()) {
@@ -106,7 +114,11 @@ class HomeController extends Controller
             }
 
             $register = $this->register;
+            if ($request->needs == 'yes'){
+                $register->specify_need = $request->specify_need;
+            }
             $register->special_need = $request->needs;
+
             if(isset($request['preference']))
                 $register->preference = $request->preference;
 
@@ -183,15 +195,15 @@ class HomeController extends Controller
     public function getmeeting(Request $request)
     {
         if ($request->isMethod('post')) {
-            $validation = [
+            /*$validation = [
                 'attandees' => 'required'
-            ];
+            ];*/
 
             $register = $this->register;
-            $validator = Validator::make($request->all(),$validation);
+            /*$validator = Validator::make($request->all(),$validation);
             if ($validator->fails()) {
                 return redirect('/additional')->withErrors($validator)->withInput();
-            }
+            }*/
             $register->attendee_date_id = $request->attandees;
             if(!$register->save())
                 return redirect('/');
@@ -208,19 +220,24 @@ class HomeController extends Controller
     public function gethotel(Request $request)
     {
         if ($request->isMethod('post')) {
+            $validation = [
+                'meeting' => 'required'
+            ];
 
+            $validator = Validator::make($request->all(),$validation);
+            if ($validator->fails()) {
+                return redirect('/meeting')->withErrors($validator)->withInput();
+            }
             $register = $this->register;
             $register->meeting_participants = $request->meeting;
             if(!$register->save())
                 return redirect('/meeting');
             else
                 session()->put('register_id', $register->id);
-
-
-            if(!empty($request->url))
-                return redirect($request->url);
         }
         $registration = $this->register;
+        if(!empty($request->url))
+            return redirect($request->url);
         $extended_nights = Attendee_extended_night::all();
         $departure_dates = Departure_date::all();
         $arrival_dates = Arrival_date::all();
@@ -250,7 +267,7 @@ class HomeController extends Controller
             $register->extend_trip = $request->extend_trip;
             $register->european_dealer = $request->eur_dealer;
             if(!$register->save())
-                return redirect('/flights');
+                return redirect('/hotel');
             else
                 session()->put('register_id', $register->id);
         }
@@ -316,7 +333,7 @@ class HomeController extends Controller
                 return redirect($request->url);
         }
 
-        return redirect('/');
+        return view('/thankyou');
     }
 
 
