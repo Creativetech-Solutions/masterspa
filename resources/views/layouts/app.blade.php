@@ -231,7 +231,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <meta name="msapplication-TileImage"
           content="{{ asset('public/images/') }}/Favicon2-300x300.jpg"/>
-
+    <link href="{{ asset('css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -323,6 +323,8 @@
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="{{ asset('js/bootstrap-datetimepicker.js') }}"></script>
 </body>
 
 </html>
