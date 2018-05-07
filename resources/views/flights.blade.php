@@ -112,7 +112,7 @@
 
                     <div class="form-group col-lg-4">
                         <label>Departure Date:</label>
-                        <input type="text" name="ddate" class="form-control" value="{{ $registration->dpt_date }}"
+                        <input type="text" name="ddate" id="datetimepicker2" class="form-control" value="{{ $registration->dpt_date }}"
                                placeholder="">
                     </div>
 
@@ -127,7 +127,7 @@
                 <div class="col-lg-12">
                     <div class="form-group col-lg-4 ">
                         <label>Return Date:</label>
-                        <input class="form-control" type="text" name="ddate" value="{{ $registration->ret_date }}" id=""
+                        <input class="form-control" type="text" id="datetimepicker2" name="ddate" value="{{ $registration->ret_date }}" id=""
                                placeholder="">
                     </div>
 
@@ -189,7 +189,10 @@
 @section('scripts')
     @include('layouts/script')
     <script type="text/javascript">
-
+            $('#datetimepicker2').datetimepicker({
+                minDate: moment()
+                /*minDate: moment(0,'h')*/
+            });
         $(function () {
             $('input[name="ddate"]').daterangepicker({
                 singleDatePicker: true
