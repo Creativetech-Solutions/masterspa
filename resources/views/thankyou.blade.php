@@ -43,9 +43,9 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="container-page">
+        <div class="container-page" style="padding-bottom:230px;">
 
-                <p style="font-size: larger">Thank you for submitting your registration</p>
+                <p style="font-size: xx-large">Thank you for submitting your registration</p>
 
             </form>
         </div>

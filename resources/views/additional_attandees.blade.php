@@ -103,7 +103,7 @@
             var link=$(this);
             $.ajax({
                 url: link.attr( 'href' ),
-                type: 'PUT',
+                type: 'DELETE',
                 beforeSend:function(){
 
                 },

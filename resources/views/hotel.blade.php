@@ -96,7 +96,7 @@
 
                 <div class="form-group col-xs-12">
                     <br>
-                    <label style="color: red" id="dealer_note" hidden>
+                    <label style="color: red" class="eu_dealer" hidden>
                         EUROPEAN DEALERS PLEASE NOTE: Master Spas is covering your stay for an additional night:
                         Arriving: October 28, 2017 and Departing: October 31, 2017.
                     </label>
@@ -115,7 +115,7 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="col-xs-12">
+                <div class="col-xs-12 eu_dealer">
                     <div class="form-group col-xs-12">
                         <label>The event ENDS Tuesday October 31, 2017
                             If Extending, What date would you like to DEPART?
@@ -131,7 +131,7 @@
                     @endforeach
                 </div>
 
-                <div class="col-lg-12">
+                <div class="col-lg-12 eu_dealer">
                     <div class="form-group col-xs-12">
                         <br>
                         <label>I am Registering Additional Attendees for Extended Nights IN MY ROOM.
@@ -159,12 +159,13 @@
 @section('scripts')
     @include('layouts/script')
     <script type="text/javascript">
-        $('input[type="radio"]').click(function(){
+        $('.eu_dealer').hide();
+        $('input[name="eur_dealer"]').click(function(){
             var val = $(this).val();
             if (val == 'yes'){
-                $('#dealer_note').show();
+                $('.eu_dealer').show();
             }else{
-                $('#dealer_note').hide();
+                $('.eu_dealer').hide();
             }
         });
         $(document).on('click', '.previous', function (e) {

@@ -58,6 +58,8 @@
             $registration->special_notes = "";
         }
     @endphp
+
+
     <div class="container-fluid">
         <div class="container-page">
             @include('layouts/notify')
@@ -67,7 +69,8 @@
                         Flight costs are the responsibility of the attendee.
                         If you would like a quote for airfare, please fill out the information below.
                         If you book your own flights, please forward a copy of your entire itinerary to
-                        <a>Masterspas@latitudeevents.com</a> so we can arrange for your complimentary transportation between
+                        <a>Masterspas@latitudeevents.com</a> so we can arrange for your complimentary transportation
+                        between
                         the Orlando airport ( Airport code: MCO) and the hotel on arrival and departure.
                         If you would like to extend your trip, please let us know PRIOR to booking any flights, so we
                         can confirm availability at the hotel. <br>
@@ -90,7 +93,7 @@
 
                     </div>
 
-                    <div class="form-group col-lg-6 quote">
+                    <div class="form-group col-lg-6 quote" style="display: {{$registration->airfare_quote == 'yes' ?'block':'none'}}">
                         <label>Class of Service:</label><br>
                         <input type="checkbox"
                                {{ $registration->service_class == 'Coach' ? 'checked':''}} name="service" value="Coach">
@@ -102,7 +105,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 quote">
+                <div class="col-lg-12 quote" style="display: {{$registration->airfare_quote == 'yes' ?'block':'none'}}">
                     <div class="form-group col-lg-4">
                         <label>Departure City:</label>
                         <input type="text" name="dcity" class="form-control" id=""
@@ -117,13 +120,13 @@
 
                     <div class="form-group col-lg-4">
                         <label>Preferred Departure Time:</label>
-                        <input type="time" name="pdtime" class="form-control" id=""
+                        <input type="text" name="pdtime" class="form-control" id=""
                                value="{{ $registration->pref_dpt_time }}" placeholder="">
                     </div>
                 </div>
 
 
-                <div class="col-lg-12 quote">
+                <div class="col-lg-12 quote" style="display: {{$registration->airfare_quote == 'yes' ?'block':'none'}}">
                     <div class="form-group col-lg-4 ">
                         <label>Return Date:</label>
                         <input class="form-control" type="date" name="rdate" value="{{ $registration->ret_date }}" id=""
@@ -132,9 +135,10 @@
 
                     <div class="form-group col-lg-4">
                         <label>Preferred Return Time:</label>
-                        <input type="time" name="prtime" class="form-control" id=""
+                        <input type="text" name="prtime" class="form-control" id=""
                                value="{{ $registration->pref_ret_time }}">
                     </div>
+
 
                     <div class="form-group col-lg-4 ">
                         <label>Preferred Airline:</label>
@@ -144,7 +148,7 @@
 
                 </div>
 
-                <div class="col-lg-12 quote">
+                <div class="col-lg-12 quote"  style="display: {{$registration->airfare_quote == 'yes' ?'block':'none'}}">
                     <div class="form-group col-lg-4">
                         <label>Frequent Flyer #:</label>
                         <input type="text" name="fflyer" class="form-control" id=""
@@ -165,7 +169,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 quote">
+                <div class="col-lg-12 quote" style="display: {{$registration->airfare_quote == 'yes' ?'block':'none'}}">
 
                     <div class="form-group col-xs-12">
                         <br>
@@ -188,12 +192,11 @@
 @section('scripts')
     @include('layouts/script')
     <script type="text/javascript">
-        $('.quote').hide();
-        $('input[name="quote_airfare"]').click(function(){
+        $('input[name="quote_airfare"]').click(function () {
             var val = $(this).val();
-            if (val == 'yes'){
+            if (val == 'yes') {
                 $('.quote').show();
-            }else{
+            } else {
                 $('.quote').hide();
             }
         });

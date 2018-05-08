@@ -43,19 +43,26 @@
 @endsection
 @section('content')
     @php
-        if(!empty($registration->id) and $registration->num_of_travlers > 0){
-            $attendes = $registration->attendees;
-        } else {
-            $attendes[0]= new \stdClass();
-            $attendes[0]->id = "";
-            $attendes[0]->fname = "";
-            $attendes[0]->badge_fname = "";
-            $attendes[0]->middle_fname = "";
-            $attendes[0]->lname = "";
-            $attendes[0]->tshirt_size = "";
 
-            $registration->num_of_travlers = 1;
+        $attendes[0]= new \stdClass();
+        $attendes[0]->id = "";
+        $attendes[0]->fname = "";
+        $attendes[0]->badge_fname = "";
+        $attendes[0]->middle_fname = "";
+        $attendes[0]->lname = "";
+        $attendes[0]->tshirt_size = "";
+
+    if(!empty($registration->id) and $registration->num_of_travlers > 0){
+        $attendees = $registration->attendees;
+        if(count($attendees)>0){
+            $attendes = $attendees;
         }
+
+    } else {
+
+        $registration->num_of_travlers = 1;
+    }
+
     @endphp
     <div class="container-fluid">
         <div class="container-page">
@@ -63,10 +70,14 @@
             @include('layouts/notify')
             <h3 class="dark-grey">Guest Details</h3>
             <div class="col-xs-12">
-                <label><h4>Please enter names of all guests attending below.
+                <label>
+                    <h4>Please enter names of all guests attending below.
                         Please use names exactly as they appear on the documents you are using for identification.
-                        Please type carefully using correct capitalization and <spelling class=""></spelling>
-                        Your trip documents will be created from your input.</h4></label>
+                        Please type carefully using correct capitalization and
+                        <spelling class=""></spelling>
+                        Your trip documents will be created from your input.
+                    </h4>
+                </label>
                 <br>
             </div>
             <form action="{{ url('/additional') }}" method="POST" class="pref-form">
@@ -119,13 +130,13 @@
                                     <div class="form-group col-lg-4">
                                         <label>T-shirt size:</label>
                                         <select name="gshirtsize[]" class="form-control" required
-                                                placeholder="Select Shirt Size" value="{{ $val->tshirt_size }}">
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                            <option value="XL">XL</option>
-                                            <option value="2XL">2XL</option>
-                                            <option value="3XL">3XL</option>
+                                                placeholder="Select Shirt Size" >
+                                            <option value="S" {{ $val->tshirt_size == "S" ? 'selected':''}} > S </option>
+                                            <option value="M" {{ $val->tshirt_size == 'M'? 'selected': ''}}>M</option>
+                                            <option value="L" {{ $val->tshirt_size == 'L' ? 'selected': ''}}>L</option>
+                                            <option value="XL" {{ $val->tshirt_size == 'XL' ? 'selected': ''}}>XL</option>
+                                            <option value="2XL" {{ $val->tshirt_size == '2XL' ? 'selected': ''}}>2XL</option>
+                                            <option value="3XL" {{ $val->tshirt_size == '3XL'? 'selected': ''}}>3XL</option>
                                         </select>
                                         <input type="hidden" name="url" value=""/>
                                     </div>
