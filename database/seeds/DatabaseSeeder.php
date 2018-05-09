@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(arrival_datesTableSeeder::class);
+        /*$this->call(arrival_datesTableSeeder::class);
         $this->call(attendee_datesTableSeeder::class);
         $this->call(departure_datesTableSeeder::class);
-        $this->call(attendee_extended_nightsTableSeeder::class);
+        $this->call(attendee_extended_nightsTableSeeder::class);*/
         $this->call(UsersTableSeeder::class);
-        $this->call(ReportCheckboxesSeed::class);
+        /*$this->call(ReportCheckboxesSeed::class);*/
     }
 }

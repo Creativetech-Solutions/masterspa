@@ -69,7 +69,7 @@
                         Flight costs are the responsibility of the attendee.
                         If you would like a quote for airfare, please fill out the information below.
                         If you book your own flights, please forward a copy of your entire itinerary to
-                        <a>Masterspas@latitudeevents.com</a> so we can arrange for your complimentary transportation
+                        <a>masterspas@latitudeevents.com</a> so we can arrange for your complimentary transportation
                         between
                         the Orlando airport ( Airport code: MCO) and the hotel on arrival and departure.
                         If you would like to extend your trip, please let us know PRIOR to booking any flights, so we
@@ -114,14 +114,14 @@
 
                     <div class="form-group col-lg-4">
                         <label>Departure Date:</label>
-                        <input type="date" name="ddate" class="form-control" id="" value="{{ $registration->dpt_date }}"
-                               placeholder="">
+                        <input type="text" name="ddate" class="form-control" data-date-format="YYYY-MM-DD" id="datepicker" value="{{ $registration->dpt_date }}"
+                               >
                     </div>
 
                     <div class="form-group col-lg-4">
                         <label>Preferred Departure Time:</label>
-                        <input type="text" name="pdtime" class="form-control" id=""
-                               value="{{ $registration->pref_dpt_time }}" placeholder="">
+                        <input type="text" name="pdtime" class="form-control " id="datetimepicker3"
+                               value="{{ $registration->pref_dpt_time }}" >
                     </div>
                 </div>
 
@@ -129,13 +129,13 @@
                 <div class="col-lg-12 quote" style="display: {{$registration->airfare_quote == 'yes' ?'block':'none'}}">
                     <div class="form-group col-lg-4 ">
                         <label>Return Date:</label>
-                        <input class="form-control" type="date" name="rdate" value="{{ $registration->ret_date }}" id=""
+                        <input class="form-control" type="text" name="rdate" data-date-format="YYYY-MM-DD" value="{{ $registration->ret_date }}" id="datepicker1"
                                placeholder="">
                     </div>
 
                     <div class="form-group col-lg-4">
                         <label>Preferred Return Time:</label>
-                        <input type="text" name="prtime" class="form-control" id=""
+                        <input type="text" name="prtime" class="form-control" id="datetimepicker2"
                                value="{{ $registration->pref_ret_time }}">
                     </div>
 
@@ -192,6 +192,29 @@
 @section('scripts')
     @include('layouts/script')
     <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker3').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+        $(function () {
+            $('#datetimepicker2').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+
+        $(function () {
+            $('#datepicker').datetimepicker({
+                format: 'L'
+
+            });
+        });
+        $(function () {
+            $('#datepicker1').datetimepicker({
+                format: 'L'
+
+            });
+        });
         $('input[name="quote_airfare"]').click(function () {
             var val = $(this).val();
             if (val == 'yes') {
@@ -200,15 +223,12 @@
                 $('.quote').hide();
             }
         });
-        $('#datetimepicker2').datetimepicker({
-            minDate: moment()
-            /*minDate: moment(0,'h')*/
-        });
-        $(function () {
+
+        /*$(function () {
             $('input[name="ddate"]').daterangepicker({
                 singleDatePicker: true
             });
-        });
+        });*/
         $(document).on('click', '.previous', function (e) {
             e.preventDefault();
             previouspage('hotel');

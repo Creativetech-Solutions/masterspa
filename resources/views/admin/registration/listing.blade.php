@@ -42,7 +42,7 @@
                   <td>{{$reg->fname}}</td>
                   <td>{{$reg->lname}}</td>
                   <td>{{$reg->email}}</td>
-                  <td><a class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
+                  <td><a href="{{url('admin/registration/edit_form/'.$reg->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
                 </tr>
                 @endforeach
                 </tbody>

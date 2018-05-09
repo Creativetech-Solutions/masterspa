@@ -234,7 +234,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
+    <link rel="stylesheet" href="{{ asset("public/css/bootstrap-datetimepicker.css") }}"/>
 
 </head>
 
@@ -316,10 +316,11 @@
 
 
 @yield('scripts')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
 <script type='text/javascript' src='{{ asset("public/js/navigation.min.js?ver=1.7.0") }}'></script>
+<script type="text/javascript" src="{{ asset("public/js/bootstrap-datetimepicker.js") }}"></script>
 </body>
 
 </html>

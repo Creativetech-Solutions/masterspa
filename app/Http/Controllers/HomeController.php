@@ -81,7 +81,8 @@ class HomeController extends Controller
 
             $register = $this->register;
             if (!session()->has('register_id')) {
-                $validation = ['email'=>'required|unique:registers|max:191'];
+                /*unique:registers|*/
+                $validation = ['email'=>'required|max:191'];
                 $register->email = $request->email;
                 $validator = Validator::make($request->all(), $validation);
                 if ($validator->fails()) {
