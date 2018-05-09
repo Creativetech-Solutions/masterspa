@@ -131,7 +131,18 @@
                                 <!-- /.form-group -->
                             </div>
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Country:</label>
+                                    <select name="country" class="form-control">
+                                        <option value="0">Select Country</option>
+                                        {{print_r($countries)}}
+                                        @foreach($countries as $key => $country)
 
+                                            <option
+                                                    value="{{$country->id}}"{{ $registration->country ==  $country->id ? 'selected':''}}>{{$country->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Emergency Contact's Phone Number:</label>
@@ -333,13 +344,11 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-12 quote">
                                 <div class="form-group col-lg-4 ">
                                     <label>Return Date:</label>
-                                    <input class="form-control" type="text" name="rdate" data-date-format="YYYY-MM-DD"
-                                           value="{{ $registration->ret_date }}" id="datepicker1"
-                                           placeholder="">
+                                    <input class="form-control datepicker" type="text" name="rdate" data-date-format="YYYY-MM-DD"
+                                           value="{{ $registration->ret_date }}" id="datepicker1">
                                 </div>
 
                                 <div class="form-group col-lg-4">
@@ -415,4 +424,37 @@
         </section>
         <!-- /.content -->
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("Hello");
+            $('.datepicker').datetimepicker({
+                format: 'L'
+
+            });
+        })
+
+
+        $(function () {
+            $('#datetimepicker3').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+        $(function () {
+            $('#datetimepicker2').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+
+        $(function () {
+        });
+        $(function () {
+            $('#datepicker1').datetimepicker({
+                format: 'L'
+
+            });
+        });
+        </script>
 @endsection
