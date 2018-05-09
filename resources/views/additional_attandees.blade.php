@@ -85,7 +85,7 @@
 
                 <div class="col-xs-12">
 
-                    <p><a class="link">Click here to clear selection for question above</a></p>
+                    <p><a style="cursor:pointer" class="link">Click here to clear selection for question above</a></p>
 
 
                     <button class="btn btn-danger previous">&laquo; Previous</button>
@@ -99,21 +99,7 @@
     @include('layouts/script')
     <script type="text/javascript">
         $(document).on('click','.link', function(e){
-            e.preventDefault();
-            var link=$(this);
-            $.ajax({
-                url: link.attr( 'href' ),
-                type: 'DELETE',
-                beforeSend:function(){
-
-                },
-                success: function( data ) {
-
-                },
-                error:function(){
-
-                }
-            });
+            $('input[name="attandees"]').prop('checked',false);
         });
         $(document).on('click', '.previous', function (e) {
             e.preventDefault();

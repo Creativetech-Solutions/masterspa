@@ -69,6 +69,11 @@
             ],
             'Flights'=>[
                 'airfare_quote'=>'Airfare Quote',
+            ]
+        ];
+        if($registration->airfare_quote == "yes"){
+            $requiredFields['Flights'] = [
+                'airfare_quote'=>'Airfare Quote',
                 'service_class'=>'Service Class',
                 'dpt_city'=>'Depart City',
                 'dpt_date'=>'Depart Date',
@@ -79,8 +84,8 @@
                 'freq_flyer_no'=>'Frequent Flyer No',
                 'payment_method'=>'Payment Method',
                 'special_notes'=>'Special Notes'
-            ]
-        ];
+            ];
+        }
 
     } 
 

@@ -442,7 +442,6 @@ class HomeController extends Controller
                 
                 $requriedFieldMissing = $this->isRequiredFieldMissing();
                 
-
                 $registration = $this->register;
                 return view('/thankyou')->with(compact('registration', 'requriedFieldMissing'));
             }
@@ -454,11 +453,23 @@ class HomeController extends Controller
     public function isRequiredFieldMissing(){
         $register = $this->register;
         $requiredFields = [
-                'comp_name','fname','lname','tel','cell','email','address','city','state','zip','country','emerg_contact','emerg_phone','preference','special_need','meeting_participants','airfare_quote','service_class','dpt_city','dpt_date','pref_dpt_time','ret_date','pref_ret_time','pref_airline','freq_flyer_no','payment_method','special_notes'
+                'all'=>['comp_name','fname','lname','tel','cell','email','address','city','state','zip','country','emerg_contact','emerg_phone','preference','special_need','meeting_participants','airfare_quote'],
+                'airfare_quote'=>['service_class','dpt_city','dpt_date','pref_dpt_time','ret_date','pref_ret_time','pref_airline','freq_flyer_no','payment_method','special_notes']
         ];
-        foreach($requiredFields as $field){
-            if(empty($register->$field))
-                return 'true';
+        foreach($requiredFields as $key => $fields){
+            if($key == 'all'){
+               foreach($fields as $field){
+                    if(empty($register->$field))
+                        return 'true';
+                }
+            } else {
+                if($register->$key == 'yes'){
+                    foreach($fields as $field){
+                        if(empty($register->$field))
+                            return 'true';
+                    }
+                }
+            }
         }
         return 'false';
     }
