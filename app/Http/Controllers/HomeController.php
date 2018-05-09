@@ -42,7 +42,7 @@ class HomeController extends Controller
     {
         $registration = $this->register;
         $pre = 'index';
-        $countries = \App\Country::all();
+        $countries = \App\Country::all()->sortBy("name");;
         return view('index')->with(compact('registration', 'countries'));
     }
 
@@ -50,7 +50,7 @@ class HomeController extends Controller
     {
 
         if ($request->isMethod('post')) {
-            $messages = [
+          /*  $messages = [
                 'cname.required' => 'The Company Name field is required.',
                 'cfname.required' => 'The Contact First Name field is required.',
                 'clname.required' => 'The Contact Last Name field is required.',
@@ -77,16 +77,16 @@ class HomeController extends Controller
                 'country' => 'required|max:191',
                 'emerg_contact' => 'required|max:191',
                 'emerg_phone' => 'required|max:191',
-            ];
+            ];*/
 
             $register = $this->register;
             if (!session()->has('register_id')) {
-                $validation['email'] = 'required|unique:registers|max:191|same:re_email';
+                $validation = ['email'=>'required|unique:registers|max:191'];
                 $register->email = $request->email;
-            }
-            $validator = Validator::make($request->all(), $validation, $messages);
-            if ($validator->fails()) {
-                return redirect('/')->withErrors($validator)->withInput();
+                $validator = Validator::make($request->all(), $validation);
+                if ($validator->fails()) {
+                    return redirect('/')->withErrors($validator)->withInput();
+                }
             }
 
             $register->comp_name = $request->cname;
@@ -120,7 +120,7 @@ class HomeController extends Controller
     public function getguests(Request $request)
     {
         if ($request->isMethod('post')) {
-            if($request->special_need == 'yes')
+            /*if($request->special_need == 'yes')
             {
                 $message = [
                   'specify_need.required' => 'Please Specify your need',
@@ -144,7 +144,7 @@ class HomeController extends Controller
 
             if ($validator->fails()) {
                 return redirect('/prefrences')->withErrors($validator)->withInput();
-            }
+            }*/
 
             $register = $this->register;
             if ($request->needs == 'yes') {
@@ -173,7 +173,7 @@ class HomeController extends Controller
     public function getadditional(Request $request)
     {
         if ($request->isMethod('post')) {
-            $messages = [
+           /* $messages = [
                 'gfname.required' => 'The Attendee First Name field is required.',
                 'gbadgefname.required' => 'The Badge Name field is required.',
                 'gmiddle_name.required' => 'The Middle Name field is required.',
@@ -192,7 +192,7 @@ class HomeController extends Controller
             if ($validator->fails()) {
                 return redirect('/guests')->withErrors($validator)->withInput();
             }
-
+*/
             $register = $this->register;
             $register->num_of_travlers = $request->num_of_travler;
             if (!$register->save())
@@ -262,7 +262,7 @@ class HomeController extends Controller
     public function gethotel(Request $request)
     {
         if ($request->isMethod('post')) {
-            $message = [
+           /* $message = [
                 'meeting.required' => 'The Meeting field is required.'
             ];
 
@@ -273,7 +273,7 @@ class HomeController extends Controller
             $validator = Validator::make($request->all(), $validation, $message);
             if ($validator->fails()) {
                 return redirect('/meeting')->withErrors($validator)->withInput();
-            }
+            }*/
             $register = $this->register;
             $register->meeting_participants = $request->meeting;
             if (!$register->save())
@@ -294,8 +294,8 @@ class HomeController extends Controller
     public function getflights(Request $request)
     {
         if ($request->isMethod('post')) {
-            if ($request->eur_dealer == 'yes') {
-                $messages = [
+            /* if ($request->eur_dealer == 'yes') {
+               $messages = [
                     'arrival_date.required' => 'The Arrival date Check is required.',
                     'departure.required' => 'The Departure Date Check is required.',
                     'extended_night.required' => 'The Extended Nights Check is required.',
@@ -322,13 +322,13 @@ class HomeController extends Controller
                     'eur_dealer' => 'required'
                 ];
             }
-
-
-            $register = $this->register;
             $validator = Validator::make($request->all(), $validation, $messages);
             if ($validator->fails()) {
                 return redirect('/hotel')->withErrors($validator)->withInput();
             }
+
+*/
+            $register = $this->register;
             $register->arrival_date_id = $request->arrival_date;
             $register->departure_date_id = $request->departure;
             $register->attende_ext_night_id = $request->extended_night;
@@ -349,7 +349,7 @@ class HomeController extends Controller
     public function getagreement(Request $request)
     {
         if ($request->isMethod('post')) {
-            if ($request->quote_airfare == 'yes') {
+           /* if ($request->quote_airfare == 'yes') {
                 $messages = [
                     'dcity.required' => 'The Departure City field is required.',
                     'ddate.required' => 'The Date field is required.',
@@ -382,13 +382,13 @@ class HomeController extends Controller
                 $messages = [
                     'quote_airfare.required' => 'The quote_airfare field is required.',
                 ];
-            }
-
-            $register = $this->register;
             $validator = Validator::make($request->all(), $validation, $messages);
             if ($validator->fails()) {
                 return redirect('/flights')->withErrors($validator)->withInput();
             }
+            }*/
+
+            $register = $this->register;
             $register->dpt_date = date('Y-m-d', strtotime($request->ddate));
             $register->dpt_city = $request->dcity;
             $register->pref_dpt_time = date('Y-m-d h:i:s', strtotime($request->pdtime));
@@ -433,17 +433,34 @@ class HomeController extends Controller
 
             if (!$register->save())
                 return redirect('/agreement');
-            else
+            else{
+                if (!empty($request->url))
+                    return redirect($request->url);
+
                 session()->put('register_id', $register->id);
+                
+                $requriedFieldMissing = $this->isRequiredFieldMissing();
+                
 
-
-            if (!empty($request->url))
-                return redirect($request->url);
+                $registration = $this->register;
+                return view('/thankyou')->with(compact('registration', 'requriedFieldMissing'));
+            }
         }
 
-        return view('/thankyou');
     }
 
+
+    public function isRequiredFieldMissing(){
+        $register = $this->register;
+        $requiredFields = [
+                'comp_name','fname','lname','tel','cell','email','address','city','state','zip','country','emerg_contact','emerg_phone','preference','special_need','meeting_participants','airfare_quote','service_class','dpt_city','dpt_date','pref_dpt_time','ret_date','pref_ret_time','pref_airline','freq_flyer_no','payment_method','special_notes'
+        ];
+        foreach($requiredFields as $field){
+            if(empty($register->$field))
+                return 'true';
+        }
+        return 'false';
+    }
 
     public function getcontactus()
     {

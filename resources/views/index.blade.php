@@ -48,20 +48,20 @@
         /*echo session()->get('register_id');*/
             if(empty($registration->id)){
                     $registration = new \stdClass();
-                    $registration->comp_name = " ";
-                    $registration->fname = " ";
-                    $registration->lname = " ";
-                    $registration->tel = " ";
-                    $registration->cell = " ";
-                    $registration->email = " ";
-                    $registration->email_alt = " ";
-                    $registration->address = " ";
-                    $registration->city = " ";
-                    $registration->state = " ";
-                    $registration->zip = " ";
-                    $registration->country = " ";
-                    $registration->emerg_contact = " ";
-                    $registration->emerg_phone = " ";
+                    $registration->comp_name = "";
+                    $registration->fname = "";
+                    $registration->lname = "";
+                    $registration->tel = "";
+                    $registration->cell = "";
+                    $registration->email = "";
+                    $registration->email_alt = "";
+                    $registration->address = "";
+                    $registration->city = "";
+                    $registration->state = "";
+                    $registration->zip = "";
+                    $registration->country = "";
+                    $registration->emerg_contact = "";
+                    $registration->emerg_phone = "";
             }
     @endphp
 
@@ -104,8 +104,7 @@
 
                     <div class="form-group col-lg-4">
                         <label>Cell Phone for Reaching Attendee When Traveling:</label>
-                        <input type="text" name="cellphone" class="form-control" value="{{ $registration->cell }}"
-                               id="Cell Phone">
+                        <input type="text" name="cellphone" class="form-control" value="{{ $registration->cell }}" placeholder="Cell Phone"  id="Cell Phone">
                     </div>
 
                     <div class="form-group col-lg-4">
