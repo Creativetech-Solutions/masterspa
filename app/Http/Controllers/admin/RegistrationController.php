@@ -33,6 +33,7 @@ class RegistrationController extends Controller
             $register->city = $request->city;
             $register->state = $request->state;
             $register->zip = $request->zip;
+            $register->country = $request->country;
             $register->emerg_contact = $request->emerg_contact;
             $register->emerg_phone = $request->emerg_phone;
             $register->preference = $request->preference;

@@ -16,20 +16,22 @@
   <link rel="stylesheet" href="{{asset('public/admin')}}/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="{{asset('public/admin')}}/dist/css/skins/_all-skins.min.css">
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/morris.js/morris.css">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/jvectormap/jquery-jvectormap.css">
-  <!-- Date Picker -->
-  <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-  <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="{{asset('public/admin')}}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <link rel="stylesheet" href="{{asset('public/admin')}}/dist/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="{{ asset("public/css/bootstrap-datetimepicker.css") }}"/>
+    <link rel="stylesheet" href="{{asset('public/admin')}}/dist/css/skins/_all-skins.min.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/morris.js/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/jvectormap/jquery-jvectormap.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="{{asset('public/admin')}}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="{{asset('public/admin')}}/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  {{--<link rel="stylesheet" href="/resources/demos/style.css">--}}
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -176,6 +178,7 @@
 
 <!-- jQuery 3 -->
 <!-- jQuery UI 1.11.4 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
 <script src="{{asset('public/admin')}}/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -211,6 +214,7 @@
 <script src="{{asset('public/admin')}}/dist/js/demo.js"></script>
 <script src="{{asset('public/admin')}}/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="{{asset('public/admin')}}/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ asset("public/js/bootstrap-datetimepicker.js") }}"></script>
 
 <script>
   $(function () {
