@@ -55,9 +55,13 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::get('/user', 'UserController@index');
     Route::get('/guests', 'AttendeeController@index');
     Route::get('/registration/edit_form/{id}','RegistrationController@getregister');
+    Route::get('/report/excel','ReportController@excel');
 
 
     // post routes
     Route::post('/profile','HomeController@getprofile');
     Route::post('/registration/edit_form/{id}','RegistrationController@getregister');
+    Route::post('/report/excel','ReportController@excel');
+
 });
+
