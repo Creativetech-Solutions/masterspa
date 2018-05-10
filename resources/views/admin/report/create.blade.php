@@ -23,12 +23,12 @@
           <h3 class="box-title">Export Or Save Report</h3>
 
           <div class="box-tools pull-right">
-            <a type="button" class="btn btn-primary btn-sm selected-checkbox" href="{{url('admin/report/excel')}}"><i class="fa-file-excel-o"></i> Export </a>
+            <button type="button" class="btn btn-primary btn-sm selected-checkbox" ><i class="fa-file-excel-o"></i> Export </button>
             <button type="button" class="btn btn-success btn-sm save-default" ><i class="fa fa-save"></i> Save As Default Checkboxes </button>
           </div>
         </div>
         <div class="box-body">
-            <form class="row report-checkboxes-form" action="{{ url('admin/report/defaultCheckboxes') }}" method="POST">
+            <form class="row report-checkboxes-form" action="" method="POST">
                 {{ csrf_field() }}          
               <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="col-xs-12 checkboxes">
