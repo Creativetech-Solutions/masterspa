@@ -89,7 +89,7 @@
                         <input type="radio" {{ $registration->european_dealer == 'no'?'checked':'' }} name="eur_dealer" value="no"> No<br>
                         <input type="radio" {{ $registration->european_dealer == 'yes'?'checked':'' }} name="eur_dealer"
                                value="yes"> Yes - European
-                        Dealers arrive October 28 and Depart Oct 31
+                        Dealers arrive October 2nd and Depart Oct 31
                     </div>
 
                 </div>
