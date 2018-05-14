@@ -24,7 +24,7 @@
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-primary btn-sm selected-checkbox"><i
-                                    class="fa-file-excel-o"></i> Export
+                                    class="fa-file-excel-o"></i> Export (Default)
                         </button>
                         <button type="button" class="btn btn-success btn-sm save-default"><i class="fa fa-save"></i>
                             Save As Default Checkboxes
@@ -37,63 +37,63 @@
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="col-xs-12 checkboxes">
                                 <h3>Personal Information</h3>
-                                <label><input type="checkbox" name="select_all" class="flat-red">
+                                <label><input type="checkbox" class="select_all flat-red">
                                     Select All</label>
                                 <div class="form-group col-xs-12">
-                                    <label><input type="checkbox" name="comp_name"
-                                                  {{ (in_array('comp_name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___comp_name::Company"
+                                                  {{ (in_array('r___comp_name::Company', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Company Name </label><br>
-                                    <label><input type="checkbox" name="fname"
-                                                  {{ (in_array('fname', $db_checkboxes)) ? 'checked': '' }}class="flat-red">
+                                    <label><input type="checkbox" name="r___fname::First_Name"
+                                                  {{ (in_array('r___fname::First_Name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Contact First Name </label><br>
-                                    <label><input type="checkbox" name="lname"
-                                                  {{ (in_array('lname', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___lname::Last_Name"
+                                                  {{ (in_array('r___lname::Last_Name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Contact Last Name </label><br>
-                                    <label><input type="checkbox" name="tel"
-                                                  {{ (in_array('tel', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___tel::Telephone"
+                                                  {{ (in_array('r___tel::Telephone', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Telephone </label><br>
-                                    <label><input type="checkbox" name="cell"
-                                                  {{ (in_array('cell', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___cell::Cell"
+                                                  {{ (in_array('r___cell::Cell', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Cell Phone </label><br>
-                                    <label><input type="checkbox" name="email"
-                                                  {{ (in_array('email', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___email::Email"
+                                                  {{ (in_array('r___email::Email', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Email </label><br>
-                                    <label><input type="checkbox" name="email_alt"
-                                                  {{ (in_array('email_alt', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___email_alt::Alt_Email"
+                                                  {{ (in_array('r___email_alt::Alt_Email', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Second Email </label><br>
-                                    <label><input type="checkbox" name="address"
-                                                  {{ (in_array('address', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___address::Address"
+                                                  {{ (in_array('r___address::Address', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Address </label><br>
-                                    <label><input type="checkbox" name="city"
-                                                  {{ (in_array('city', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___city::City"
+                                                  {{ (in_array('r___city::City', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         City </label><br>
-                                    <label><input type="checkbox" name="state"
-                                                  {{ (in_array('state', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___state::State"
+                                                  {{ (in_array('r___state::State', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         State/Province/Region </label><br>
-                                    <label><input type="checkbox" name="zip"
-                                                  {{ (in_array('zip', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___zip::Zip"
+                                                  {{ (in_array('r___zip::Zip', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Zip/Postal Code </label><br>
-                                    <label><input type="checkbox" name="country"
-                                                  {{ (in_array('country', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___country::Country"
+                                                  {{ (in_array('r___country::Country', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Country </label><br>
-                                    <label><input type="checkbox" name="emerg_contact"
-                                                  {{ (in_array('emerg_contact', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___emerg_contact::Emergency_Contact"
+                                                  {{ (in_array('r___emerg_contact::Emergency_Contact', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Emergency Contact </label><br>
-                                    <label><input type="checkbox" name="emerg_phone"
-                                                  {{ (in_array('emerg_phone', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___emerg_phone::Emergency_Phone"
+                                                  {{ (in_array('r___emerg_phone::Emergency_Phone', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Emergency Contact's Phone Number </label><br>
                                 </div>
                             </div>
                             <div class="col-xs-12 checkboxes">
                                 <h3>Preferences</h3>
-                                <label><input type="checkbox" name="select_all" class="flat-red">
+                                <label><input type="checkbox" class="select_all flat-red">
                                     Select All</label>
                                 <div class="form-group col-xs-12">
-                                    <label><input type="checkbox" name="preference"
-                                                  {{ (in_array('preference', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___preference::Perference"
+                                                  {{ (in_array('r___preference::Perference', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Prefrences </label><br>
-                                    <label><input type="checkbox" name="special_need"
-                                                  {{ (in_array('special_need', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___special_need::Special_Need"
+                                                  {{ (in_array('r___special_need::Special_Need', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Special Needs or Dietary/Physical Restrictions </label><br>
                                 </div>
                             </div>
@@ -101,61 +101,61 @@
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="col-xs-12 checkboxes">
                                 <h3>Guests</h3>
-                                <label><input type="checkbox" name="select_all" class="flat-red">
+                                <label><input type="checkbox" class="select_all" class="flat-red">
                                     Select All</label>
                                 <div class="form-group col-xs-12">
-                                    <label><input type="checkbox" name="fname"
-                                                  {{ (in_array('fname', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="g___fname::Guest_First_Name"
+                                                  {{ (in_array('g___fname::Guest_First_Name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         First Name </label><br>
-                                    <label><input type="checkbox" name="badge_name"
-                                                  {{ (in_array('badge_name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="g___badge_fname::Guest_Badge_Name"
+                                                  {{ (in_array('g___badge_fname::Guest_Badge_Name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Badge First Name </label><br>
-                                    <label><input type="checkbox" name="middle_name"
-                                                  {{ (in_array('middle_name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="g___middle_fname::Guest_Middle_Name"
+                                                  {{ (in_array('g___middle_fname::Guest_Middle_Name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Middle Name </label><br>
-                                    <label><input type="checkbox" name="lname"
-                                                  {{ (in_array('lname', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="g___lname::Guest_Last_Name"
+                                                  {{ (in_array('g___lname::Guest_Last_Name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Last Name </label><br>
-                                    <label><input type="checkbox" name="tshirt_size"
-                                                  {{ (in_array('tshirt_size', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="g___tshirt_size::Guest_Shirt_Size"
+                                                  {{ (in_array('g___tshirt_size::Guest_Shirt_Size', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         T-shirt size </label><br>
                                 </div>
                             </div>
                             <div class="col-xs-12 checkboxes">
                                 <h3>Additional Attendees</h3>
                                 <div class="form-group">
-                                    <label><input type="checkbox" name="attendee_date_id"
-                                                  {{ (in_array('attendee_date_id', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___attendee_date_id::Attendee_Date"
+                                                  {{ (in_array('r___attendee_date_id::Attendee_Date', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Additional Attendees for Program Dates </label><br>
                                 </div>
                             </div>
                             <div class="col-xs-12 checkboxes">
                                 <h3>Meeting</h3>
                                 <div class="form-group">
-                                    <label><input type="checkbox" name="meeting_participants"
-                                                  {{ (in_array('meeting_participants', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___meeting_participants::Meeting_Participants"
+                                                  {{ (in_array('r___meeting_participants::Meeting_Participants', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Peoples Attending Meeting </label><br>
                                 </div>
                             </div>
                             <div class="col-xs-12 checkboxes">
                                 <h3>Hotel</h3>
-                                <label><input type="checkbox" name="select_all" class="flat-red">
+                                <label><input type="checkbox" class="select_all flat-red">
                                     Select All</label>
                                 <div class="form-group col-xs-12">
-                                    <label><input type="checkbox" name="extend_trip"
-                                                  {{ (in_array('extend_trip', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___extend_trip::Extend_Trip"
+                                                  {{ (in_array('r___extend_trip::Extend_Trip', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Extend Trip </label><br>
-                                    <label><input type="checkbox" name="european_dealer"
-                                                  {{ (in_array('european_dealer', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___european_dealer::European_Dealer"
+                                                  {{ (in_array('r___european_dealer::European_Dealer', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         European Dealer </label><br>
-                                    <label><input type="checkbox" name="arrival_date_id"
-                                                  {{ (in_array('arrival_date_id', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___arrival_date_id::Arrival_Date"
+                                                  {{ (in_array('r___arrival_date_id::Arrival_Date', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Arrive Date</label><br>
-                                    <label><input type="checkbox" name="departure_date_id"
-                                                  {{ (in_array('departure_date_id', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___departure_date_id::Hotel_Dpt_Date"
+                                                  {{ (in_array('r___departure_date_id::Hotel_Dpt_Date', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Departure Date </label><br>
-                                    <label><input type="checkbox" name="attende_ext_night_id"
-                                                  {{ (in_array('attende_ext_night_id', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___attende_ext_night_id::Attendee_Extra_Nights"
+                                                  {{ (in_array('r___attende_ext_night_id::Attendee_Extra_Nights', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Attendees for Extended Nights </label><br>
                                 </div>
                             </div>
@@ -163,57 +163,57 @@
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="col-xs-12 checkboxes">
                                 <h3>Flights</h3>
-                                <label><input type="checkbox" name="select_all" class="flat-red">
+                                <label><input type="checkbox" class="select_all flat-red">
                                     Select All</label>
                                 <div class="form-group col-xs-12">
-                                    <label><input type="checkbox" name="airfare_quote"
-                                                  {{ (in_array('airfare_quote', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___airfare_quote::Airfare_Quote"
+                                                  {{ (in_array('r___airfare_quote::Airfare_Quote', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Airfare Quote </label><br>
-                                    <label><input type="checkbox" name="service_class"
-                                                  {{ (in_array('service_class', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___service_class::Service_Class"
+                                                  {{ (in_array('r___service_class::Service_Class', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Class of Service </label><br>
-                                    <label><input type="checkbox" name="dpt_city"
-                                                  {{ (in_array('dpt_city', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___dpt_city::Dept_City"
+                                                  {{ (in_array('r___dpt_city::Dept_City', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Departure City</label><br>
-                                    <label><input type="checkbox" name="dpt_date"
-                                                  {{ (in_array('dpt_date', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___dpt_date::Dept_Date"
+                                                  {{ (in_array('r___dpt_date::Dept_Date', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Departure Date </label><br>
-                                    <label><input type="checkbox" name="pref_dpt_time"
-                                                  {{ (in_array('pref_dpt_time', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___pref_dpt_time::Pref_Dpt_Time"
+                                                  {{ (in_array('r___pref_dpt_time::Pref_Dpt_Time', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Preferred Departure Time </label><br>
-                                    <label><input type="checkbox" name="ret_date"
-                                                  {{ (in_array('ret_date', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___ret_date::Ret_Date"
+                                                  {{ (in_array('r___ret_date::Ret_Date', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Return Date </label><br>
-                                    <label><input type="checkbox" name="pref_ret_time"
-                                                  {{ (in_array('pref_ret_time', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___pref_ret_time::Pref_Ret_Time"
+                                                  {{ (in_array('r___pref_ret_time::Pref_Ret_Time', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Preferred Return Time </label><br>
-                                    <label><input type="checkbox" name="pref_airline"
-                                                  {{ (in_array('pref_airline', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___pref_airline::Pref_Airline"
+                                                  {{ (in_array('r___pref_airline::Pref_Airline', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Preferred Airline </label><br>
-                                    <label><input type="checkbox" name="freq_flyer_no"
-                                                  {{ (in_array('freq_flyer_no', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___freq_flyer_no::Freq_Flyer_No"
+                                                  {{ (in_array('r___freq_flyer_no::Freq_Flyer_No', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Frequent Flyer </label><br>
-                                    <label><input type="checkbox" name="payment_method"
-                                                  {{ (in_array('payment_method', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___payment_method::Payment_Method"
+                                                  {{ (in_array('r___payment_method::Payment_Method', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Payment Method </label><br>
-                                    <label><input type="checkbox" name="special_notes"
-                                                  {{ (in_array('special_notes', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___special_notes::Special_Notes"
+                                                  {{ (in_array('r___special_notes::Special_Notes', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Special Notes </label><br>
                                 </div>
                             </div>
                             <div class="col-xs-12 checkboxes">
                                 <h3>Agreement</h3>
-                                <label><input type="checkbox" name="select_all" class="flat-red">
+                                <label><input type="checkbox" class="select_all flat-red">
                                     Select All</label>
                                 <div class="form-group col-xs-12">
-                                    <label><input type="checkbox" name="send_invoice"
-                                                  {{ (in_array('send_invoice', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___send_invoice::Send_Invoice"
+                                                  {{ (in_array('r___send_invoice::Send_Invoice', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Agree To Pay Charges </label><br>
-                                    <label><input type="checkbox" name="special_circumstances"
-                                                  {{ (in_array('special_circumstances', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___special_circumstances::Special_Circumstances"
+                                                  {{ (in_array('r___special_circumstances::Special_Circumstances', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Special Circumstances or Notes </label><br>
-                                    <label><input type="checkbox" name="save_info"
-                                                  {{ (in_array('save_info', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    <label><input type="checkbox" name="r___save_info::Save_Info"
+                                                  {{ (in_array('r___save_info::Save_Info', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Save Info </label><br>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@
 
     <script>
 
-        $(document).on('click', 'input[name="select_all"]', function (e) {
+        $(document).on('click', '.select_all', function (e) {
             if (!$(this).is(':checked')) {
                 $(this).parents('.checkboxes').find('input').prop('checked', false);
             } else {
@@ -249,7 +249,7 @@
             $('.report-checkboxes-form').submit();
         })
         $(document).on('click', '.selected-checkbox', function (e) {
-            var $ref = $('.report-checkboxes-form');
+            var $ref = $('form');
             $ref.attr('action', '{{url('admin/report/excel')}}');
             $ref.removeClass('report-checkboxes-form');
             $ref.submit();
