@@ -37,7 +37,11 @@
   <!--[if lt IE 9]>
 
   <![endif]-->
-
+  <style type="text/css">
+    .modal .modal-dialog {
+      width: 400px;
+    }
+  </style>
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>

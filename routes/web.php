@@ -48,6 +48,7 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::get('/registrations', 'RegistrationController@index');
     Route::get('/createReport', 'ReportController@index');
     Route::post('/report/defaultCheckboxes', 'ReportController@saveDefultCheckboxes');
+    Route::post('/report/defaultCheckboxesAndSave', 'ReportController@saveAndExport');
     Route::post('/user/update/{id}', 'UserController@update');
 
     // get routes

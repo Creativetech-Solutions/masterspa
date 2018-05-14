@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -23,7 +24,13 @@
                     <h3 class="box-title">Export Or Save Report</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-primary btn-sm selected-checkbox"><i
+                        <button type="button" class="btn btn-primary btn-sm selected-checkbox-save"
+                                onclick="fileName()">
+                            <i
+                                    class="fa fa-save"></i> Save Report
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm selected-checkbox" onclick="fileName()">
+                            <i
                                     class="fa-file-excel-o"></i> Export (Default)
                         </button>
                         <button type="button" class="btn btn-success btn-sm save-default"><i class="fa fa-save"></i>
@@ -39,8 +46,9 @@
                                 <h3>Personal Information</h3>
                                 <label><input type="checkbox" class="select_all flat-red">
                                     Select All</label>
+                                <input type="hidden" name="file_name" value="">
                                 <div class="form-group col-xs-12">
-                                    <label><input type="checkbox" name="r___comp_name::Company"
+                                    <label><input type="checkbox" name="r___comp_name::Country"
                                                   {{ (in_array('r___comp_name::Company', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Company Name </label><br>
                                     <label><input type="checkbox" name="r___fname::First_Name"
@@ -209,7 +217,8 @@
                                     <label><input type="checkbox" name="r___send_invoice::Send_Invoice"
                                                   {{ (in_array('r___send_invoice::Send_Invoice', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Agree To Pay Charges </label><br>
-                                    <label><input type="checkbox" name="r___special_circumstances::Special_Circumstances"
+                                    <label><input type="checkbox"
+                                                  name="r___special_circumstances::Special_Circumstances"
                                                   {{ (in_array('r___special_circumstances::Special_Circumstances', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Special Circumstances or Notes </label><br>
                                     <label><input type="checkbox" name="r___save_info::Save_Info"
@@ -227,7 +236,6 @@
             <!-- /.box-footer-->
             </div>
             <!-- /.box -->
-
         </section>
         <!-- /.content -->
     </div>
@@ -242,11 +250,27 @@
                 $(this).parents('.checkboxes').find('input').prop('checked', true);
             }
         })
+        function fileName() {
+            var file_name = prompt("Please enter file name.", "Report");
+            if (file_name == null) {
+                file_name = "Report";
+                $("input[type=hidden][name=file_name]").val(file_name);
+            } else {
+                $("input[type=hidden][name=file_name]").val(file_name);
+            }
+        }
         $(document).on('click', '.save-default', function (e) {
             $('form').attr('action', '{{ url('admin/report/defaultCheckboxes') }}');
-            if(!$('form').hasClass('report-checkboxes-form'))
+            if (!$('form').hasClass('report-checkboxes-form'))
                 $('form').addClass('report-checkboxes-form');
             $('.report-checkboxes-form').submit();
+        })
+        $(document).on('click', '.selected-checkbox-save', function (e) {
+            var $ref = $('form');
+            $ref.attr('action', '{{url('admin/report/defaultCheckboxesAndSave')}}');
+            /*if ($ref.hasClass('report-checkboxes-form'))*/
+                $ref.removeClass('report-checkboxes-form');
+            $ref.submit();
         })
         $(document).on('click', '.selected-checkbox', function (e) {
             var $ref = $('form');

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Arrival_date;
+use App\Attendee_date;
+use App\Attendee_extended_night;
 use App\Country;
+use App\Departure_date;
 use App\Register;
 use App\ReportChecks;
 use function foo\func;
@@ -45,15 +49,18 @@ class ReportController extends Controller
         if ($request->isMethod('POST')) {
             $registerData = array_keys($request->input());
             unset($registerData[0]);
-            foreach($registerData as $key => $col){
-               $registerData[$key] = str_replace(['::','___'], [' as ','.'], $col);
+            $file = $request->file_name;
+            unset($registerData[1]);
+            foreach ($registerData as $key => $col) {
+                $registerData[$key] = str_replace(['::', '___'], [' as ', '.'], $col);
             }
-            $data = implode(",",$registerData);
+            $data = implode(",", $registerData);
             // $data = Register::all()->toArray();
-            $data =  \DB::table('registers AS r')
+            $data = \DB::table('registers AS r')
                 ->select(\DB::raw($data))
-                ->join('attendees AS g','g.register_id','r.id')
+                ->join('attendees AS g', 'g.register_id', 'r.id')
                 ->get();
+            //dd($data);
             $data = $data->toArray();
 
             $attributes = array_keys(get_object_vars($data[0]));
@@ -61,35 +68,36 @@ class ReportController extends Controller
                 $attributes[$key] = str_replace('_', ' ', $value);
             }
             $sheetArray = [$attributes];
+
             // Add the results
-            foreach($data  as $row){
+            foreach ($data as $row) {
                 $country = Country::find($row->Country); // get country by id
-                $row->Country = isset($country->name) ? $country->name:"" ;
+                $row->name = isset($country->name) ? $country->name : "";
 
-                $Arrival_Date = \App\Arrival_Date::find($row->Arrival_Date); // get country by id
-                $row->Arrival_Date = isset($Arrival_Date->arrival_date) ? $Arrival_Date->arrival_date:"" ;
+                $Arrival_Date = Arrival_date::find($row->Arrival_Date); // get country by id
+                $row->arrival_date = isset($Arrival_Date->arrival_date) ? $Arrival_Date->arrival_date : "";
 
-                $Hotel_Dpt_Date = \App\Departure_date::find($row->Hotel_Dpt_Date); //
-                $row->Hotel_Dpt_Date = isset($Hotel_Dpt_Date->departure_date) ? $Hotel_Dpt_Date->departure_date:"" ;
+                $Hotel_Dpt_Date = Departure_date::find($row->Hotel_Dpt_Date); //
+                $row->Hotel_Dpt_Date = isset($Hotel_Dpt_Date->departure_date) ? $Hotel_Dpt_Date->departure_date : "";
 
-                $Attendee_Extra_Nights = \App\Attendee_extended_night::find($row->Attendee_Extra_Nights); 
-                $row->Attendee_Extra_Nights = isset($Attendee_Extra_Nights->extended_night) ? $Attendee_Extra_Nights->extended_night:"" ;
+                $Attendee_Extra_Nights = Attendee_extended_night::find($row->Attendee_Extra_Nights);
+                $row->Attendee_Extra_Nights = isset($Attendee_Extra_Nights->extended_night) ? $Attendee_Extra_Nights->extended_night : "";
 
-                $Attendee_Date = \App\Attendee_date::find($row->Attendee_Date); //
-                $row->Attendee_Date = isset($Attendee_Date->attendee_date) ? $Attendee_Date->attendee_date:"" ;
+                $Attendee_Date = Attendee_date::find($row->Attendee_Date); //
+                $row->Attendee_Date = isset($Attendee_Date->attendee_date) ? $Attendee_Date->attendee_date : "";
 
-                $row->Send_Invoice = ($row->Send_Invoice == 1) ? 'Yes':'No';
-                $row->Save_Info = ($row->Save_Info == 1) ? 'Yes':'No';
-                array_push($sheetArray,get_object_vars($row));
+                $row->Send_Invoice = ($row->Send_Invoice == 1) ? 'Yes' : 'No';
+                $row->Save_Info = ($row->Save_Info == 1) ? 'Yes' : 'No';
+                array_push($sheetArray, get_object_vars($row));
             }
 
-            Excel::create('report', function ($excel) use ($sheetArray, $attributes) {
+            Excel::create($file, function ($excel) use ($sheetArray, $attributes) {
                 $excel->setTitle('Report');
                 $excel->setCreator('Laravel');
                 $excel->setDescription('Checkboxes Report');
 
                 $excel->sheet('sheet1', function ($sheet) use ($sheetArray, $attributes) {
-                    $sheet->cell('A1:AS1', function($cell) {
+                    $sheet->cell('A1:AS1', function ($cell) {
                         $cell->setFontSize(12);
                         $cell->setFontWeight('bold');
                     });
@@ -98,27 +106,91 @@ class ReportController extends Controller
             })->export('xls');
             exit();
         }
+    }
+
+    public function saveAndExport(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $fields = array_keys($request->input());
+            unset($fields[0]);// token
+            $file = $request->file_name;
+            unset($fields[1]);// report file name
+            $this->savaData($file, $fields);
+
+            $fields = array_keys($request->input());
+            $file = $request->file_name;
+            unset($fields[0]);// token
+            unset($fields[1]);// report file name
+            $this->exportReport($file, $fields);
+
+        }
 
     }
 
+    public function savaData($file, $fields)
+    {
+        $report = new ReportChecks;
+        $report->name = $file;
+        $report->report = json_encode($fields);
+        $report->save();
+
+    }
+
+    public function exportReport($file, $fields)
+    {
+        foreach ($fields as $key => $col) {
+            $registerData[$key] = str_replace(['::', '___'], [' as ', '.'], $col);
+        }
+        $data = implode(",", $registerData);
+        // $data = Register::all()->toArray();
+        $data = \DB::table('registers AS r')
+            ->select(\DB::raw($data))
+            ->join('attendees AS g', 'g.register_id', 'r.id')
+            ->get();
+        //dd($data);
+        $data = $data->toArray();
+
+        $attributes = array_keys(get_object_vars($data[0]));
+        foreach ($attributes as $key => $value) {
+            $attributes[$key] = str_replace('_', ' ', $value);
+        }
+        $sheetArray = [$attributes];
+
+        // Add the results
+        foreach ($data as $row) {
+            $country = Country::find($row->Country); // get country by id
+            $row->name = isset($country->name) ? $country->name : "";
+
+            $Arrival_Date = Arrival_date::find($row->Arrival_Date); // get country by id
+            $row->arrival_date = isset($Arrival_Date->arrival_date) ? $Arrival_Date->arrival_date : "";
+
+            $Hotel_Dpt_Date = Departure_date::find($row->Hotel_Dpt_Date); //
+            $row->Hotel_Dpt_Date = isset($Hotel_Dpt_Date->departure_date) ? $Hotel_Dpt_Date->departure_date : "";
+
+            $Attendee_Extra_Nights = Attendee_extended_night::find($row->Attendee_Extra_Nights);
+            $row->Attendee_Extra_Nights = isset($Attendee_Extra_Nights->extended_night) ? $Attendee_Extra_Nights->extended_night : "";
+
+            $Attendee_Date = Attendee_date::find($row->Attendee_Date); //
+            $row->Attendee_Date = isset($Attendee_Date->attendee_date) ? $Attendee_Date->attendee_date : "";
+
+            $row->Send_Invoice = ($row->Send_Invoice == 1) ? 'Yes' : 'No';
+            $row->Save_Info = ($row->Save_Info == 1) ? 'Yes' : 'No';
+            array_push($sheetArray, get_object_vars($row));
+        }
+
+        Excel::create($file, function ($excel) use ($sheetArray, $attributes) {
+            $excel->setTitle('Report');
+            $excel->setCreator('Laravel');
+            $excel->setDescription('Checkboxes Report');
+
+            $excel->sheet('sheet1', function ($sheet) use ($sheetArray, $attributes) {
+                $sheet->cell('A1:AS1', function ($cell) {
+                    $cell->setFontSize(12);
+                    $cell->setFontWeight('bold');
+                });
+                $sheet->fromArray($sheetArray, null, 'A1', false, false);
+            });
+        })->export('xls');
+        exit();
+    }
 }
-
-
-            //dd($register_report);
-           // $reports = $register_report->toArray();
-            //$data= json_decode( json_encode($reports), true);
-            /*$report_data = array();
-            foreach ($reports as $report) {
-                $report_data[] = (array)$report;
-            }*/
-            //dd($reports);
-          //  dd($attributes);
-
-
-           /* $data =  \DB::table('registers')
-                ->select(\DB::raw($data))
-                ->get();
-            $data = json_decode(json_encode($data), true);
-           // dd($data);
-            $attributes = array_keys($data[0]);*/
-//           dd($attributes);
