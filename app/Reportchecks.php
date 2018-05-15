@@ -9,5 +9,5 @@ class Reportchecks extends Model
     //
     protected $table = 'report_checkboxes';
 
-    protected $fillable = ['name','type','report'];
+    protected $fillable = ['name','type'];
 }

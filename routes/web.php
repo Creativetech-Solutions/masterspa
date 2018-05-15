@@ -47,6 +47,7 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::get('/', 'HomeController@index');
     Route::get('/registrations', 'RegistrationController@index');
     Route::get('/createReport', 'ReportController@index');
+    Route::get('/saveReport', 'ReportController@savedReports');
     Route::post('/report/defaultCheckboxes', 'ReportController@saveDefultCheckboxes');
     Route::post('/report/defaultCheckboxesAndSave', 'ReportController@saveAndExport');
     Route::post('/user/update/{id}', 'UserController@update');
@@ -55,14 +56,18 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::get('/profile','HomeController@getprofile');
     Route::get('/user', 'UserController@index');
     Route::get('/guests', 'AttendeeController@index');
+    Route::get('/guests/edit_guest/{id}', 'AttendeeController@editAttendee');
     Route::get('/registration/edit_form/{id}','RegistrationController@getregister');
+    Route::get('/report/download/{id}','ReportController@downloadReport');
     Route::get('/report/excel','ReportController@excel');
+    Route::get('/report/singleReport','ReportController@singleReport');
 
 
     // post routes
     Route::post('/profile','HomeController@getprofile');
     Route::post('/registration/edit_form/{id}','RegistrationController@getregister');
     Route::post('/report/excel','ReportController@excel');
-
+    Route::post('/guests/edit_guest/{id}', 'AttendeeController@editAttendee');
+    Route::post('/report/singleReport','ReportController@singleReport');
 });
 

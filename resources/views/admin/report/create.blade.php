@@ -24,14 +24,14 @@
                     <h3 class="box-title">Export Or Save Report</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-primary btn-sm selected-checkbox-save"
+                       {{-- <button type="button" class="btn btn-primary btn-sm selected-checkbox-save"
                                 onclick="fileName()">
                             <i
                                     class="fa fa-save"></i> Save Report
-                        </button>
-                        <button type="button" class="btn btn-primary btn-sm selected-checkbox" onclick="fileName()">
+                        </button>--}}
+                        <button type="button" class="btn btn-primary btn-sm " id="exportReport">
                             <i
-                                    class="fa-file-excel-o"></i> Export (Default)
+                                    class="fa-file-excel-o" ></i> Export (Default)
                         </button>
                         <button type="button" class="btn btn-success btn-sm save-default"><i class="fa fa-save"></i>
                             Save As Default Checkboxes
@@ -250,34 +250,26 @@
                 $(this).parents('.checkboxes').find('input').prop('checked', true);
             }
         })
-        function fileName() {
-            var file_name = prompt("Please enter file name.", "Report");
-            if (file_name == null) {
-                file_name = "Report";
-                $("input[type=hidden][name=file_name]").val(file_name);
-            } else {
-                $("input[type=hidden][name=file_name]").val(file_name);
-            }
-        }
+
         $(document).on('click', '.save-default', function (e) {
             $('form').attr('action', '{{ url('admin/report/defaultCheckboxes') }}');
             if (!$('form').hasClass('report-checkboxes-form'))
                 $('form').addClass('report-checkboxes-form');
             $('.report-checkboxes-form').submit();
         })
-        $(document).on('click', '.selected-checkbox-save', function (e) {
+        /*$(document).on('click', '.selected-checkbox-save', function (e) {
             var $ref = $('form');
-            $ref.attr('action', '{{url('admin/report/defaultCheckboxesAndSave')}}');
-            /*if ($ref.hasClass('report-checkboxes-form'))*/
+            $ref.attr('action', '');
+            if ($ref.hasClass('report-checkboxes-form'))
                 $ref.removeClass('report-checkboxes-form');
             $ref.submit();
         })
         $(document).on('click', '.selected-checkbox', function (e) {
             var $ref = $('form');
-            $ref.attr('action', '{{url('admin/report/excel')}}');
+            $ref.attr('action', '');
             $ref.removeClass('report-checkboxes-form');
             $ref.submit();
-        })
+        })*/
         $(document).on('submit', '.report-checkboxes-form', function (e) {
             e.preventDefault();
             var form = $(this);
@@ -296,6 +288,59 @@
                 },
                 error: function () {
 
+                }
+            });
+        });
+
+        $("#exportReport").on("click",function(){
+            var text = "<i class=\"icon-info-sign icon-3x pul   l-left\"></i>Do you want to save the generated Report?<br /> ";
+            new Messi(text, {
+                title: "Generate Report",
+                modal: true,
+                closeButton: true,
+                buttons: [{
+                    id: 0,
+                    label: "Save Report",
+                    val: 'Y'
+                },{
+                    id: 1,
+                    label: "Generate Report(Default)",
+                    val: 'D'
+                },{
+                    id: 2,
+                    label: "Generate Only(Single)",
+                    val: 'S'
+                }],
+                callback: function (val) {
+                    //We Also Need to Save the Report
+                    var reportName = "";
+                    reportName = prompt("Specify Name For Report","Report.xls");
+                    if (reportName == null) {
+                        reportName = "Report";
+                        $("input[type=hidden][name=file_name]").val(reportName);
+                    } else {
+                        $("input[type=hidden][name=file_name]").val(reportName);
+                    }
+                    if(val == 'D')
+                    {
+                        var $ref = $('form');
+                        $ref.attr('action', '{{url('admin/report/excel')}}');
+                        $ref.removeClass('report-checkboxes-form');
+                        $ref.submit();
+                    }else if(val == 'Y')
+                    {
+                        var $ref = $('form');
+                        $ref.attr('action', '{{url('admin/report/defaultCheckboxesAndSave')}}');
+                        if ($ref.hasClass('report-checkboxes-form'))
+                            $ref.removeClass('report-checkboxes-form');
+                        $ref.submit();
+                    } else if (val == 'S')
+                    {
+                        var $ref = $('form');
+                        $ref.attr('action', '{{url('admin/report/singleReport')}}');
+                        $ref.removeClass('report-checkboxes-form');
+                        $ref.submit();
+                    }
                 }
             });
         });

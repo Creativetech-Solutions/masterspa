@@ -17,6 +17,9 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset("public/css/bootstrap-datetimepicker.css") }}"/>
+    <link rel="stylesheet" href="{{ asset("public/css/messi.css") }}"/>
+    <link rel="stylesheet" href="{{ asset("public/css/messi.min.css") }}"/>
+
     <link rel="stylesheet" href="{{asset('public/admin')}}/dist/css/skins/_all-skins.min.css">
     <!-- Morris chart -->
     <link rel="stylesheet" href="{{asset('public/admin')}}/bower_components/morris.js/morris.css">
@@ -151,7 +154,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ url('admin/createReport') }}"><i class="fa fa-circle-o"></i> Full Reports</a></li>
-            <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> Saved Reports</a></li>
+            <li><a href="{{ url('admin/saveReport') }}"><i class="fa fa-circle-o"></i> Saved Reports</a></li>
           </ul>
         </li>
       </ul>
@@ -219,6 +222,8 @@
 <script src="{{asset('public/admin')}}/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="{{asset('public/admin')}}/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset("public/js/bootstrap-datetimepicker.js") }}"></script>
+<script type="text/javascript" src="{{ asset("public/js/messi.min.js") }}"></script>
+<script type="text/javascript" src="{{ asset("public/js/messi.js") }}"></script>
 
 <script>
   $(function () {
