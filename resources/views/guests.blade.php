@@ -126,11 +126,16 @@
                                         <input type="text" name="glname[]" required class="form-control"
                                                placeholder="Last Name" value="{{ $val->lname }}">
                                     </div>
-
+                                    <div class="form-group col-lg-4">
+                                        <label>Age:</label>
+                                        <input type="number" name="age[]" min="0" required class="form-control"
+                                                   placeholder="Age" value="{{ $val->age }}">
+                                    </div>
                                     <div class="form-group col-lg-4">
                                         <label>T-shirt size:</label>
                                         <select name="gshirtsize[]" class="form-control" required
                                                 placeholder="Select Shirt Size" >
+                                            <option disabled selected></option>
                                             <option value="S" {{ $val->tshirt_size == "S" ? 'selected':''}} > S </option>
                                             <option value="M" {{ $val->tshirt_size == 'M'? 'selected': ''}}>M</option>
                                             <option value="L" {{ $val->tshirt_size == 'L' ? 'selected': ''}}>L</option>

@@ -57,11 +57,10 @@
             <div class="col-xs-12">
                 <label><h4>Master Spas is covering the cost for 2 persons per room.
                         You may bring additional people at the below charge.
-                        Cost includes 2 nights hotel, (3 Nights for European Dealers),
-                        Participation in, and meals at Master Spas Events, Park ticket for event,
+                        Cost includes 3 nights hotel, (4 Nights for European Dealers),
+                        Participation in, and meals at Master Spas Events,
                         round trip airport transfers between Phoenix International and Sheraton Grand at WildHorse Pass.
-                        Please note additional children are not charged for, and will not receive, a cash card so you
-                        can determine your own level of spending.</h4></label>
+                        </h4></label>
                 <br>
             </div>
             <form action="{{ url('/meeting') }}" method="post" class="pref-form">

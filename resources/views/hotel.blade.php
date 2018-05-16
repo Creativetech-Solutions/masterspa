@@ -60,7 +60,7 @@
             <h3 class="dark-grey">Hotel</h3>
             <div class="col-xs-12">
                 <label><h4>
-                        If you would like to extend your Sheraton Grand at WildHorse Pass - please fill out the below
+                        If you would like to extend your stay at Sheraton Grand at WildHorse Pass - please fill out the below
                         information.
                         We will confirm availability for you.
                         Master Spas has special rates 3 days before and 3 days after the program, however rooms are

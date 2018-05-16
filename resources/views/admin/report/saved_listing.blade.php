@@ -7,11 +7,11 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Registration Listing
+                Saved Report List
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ url('admin')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Registration</li>
+                <li class="active">Saved Report</li>
             </ol>
         </section>
 

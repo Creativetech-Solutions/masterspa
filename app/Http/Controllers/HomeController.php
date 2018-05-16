@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Arrival_date;
 use App\Attendee_date;
 use App\Attendee_extended_night;
+use App\Country;
 use App\Departure_date;
 use Illuminate\Http\Request;
 use App\Register;
@@ -42,7 +43,7 @@ class HomeController extends Controller
     {
         $registration = $this->register;
         $pre = 'index';
-        $countries = \App\Country::all()->sortBy("name");;
+        $countries = Country::all()->sortBy("name");;
         return view('index')->with(compact('registration', 'countries'));
     }
 
@@ -174,6 +175,7 @@ class HomeController extends Controller
     public function getadditional(Request $request)
     {
         if ($request->isMethod('post')) {
+
            /* $messages = [
                 'gfname.required' => 'The Attendee First Name field is required.',
                 'gbadgefname.required' => 'The Badge Name field is required.',
@@ -212,11 +214,12 @@ class HomeController extends Controller
                         'badge_fname' => $request->gbadgefname[$key],
                         'middle_fname' => $request->gmiddle_name[$key],
                         'lname' => $request->glname[$key],
-                        'tshirt_size' => $request->gshirtsize[$key]
+                        'tshirt_size' => $request->gshirtsize[$key],
+                        'age' => $request->age[$key]
                     ];
 
                     if (empty($request->attendie_ids[$key])) {
-                        // insert when new attendei
+                        // insert when new attendee
                         $register->attendees()->create($attendieData);
                     } else {
                         // update attendie on base of id
