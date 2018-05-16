@@ -12,14 +12,14 @@
                 <li id="menu-item-353" class="@if (\Request::is('/')) {{ 'active-menu'}} @endif">
                     <a href="{{ url('/')  }}" data-href="/" class="selecturl">Personal Details</a>
                 </li>
-                <li id="menu-item-330" class="@if (\Request::is('prefrences')) {{ 'active-menu'}} @endif">
-                    <a href="{{ url('prefrences')  }}" data-href="prefrences" class="selecturl">Prefrences</a>
+                <li id="menu-item-330" class="@if (\Request::is('preferences')) {{ 'active-menu'}} @endif">
+                    <a href="{{ url('prefrences')  }}" data-href="prefrences" class="selecturl">Preferences</a>
                 </li>
                 <li id="menu-item-357" class="@if (\Request::is('guests')) {{ 'active-menu'}} @endif">
                     <a href="{{ url('guests') }}" data-href="guests" class="selecturl">Guests</a>
                 </li>
                 <li id="menu-item-358" class="@if (\Request::is('additional')) {{ 'active-menu'}} @endif">
-                    <a href="{{ url('additional')  }}" data-href="additional" class="selecturl">Additional Attandees</a>
+                    <a href="{{ url('additional')  }}" data-href="additional" class="selecturl">Additional Attendees</a>
                 </li>
                 <li id="menu-item-354" class="@if (\Request::is('meeting')) {{ 'active-menu'}} @endif">
                     <a href="{{ url('meeting')  }}" data-href="meeting" class="selecturl">Meetings</a>

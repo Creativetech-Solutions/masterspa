@@ -15,6 +15,7 @@ class HomeController extends Controller
     		'users' => \App\User::count(),
     		'registrations' => \App\Register::count(),
     		'guests' => \App\Attendees::count(),
+            'reports' => \App\ReportChecks::count()
     	];
         return view('admin.home.dashboard')->with(compact('counts'));
     }

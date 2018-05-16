@@ -127,6 +127,9 @@
                                     <label><input type="checkbox" name="g___lname::Guest_Last_Name"
                                                   {{ (in_array('g___lname::Guest_Last_Name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Last Name </label><br>
+                                    <label><input type="checkbox" name="g___age::Age"
+                                                  {{ (in_array('g___age::Age', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                        Age </label><br>
                                     <label><input type="checkbox" name="g___tshirt_size::Guest_Shirt_Size"
                                                   {{ (in_array('g___tshirt_size::Guest_Shirt_Size', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         T-shirt size </label><br>

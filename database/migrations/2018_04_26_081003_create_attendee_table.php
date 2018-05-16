@@ -19,6 +19,7 @@ class CreateAttendeeTable extends Migration
             $table->string('badge_fname');
             $table->string('middle_fname');
             $table->string('lname');
+            $table->integer('age');
             $table->string('tshirt_size');
             $table->integer('register_id');
             $table->timestamps();

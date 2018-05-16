@@ -55,7 +55,7 @@
             {{ csrf_field() }}          
             <div class="col-lg-12">
                  <div class="form-group col-xs-12 col-sm-6">
-                    <label>So we can provide appropriate seating in the meeting room, how many people from this registration will be attending the actual MEETING on  November 2nd to 5th?</label>
+                    <label>So we can provide appropriate seating in the meeting room, how many people from this registration will be attending the actual MEETING on  November 3rd to 5th?</label>
                 </div>
                 <div class="form col-xs-12 col-sm-6">
                     <input type="text" name="meeting" class="form-control" id="" value="{{$registration->meeting_participants}}">

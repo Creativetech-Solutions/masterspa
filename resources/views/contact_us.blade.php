@@ -81,7 +81,7 @@ input[type=text], input[type=email] {
                 </div>
 
                 <div class="form-group col-xl-12">
-                        <label>What is thirteen minus 6?:</label>
+                        <label>To make sure you're not a robot, what is thirteen minus six?:</label>
                         <input type="text" name="question"  class="form-control"  value="">
                     </div>
                  <div class="col-xl-12">
