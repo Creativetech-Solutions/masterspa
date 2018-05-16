@@ -112,6 +112,9 @@
                                 <label><input type="checkbox" class="select_all" class="flat-red">
                                     Select All</label>
                                 <div class="form-group col-xs-12">
+                                    <label><input type="checkbox" name="r___num_of_travlers::Num_of_Travlers"
+                                                  {{ (in_array('r___num_of_travlers::Num_of_Travlers', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                        Number of Travelers </label><br>
                                     <label><input type="checkbox" name="g___fname::Guest_First_Name"
                                                   {{ (in_array('g___fname::Guest_First_Name', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         First Name </label><br>
