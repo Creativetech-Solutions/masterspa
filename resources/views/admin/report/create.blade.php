@@ -31,7 +31,7 @@
                         </button>--}}
                         <button type="button" class="btn btn-primary btn-sm " id="exportReport">
                             <i
-                                    class="fa-file-excel-o" ></i> Export (Default)
+                                    class="fa fa-file-excel-o" ></i> Export
                         </button>
                         <button type="button" class="btn btn-success btn-sm save-default"><i class="fa fa-save"></i>
                             Save As Default Checkboxes

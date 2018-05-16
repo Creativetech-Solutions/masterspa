@@ -17,7 +17,8 @@ class CreateAttendeeDatesTable extends Migration
             $table->increments('id');
             $table->string('attendee_date');
             $table->string('rate');
-            //$table->integer('register_id');
+            $table->integer('register_id');
+            $table->string('age');
             $table->timestamps();
         });
     }

@@ -261,7 +261,7 @@ class ReportController extends Controller
             $excel->setDescription('Checkboxes Report');
 
             $excel->sheet('sheet1', function ($sheet) use ($sheetArray, $attributes) {
-                $sheet->cell('A1:BG1', function ($cell) {
+                $sheet->cell('A1:BK1', function ($cell) {
                     $cell->setFontSize(12);
                     $cell->setFontWeight('bold');
                 });
@@ -356,7 +356,7 @@ class ReportController extends Controller
                 $excel->setDescription('Checkboxes Report');
 
                 $excel->sheet('sheet1', function ($sheet) use ($sheetArray, $attributes) {
-                    $sheet->cell('A1:BG1', function ($cell) {
+                    $sheet->cell('A1:BK1', function ($cell) {
                         $cell->setFontSize(12);
                         $cell->setFontWeight('bold');
                     });
