@@ -8,10 +8,12 @@ use App\Http\Controllers\Controller;
 
 class AttendeeController extends Controller
 {
-    public function index()
-    {
+    public function index($id = "")
+    {   
+        if($id == "")
             $guests = Attendees::all();
-            return view('admin.guests.attendee_listing')->with(compact('guests'));
+        else $guests = Attendees::where(['register_id'=>$id])->get();
+        return view('admin.guests.attendee_listing')->with(compact('guests'));
     }
     public function editAttendee(Request $request, $id)
     {

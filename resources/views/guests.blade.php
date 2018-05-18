@@ -51,6 +51,7 @@
         $attendes[0]->middle_fname = "";
         $attendes[0]->lname = "";
         $attendes[0]->tshirt_size = "";
+        $attendes[0]->age = "";
 
     if(!empty($registration->id) and $registration->num_of_travlers > 0){
         $attendees = $registration->attendees;
@@ -135,7 +136,7 @@
                                         <label>T-shirt size:</label>
                                         <select name="gshirtsize[]" class="form-control" required
                                                 placeholder="Select Shirt Size" >
-                                            <option disabled selected></option>
+                                            <option></option>
                                             <option value="S" {{ $val->tshirt_size == "S" ? 'selected':''}} > S </option>
                                             <option value="M" {{ $val->tshirt_size == 'M'? 'selected': ''}}>M</option>
                                             <option value="L" {{ $val->tshirt_size == 'L' ? 'selected': ''}}>L</option>

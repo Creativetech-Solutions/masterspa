@@ -72,7 +72,7 @@
                         <a>masterspas@latitudeevents.com</a> so we can arrange for your complimentary transportation
                         between the Phoenix airport and the hotel on arrival and departure.
                         Please note that Master Spas will only provide complimentary transportation on the official
-                        arrival date(s) Nov 1 International and Nov 2 North American, and Departure of Nov 5
+                        arrival date(s) Nov 1 International and Nov 2 North American, and Departure of Nov 5.
                         If you would like to extend your trip, please let us know PRIOR to booking any flights, so we
                         can confirm availability at the hotel. <br>
                     </h4>

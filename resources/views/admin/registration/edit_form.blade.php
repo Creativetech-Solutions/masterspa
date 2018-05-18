@@ -143,6 +143,10 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
+
+                            <!-- /.form-group -->
+                            <div class="col-md-6">
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Emergency Contact's Phone Number:</label>
@@ -150,6 +154,14 @@
                                            value="{{ $registration->emerg_phone }}"
                                            style="width: 100%;"/>
                                 </div>
+
+                            </div>
+
+
+                            <div class="col-lg-12">
+                                <h3>Preferences</h3>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Preference:</label>
                                     <input type="text" class="form-control" name="preference"
@@ -157,8 +169,6 @@
                                            style="width: 100%;"/>
                                 </div>
                             </div>
-
-                            <!-- /.form-group -->
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Does Anyone in this room have any Special Needs or Dietary/Physical
@@ -170,14 +180,18 @@
                                            {{ $registration->special_need=='no' ? 'checked':'' }}  value="no"/>
                                     No<br>
                                 </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Please Specify:</label>
                                     <input type="text" name="specify_need" value="{{ $registration->specify_need }}"
                                            class="form-control">
                                 </div>
-
                             </div>
 
+                            <div class="col-lg-12">
+                                <h3><a href="{{url('admin/guests/'.$registration->id)}}">Guests</a></h3>
+                            </div>
                             <div class="col-lg-12">
                                 <h3>Additional Attendee's</h3>
                                 <div class="form-group col-xs-12">

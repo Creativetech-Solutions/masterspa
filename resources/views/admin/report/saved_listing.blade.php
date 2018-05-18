@@ -28,7 +28,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>File Name</th>
-                                    <th>File Type</th>
+                                    <th>Report Type</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -38,7 +38,8 @@
                                         <td>{{$rep->id}}</td>
                                         <td>{{$rep->name}}</td>
                                         <td>{{$rep->type}}</td>
-                                        <td><a href="{{url('admin/report/download/'.$rep->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-download"></i></a></td>
+                                        <td><a data-id="{{$rep->id}}" class="btn btn-sm btn-primary exportReport"><i class="fa fa-download"></i> Report</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -64,5 +65,35 @@
     </div>
     <!-- ./wrapper -->
     <!-- page script -->
+
+    <script>
+           $(".exportReport").on("click",function(){
+            var reportId = $(this).attr('data-id');
+            var text = "<i class=\"icon-info-sign icon-3x pul   l-left\"></i>Please Select Report Type<br /> ";
+            new Messi(text, {
+                title: "Download Report",
+                modal: true,
+                closeButton: true,
+                buttons: [{
+                    id: 1,
+                    label: "Generate Report(Default)",
+                    val: 'D'
+                },{
+                    id: 2,
+                    label: "Generate Only(Single)",
+                    val: 'S'
+                }],
+                callback: function (val) {
+                    //We Also Need to Save the Report
+                    var reportName = "";
+                    if(val == 'D')
+                        location.assign('{{url("admin/report/download_default")}}/'+reportId);
+                    else if(val == 'S')
+                        location.assign('{{url("admin/report/download_single/")}}/'+reportId);
+                    
+                }
+            });
+        });
+    </script>
 @endsection
 

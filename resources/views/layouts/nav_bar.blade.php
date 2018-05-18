@@ -36,6 +36,9 @@
                 <li id="menu-item-171" class="@if (\Request::is('contact_us')) {{ 'active-menu'}} @endif">
                     <a href="{{ url('contact_us') }}" data-href="contact_us">Contact Us</a>
                 </li>
+                <li id="menu-item-172" class="@if (\Request::is('terms_and_condition')) {{ 'active-menu'}} @endif">
+                    <a href="{{ url('terms_and_condition') }}" data-href="terms_and_condition">Terms &amp; Conditions</a>
+                </li>
             </ul>
         </div>
     </nav><!-- #site-navigation -->

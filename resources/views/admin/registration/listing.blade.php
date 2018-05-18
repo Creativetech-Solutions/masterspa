@@ -38,11 +38,18 @@
                 @foreach($registrations as $key=>$reg)
                 <tr>
                   <td>{{$reg->id}}</td>
-                  <td>{{$reg->comp_name}}</td>
+                  <td>{{$reg->comp_name}} 
+                  <a class="pull-right label label-xs label-info" href="{{url('admin/guests/'.$reg->id)}}">
+                  {{$reg->num_of_travlers == "" ? 0 : $reg->num_of_travlers}} Guests
+                  </a>
+
+                  </td>
                   <td>{{$reg->fname}}</td>
                   <td>{{$reg->lname}}</td>
                   <td>{{$reg->email}}</td>
-                  <td><a href="{{url('admin/registration/edit_form/'.$reg->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
+                  <td>
+                  <a href="{{url('admin/registration/edit_form/'.$reg->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                  </td>
                 </tr>
                 @endforeach
                 </tbody>

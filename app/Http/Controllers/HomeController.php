@@ -481,5 +481,9 @@ class HomeController extends Controller
     {
         return view('contact_us');
     }
+
+    public function termsAndCondition(){
+        return view('terms_and_conditions');
+    }
 }
 

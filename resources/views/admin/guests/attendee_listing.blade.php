@@ -27,7 +27,7 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Req Id</th>
+                                    <th>Reg Id</th>
                                     <th>First Name</th>
                                     <th>Badge Name</th>
                                     <th>Middle Name</th>
@@ -40,7 +40,7 @@
                                 @foreach($guests as $key=>$guest)
                                     <tr>
                                         <td>{{$guest->id}}</td>
-                                        <td>{{$guest->register_id}}</td>
+                                        <td><a href="{{ url('admin/registration/edit_form/'.$guest->register_id) }}">{{$guest->register_id}}</a></td>
                                         <td>{{$guest->fname}}</td>
                                         <td>{{$guest->badge_fname}}</td>
                                         <td>{{$guest->middle_fname}}</td>

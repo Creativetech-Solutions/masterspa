@@ -48,7 +48,7 @@
                                     Select All</label>
                                 <input type="hidden" name="file_name" value="">
                                 <div class="form-group col-xs-12">
-                                    <label><input type="checkbox" name="r___comp_name::Country"
+                                    <label><input type="checkbox" name="r___comp_name::Company"
                                                   {{ (in_array('r___comp_name::Company', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Company Name </label><br>
                                     <label><input type="checkbox" name="r___fname::First_Name"
@@ -330,7 +330,7 @@
                     if(val == 'D')
                     {
                         var $ref = $('form');
-                        $ref.attr('action', '{{url('admin/report/excel')}}');
+                        $ref.attr('action', '{{url('admin/report/defaultreport')}}');
                         $ref.removeClass('report-checkboxes-form');
                         $ref.submit();
                     }else if(val == 'Y')

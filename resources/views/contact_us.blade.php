@@ -50,43 +50,51 @@ input[type=text], input[type=email] {
     
         
 
-</div><!-- .page-content -->
+</div><!-- .page-content 
+
+Ok, the BGI box is now running, the hamachi url is http://25.68.206.199/bumblebee-bgi/. However, replication is not implemented yet. Please check, and let me know should we implement the replication now.
+-->
 
 @endsection
 @section('content')
-<h3>Contact us with any questions that you might have &#8211; we&#8217;ll be in touch within 24 hours. We look forward to hearing from you!</h3>
-
-
-
-
-<h3 class="dark-grey">Contact Form</h3>
+   <div class="container-fluid">
+        <div class="container-page">
+            <h3 class="dark-grey">Contact Us</h3>
+            <div class="col-xs-12">
+                <label><h4>
+                        Contact us with any questions that you might have &#8211; we&#8217;ll be in touch within 24 hours. We look forward to hearing from you! <br>
+                    </h4>
+                </label>
+            </div>
                 
-            <form action="{{ url('/prefrences') }}" method="POST">   
+            <form action="{{ url('/contact_us') }}" method="POST">   
                 {{ csrf_field() }}          
-                <div class="col-xl-12">
-                    <div class="form-group col-xl-12">
+                <div class="col-xs-12">
+                    <div class="form-group col-xs-12 row">
                         <label>Name:</label>
                         <input type="text" name="contactname"  class="form-control"  value="" placeholder="Your name">
                     </div>
                     
-                    <div class="form-group col-xl-12">
+                    <div class="form-group col-xs-12 row">
                         <label>Email:</label>
                         <input type="email" name="contactmail" class="form-control"  id="" value="contactmail" placeholder="your email">
                     </div>
                     
-                    <div class="form-group col-xl-12">
+                    <div class="form-group col-xs-12 row">
                         <label>Message:</label>
                         <textarea name="contactmessage" rows='5' class="form-control" id=""  value="contactmessage" placeholder=""></textarea>
                     </div>
-                </div>
-
-                <div class="form-group col-xl-12">
+                     <div class="form-group col-xs-12 row">
                         <label>To make sure you're not a robot, what is thirteen minus six?:</label>
                         <input type="text" name="question"  class="form-control"  value="">
                     </div>
-                 <div class="col-xl-12">
+                </div>
+
+                 <div class="col-xs-12">
                
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
+        </div>
+    </div>
 @endsection
