@@ -59,7 +59,9 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::get('/guests/{id}', 'AttendeeController@index');
     Route::get('/guests', 'AttendeeController@index');
     Route::get('/guests/edit_guest/{id}', 'AttendeeController@editAttendee');
+    Route::get('/guests/delete/{id}', 'AttendeeController@delete');
     Route::get('/registration/edit_form/{id}','RegistrationController@getregister');
+    Route::get('/registration/delete/{id}','RegistrationController@delete');
     Route::get('/report/download_single/{id}','ReportController@downloadSingleReport');
     Route::get('/report/download_default/{id}','ReportController@downloadDefaultReport');
 

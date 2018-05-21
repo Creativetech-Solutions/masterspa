@@ -31,4 +31,9 @@ class AttendeeController extends Controller
         $guest = Attendees::find($id);
         return view('admin.guests.edit_attendee')->with(compact('guest'));
     }
+    
+    public function delete(Request $req, $id){
+        Attendees::find($id)->delete();
+        return 'true';
+    }
 }

@@ -241,10 +241,12 @@ class ReportController extends Controller
             $row->Attendee_Date = isset($Attendee_Date->attendee_date) ? $Attendee_Date->attendee_date : "";
         }
 
-        if (property_exists($row, 'Send_Invoice')) {
+        if (property_exists($row, 'Send_Invoice'))
             $row->Send_Invoice = ($row->Send_Invoice == 1) ? 'Yes' : 'No';
+        
+        if (property_exists($row, 'Save_Info'))
             $row->Save_Info = ($row->Save_Info == 1) ? 'Yes' : 'No';
-        }
+        
         return $row;
     }
 

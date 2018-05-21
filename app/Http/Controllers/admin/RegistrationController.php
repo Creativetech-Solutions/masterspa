@@ -71,4 +71,11 @@ class RegistrationController extends Controller
         return view('admin.registration.edit_form')->
         with(compact('registration','additional_attendees','extended_nights','departure_dates','arrival_dates','countries'));
     }
+
+    public function delete(Request $req, $id){
+        $register = Register::find($id);
+        $register->attendees()->delete();
+        $register->delete();
+        return 'true';
+    }
 }

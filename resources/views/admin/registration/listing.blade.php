@@ -48,7 +48,8 @@
                   <td>{{$reg->lname}}</td>
                   <td>{{$reg->email}}</td>
                   <td>
-                  <a href="{{url('admin/registration/edit_form/'.$reg->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                  <a title="Edit" href="{{url('admin/registration/edit_form/'.$reg->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                  <a title="Delete" href="{{url('admin/registration/delete/'.$reg->id)}}" class="btn btn-xs btn-danger delete-reservation"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -77,5 +78,19 @@
   </div>
 <!-- ./wrapper -->
 <!-- page script -->
+
+<script>
+  $(document).on('click','.delete-reservation', function(e){
+    e.preventDefault();
+    var $ref = $(this);
+    $.ajax({
+      url:$ref.attr('href'),
+      success:function(e){
+        $ref.parents('tr').remove();
+        notify('success','Record Successfully Deleted');
+      }
+    });
+  })
+</script>
 @endsection
 

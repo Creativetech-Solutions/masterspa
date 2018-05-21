@@ -46,7 +46,10 @@
                                         <td>{{$guest->middle_fname}}</td>
                                         <td>{{$guest->lname}}</td>
                                         <td>{{$guest->tshirt_size}}</td>
-                                        <td><a  href="{{url('admin/guests/edit_guest/'.$guest->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
+                                        <td>
+                                            <a title="Edit" href="{{url('admin/guests/edit_guest/'.$guest->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                            <a title="Delete" href="{{url('admin/guests/delete/'.$guest->id)}}" class="btn btn-xs btn-danger del-guest"><i class="fa fa-trash"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -76,5 +79,19 @@
     </div>
     <!-- ./wrapper -->
     <!-- page script -->
+
+<script>
+  $(document).on('click','.del-guest', function(e){
+    e.preventDefault();
+    var $ref = $(this);
+    $.ajax({
+      url:$ref.attr('href'),
+      success:function(e){
+        $ref.parents('tr').remove();
+        notify('success','Record Successfully Deleted');
+      }
+    });
+  })
+</script>
 @endsection
 

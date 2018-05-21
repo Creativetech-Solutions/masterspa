@@ -224,6 +224,7 @@
 <script type="text/javascript" src="{{ asset("public/js/bootstrap-datetimepicker.js") }}"></script>
 <script type="text/javascript" src="{{ asset("public/js/messi.min.js") }}"></script>
 <script type="text/javascript" src="{{ asset("public/js/messi.js") }}"></script>
+<script src="{{ asset('public/js/notify.min.js') }}"></script>
 
 <script>
   $(function () {
@@ -236,6 +237,41 @@
       'autoWidth'   : true
     })
   })
+
+
+   function notify(type, message, position='bottom center', duration=400){
+          $.notify( message, {
+            // whether to hide the notification on click
+            clickToHide: true,
+            // whether to auto-hide the notification
+            autoHide: true,
+            // if autoHide, hide after milliseconds
+            autoHideDelay: 5000,
+            // show the arrow pointing at the element
+            arrowShow: true,
+            // arrow size in pixels
+            arrowSize: 5,
+            // position defines the notification position though uses the defaults below
+            position: position,
+            // default positions
+            elementPosition: position,
+            globalPosition: 'bottom right',
+            // default style
+            style: 'bootstrap',
+            // default class (string or [string])
+            className: type,
+            // show animation
+            showAnimation: 'slideDown',
+            // show animation duration
+            showDuration: duration,
+            // hide animation
+            hideAnimation: 'slideUp',
+            // hide animation duration
+            hideDuration: 200,
+            // padding between element and notification
+            gap: 2
+          });
+        }
 </script>
 </body>
 </html>
