@@ -350,5 +350,6 @@
                 }
             });
         });
+
     </script>
 @endsection
