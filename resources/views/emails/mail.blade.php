@@ -113,20 +113,10 @@
            style="background: none repeat scroll 0% 0% rgb(244, 244, 244); border: 1px solid rgb(102, 102, 102);">
         <tbody>
         <tr>
-            <th style="background-color: rgb(204, 204, 204);">Welcome [NAME]! Thanks for registering.</th>
+            <th style="background-color: #78c3fb;">Welcome [NAME]! Thanks for visiting [SITE_NAME].</th>
         </tr>
         <tr>
-            <td valign="top" style="text-align: left;">Hello,<br> <br> You're now a member of [SITE_NAME].<br> <br> Here
-                are your login details. Please keep them in a safe place:<br> <br> Username: <strong>[USERNAME]</strong><br>
-                Password: <strong>[PASSWORD]</strong>
-                <hr>
-                The administrator of this site has requested all new accounts<br> to be activated by the users who
-                created them thus your account<br> is currently inactive. To activate your account,<br> please visit the
-                link below and enter the following:
-                <hr>
-                Token: <strong>[TOKEN]</strong><br> Email: <strong>[EMAIL]</strong>
-                <hr>
-                <a href="[LINK]">Click here to activate tour account</a></td>
+            [BODY]
         </tr>
         <tr>
             <td style="text-align: left;"><em>Thanks,<br> [SITE_NAME] Team<br> <a href="[URL]">[URL]</a></em></td>

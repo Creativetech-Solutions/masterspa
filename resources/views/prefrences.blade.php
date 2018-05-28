@@ -50,12 +50,17 @@
             $registration->preference = "";
             $registration->special_need = "";
             $registration->specify_need = "";
+            $registration->unique_id ="";
         }
     @endphp
     <div class="container-fluid">
         <div class="container-page">
             @include('layouts/notify')
-            <h3 class="dark-grey">Preferences</h3>
+            <div class="col-sm pull-right">
+            <label>Your unique ID:</label>
+                <input type="text" value="{{$registration->unique_id}}" readonly disabled>
+            </div>
+                <h3 class="dark-grey">Preferences</h3>
             <div class="col-xs-12">
                 <label><h4>Bed types are based on availability, and are not guaranteed.
                         All rooms are non-smoking, there are designated outside areas for smoking.</h4>

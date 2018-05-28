@@ -144,6 +144,11 @@
             <i class="fa fa-th"></i> <span>Guests</span>
           </a>
         </li>
+        <li>
+          <a href="{{url('admin/emails')}}">
+            <i class="fa fa-th"></i> <span>Email</span>
+          </a>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
@@ -157,6 +162,7 @@
             <li><a href="{{ url('admin/saveReport') }}"><i class="fa fa-circle-o"></i> Saved Reports</a></li>
           </ul>
         </li>
+
       </ul>
     </section>
     <!-- /.sidebar -->

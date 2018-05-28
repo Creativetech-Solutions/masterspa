@@ -69,6 +69,10 @@
         <div class="container-page">
 
             @include('layouts/notify')
+            <div class="col-sm pull-right">
+                <label>Your Unique ID:</label>
+                <input type="text" value="{{$registration->unique_id}}" readonly disabled>
+            </div>
             <h3 class="dark-grey">Guest Details</h3>
             <div class="col-xs-12">
                 <label>

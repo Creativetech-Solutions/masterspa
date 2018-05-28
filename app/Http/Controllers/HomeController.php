@@ -7,11 +7,13 @@ use App\Attendee_date;
 use App\Attendee_extended_night;
 use App\Country;
 use App\Departure_date;
+use App\Email_template;
 use Illuminate\Http\Request;
 use App\Register;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
-use App\View;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class HomeController extends Controller
@@ -25,9 +27,10 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        if (!session()->has('register_id'))
+        if (!session()->has('register_id')) {
             $this->register = new Register;
-        else {
+        }
+            else {
             if (empty($this->register = Register::find(session('register_id')))) {
                 $this->register = new Register();
             } else {
@@ -46,9 +49,6 @@ class HomeController extends Controller
         $registration = $this->register;
         $pre = 'index';
         $countries = Country::all()->sortBy("name");
-        $html = \View::make('index', compact('registration','countries'))->render();
-        echo htmlspecialchars($html);
-        exit;
         return view('index')->with(compact('registration', 'countries'));
     }
 
@@ -84,6 +84,7 @@ class HomeController extends Controller
                   'emerg_contact' => 'required|max:191',
                   'emerg_phone' => 'required|max:191',
               ];*/
+            $unique_id = uniqid();
 
             $register = $this->register;
             if (!session()->has('register_id')) {
@@ -95,7 +96,6 @@ class HomeController extends Controller
                     return redirect('/')->withErrors($validator)->withInput();
                 }
             }
-
             $register->comp_name = $request->cname;
             $register->fname = $request->cfname;
             $register->lname = $request->clname;
@@ -109,11 +109,12 @@ class HomeController extends Controller
             $register->country = $request->country;
             $register->emerg_contact = $request->emerg_contact;
             $register->emerg_phone = $request->emerg_phone;
+            $register->unique_id = $unique_id;
             if (!$register->save())
-                return redirect('/');
-            else
+            return redirect('/');
+            else {
                 session()->put('register_id', $register->id);
-
+            }
             if (!empty($request->url))
                 return redirect($request->url);
 
@@ -396,7 +397,6 @@ class HomeController extends Controller
                  return redirect('/flights')->withErrors($validator)->withInput();
              }
              }*/
-
             $register = $this->register;
             $register->dpt_date = date('Y-m-d', strtotime($request->ddate));
             $register->dpt_city = $request->dcity;
@@ -430,8 +430,6 @@ class HomeController extends Controller
 
     public function submission(Request $request)
     {
-
-
         if ($request->isMethod('post')) {
             $register = $this->register;
             $register->special_circumstances = $request->specialnotes;
@@ -442,29 +440,38 @@ class HomeController extends Controller
             }
 
             if ($register->airfare_quote == 'yes') {
-
-                $data = array(
+                /*$html = \View::make('emails.mail')->render();
+                $save = htmlspecialchars($html);
+                Email_template::where('id', '1')->update(array('body' => $save));*/
+                $av_data = array(
                     'comp_name'=>$register->comp_name,
                     'fname' => $register->fname,
                     'lname' => $register->lname,
                     'tel' => $register->tel,
                     'cell' => $register->cell,
                     'email' => $register->email,
-                    'email_alt' => $register->email_alt,
                     'address' => $register->address,
                     'city' => $register->city,
                     'state' => $register->state ,
                     'zip' => $register->zip,
                     'country' => $register->country,
                     'emerg_contact' => $register->emerg_contact,
-                    'emerg_phone' => $register->emerg_phone
+                    'emerg_phone' => $register->emerg_phone,
+                    'dpt_city' => $register->dpt_city,
+                    'dpt_date' => $register->dpt_date,
+                    'pref_dpt_time' => $register->pref_dpt_time,
+                    'ret_date' => $register->ret_date,
+                    'pref_ret_time' => $register->pref_ret_time
                     );
-                //dd($data);
-                Mail::send('emails.mail', $data, function ($message) {
+                $template = Email_template::find(1);
+                $html = \View::make('emails.reg_incomplete')->with(compact('av_data'))->render();
+                $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
+                    array($html, $register->fname, 'Master Spas'), $template->body);
+                $data = array('messageBody' => htmlspecialchars_decode($messageBody));
+                Mail::send('emails.show_temp', $data, function ($message) {
                     $message->to('masterspa@yopmail.com', 'MasterSpa')
                         ->subject('Testing mail');
                     $message->from('arslkhan5@gmail.com', 'Arsl khan');
-
                 });
             }
             if (!$register->save()) {
@@ -519,5 +526,16 @@ class HomeController extends Controller
     {
         return view('terms_and_conditions');
     }
-}
 
+    public function searchResult(){
+        $search = Input::get ( 'unique_id' );
+        $registration = Register::where('unique_id', $search)->first();
+        if(!empty($registration)){
+            session()->put('register_id', $registration->id);
+            //redirect(back());
+            return view('/index')->with(compact('registration'))->withQuery ( $search );
+        } else
+            return view ('/index')->withMessage('No Record found. Try to search again !');
+
+    }
+}

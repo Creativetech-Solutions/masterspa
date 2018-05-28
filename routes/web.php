@@ -21,6 +21,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/additional', 'HomeController@getadditional');
 Route::get('/agreement', 'HomeController@getagreement');
 Route::get('/guests', 'HomeController@getguests');
+
 Route::get('/hotel', 'HomeController@gethotel');
 Route::get('/meeting', 'HomeController@getmeeting');
 Route::get('/prefrences', 'HomeController@getprefrences');
@@ -29,11 +30,13 @@ Route::get('/flights', 'HomeController@getflights');
 Route::get('/terms_and_condition', 'HomeController@termsAndCondition');
 Route::get('/admin', 'admin\HomeController@index');
 Route::get('/admin/registration/reg-list', 'admin\flightsController@index');
+Route::any('/search','HomeController@searchResult');
 
 // post methods
 
 Route::post('/prefrences', 'HomeController@getprefrences');
 Route::post('/guests', 'HomeController@getguests');
+
 Route::post('/', 'HomeController@index')->name('home');
 Route::post('/additional', 'HomeController@getadditional');
 Route::post('/agreement', 'HomeController@getagreement');
@@ -42,6 +45,8 @@ Route::post('/meeting', 'HomeController@getmeeting');
 Route::post('/contact_us', 'HomeController@getcontactus');
 Route::post('/flights', 'HomeController@getflights');
 Route::post('/submission', 'HomeController@submission');
+
+
 
 //admin routes
 Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth'], function (){
@@ -54,6 +59,7 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::post('/user/update/{id}', 'UserController@update');
 
     // get routes
+    Route::get('/emails', 'EmailController@index');
     Route::get('/profile','HomeController@getprofile');
     Route::get('/user', 'UserController@index');
     Route::get('/guests/{id}', 'AttendeeController@index');
@@ -67,6 +73,7 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
 
 
     // post routes
+    Route::post('/emails', 'EmailController@index');
     Route::post('/profile','HomeController@getprofile');
     Route::post('/registration/edit_form/{id}','RegistrationController@getregister');
     Route::post('/report/defaultreport','ReportController@defaultReport');
