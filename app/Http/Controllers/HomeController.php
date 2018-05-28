@@ -10,6 +10,8 @@ use App\Departure_date;
 use Illuminate\Http\Request;
 use App\Register;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
+use App\View;
 use Validator;
 
 class HomeController extends Controller
@@ -43,7 +45,10 @@ class HomeController extends Controller
     {
         $registration = $this->register;
         $pre = 'index';
-        $countries = Country::all()->sortBy("name");;
+        $countries = Country::all()->sortBy("name");
+        $html = \View::make('index', compact('registration','countries'))->render();
+        echo htmlspecialchars($html);
+        exit;
         return view('index')->with(compact('registration', 'countries'));
     }
 
@@ -51,39 +56,39 @@ class HomeController extends Controller
     {
 
         if ($request->isMethod('post')) {
-          /*  $messages = [
-                'cname.required' => 'The Company Name field is required.',
-                'cfname.required' => 'The Contact First Name field is required.',
-                'clname.required' => 'The Contact Last Name field is required.',
-                'tphone.required' => 'The Telephone field is required.',
-                'cellphone.required' => 'The Cell phone field is required.',
-                'address.required' => 'The Address field is required.',
-                'city.required' => 'The City field is required.',
-                'region.required' => 'The Region field is required.',
-                'pcode.required' => 'The Zip Code field is required.',
-                'country.required' => 'The Country field is required.',
-                'emerg_contact.required' => 'The Emergency Contact field is required.',
-                'emerg_phone.required' => 'The Emergency Phone field is required.',
-            ];
-            $validation = [
-                'cname' => 'required|max:191',
-                'cfname' => 'required|max:191',
-                'clname' => 'required|max:191',
-                'tphone' => 'required|max:191',
-                'cellphone' => 'required|max:191',
-                'address' => 'required|max:191',
-                'city' => 'required|max:191',
-                'region' => 'required|max:191',
-                'pcode' => 'required|max:191',
-                'country' => 'required|max:191',
-                'emerg_contact' => 'required|max:191',
-                'emerg_phone' => 'required|max:191',
-            ];*/
+            /*  $messages = [
+                  'cname.required' => 'The Company Name field is required.',
+                  'cfname.required' => 'The Contact First Name field is required.',
+                  'clname.required' => 'The Contact Last Name field is required.',
+                  'tphone.required' => 'The Telephone field is required.',
+                  'cellphone.required' => 'The Cell phone field is required.',
+                  'address.required' => 'The Address field is required.',
+                  'city.required' => 'The City field is required.',
+                  'region.required' => 'The Region field is required.',
+                  'pcode.required' => 'The Zip Code field is required.',
+                  'country.required' => 'The Country field is required.',
+                  'emerg_contact.required' => 'The Emergency Contact field is required.',
+                  'emerg_phone.required' => 'The Emergency Phone field is required.',
+              ];
+              $validation = [
+                  'cname' => 'required|max:191',
+                  'cfname' => 'required|max:191',
+                  'clname' => 'required|max:191',
+                  'tphone' => 'required|max:191',
+                  'cellphone' => 'required|max:191',
+                  'address' => 'required|max:191',
+                  'city' => 'required|max:191',
+                  'region' => 'required|max:191',
+                  'pcode' => 'required|max:191',
+                  'country' => 'required|max:191',
+                  'emerg_contact' => 'required|max:191',
+                  'emerg_phone' => 'required|max:191',
+              ];*/
 
             $register = $this->register;
             if (!session()->has('register_id')) {
                 /*unique:registers|*/
-                $validation = ['email'=>'required|max:191'];
+                $validation = ['email' => 'required|max:191'];
                 $register->email = $request->email;
                 $validator = Validator::make($request->all(), $validation);
                 if ($validator->fails()) {
@@ -176,26 +181,26 @@ class HomeController extends Controller
     {
         if ($request->isMethod('post')) {
 
-           /* $messages = [
-                'gfname.required' => 'The Attendee First Name field is required.',
-                'gbadgefname.required' => 'The Badge Name field is required.',
-                'gmiddle_name.required' => 'The Middle Name field is required.',
-                'glname.required' => 'The Last Name field is required.',
-                'gshirtsize.required' => 'The T-Shirt Size field is required.'
-            ];
-            $validation = [
-                'num_of_travler' => 'required',
-                'gfname' => 'required',
-                'gbadgefname' => 'required',
-                'gmiddle_name' => 'required',
-                'glname' => 'required',
-                'gshirtsize' => 'required',
-            ];
-            $validator = Validator::make($request->all(), $validation, $messages);
-            if ($validator->fails()) {
-                return redirect('/guests')->withErrors($validator)->withInput();
-            }
-*/
+            /* $messages = [
+                 'gfname.required' => 'The Attendee First Name field is required.',
+                 'gbadgefname.required' => 'The Badge Name field is required.',
+                 'gmiddle_name.required' => 'The Middle Name field is required.',
+                 'glname.required' => 'The Last Name field is required.',
+                 'gshirtsize.required' => 'The T-Shirt Size field is required.'
+             ];
+             $validation = [
+                 'num_of_travler' => 'required',
+                 'gfname' => 'required',
+                 'gbadgefname' => 'required',
+                 'gmiddle_name' => 'required',
+                 'glname' => 'required',
+                 'gshirtsize' => 'required',
+             ];
+             $validator = Validator::make($request->all(), $validation, $messages);
+             if ($validator->fails()) {
+                 return redirect('/guests')->withErrors($validator)->withInput();
+             }
+ */
             $register = $this->register;
             $register->num_of_travlers = $request->num_of_travler;
             if (!$register->save())
@@ -266,18 +271,18 @@ class HomeController extends Controller
     public function gethotel(Request $request)
     {
         if ($request->isMethod('post')) {
-           /* $message = [
-                'meeting.required' => 'The Meeting field is required.'
-            ];
+            /* $message = [
+                 'meeting.required' => 'The Meeting field is required.'
+             ];
 
-            $validation = [
-                'meeting' => 'required'
-            ];
+             $validation = [
+                 'meeting' => 'required'
+             ];
 
-            $validator = Validator::make($request->all(), $validation, $message);
-            if ($validator->fails()) {
-                return redirect('/meeting')->withErrors($validator)->withInput();
-            }*/
+             $validator = Validator::make($request->all(), $validation, $message);
+             if ($validator->fails()) {
+                 return redirect('/meeting')->withErrors($validator)->withInput();
+             }*/
             $register = $this->register;
             $register->meeting_participants = $request->meeting;
             if (!$register->save())
@@ -353,44 +358,44 @@ class HomeController extends Controller
     public function getagreement(Request $request)
     {
         if ($request->isMethod('post')) {
-           /* if ($request->quote_airfare == 'yes') {
-                $messages = [
-                    'dcity.required' => 'The Departure City field is required.',
-                    'ddate.required' => 'The Date field is required.',
-                    'pdtime.required' => 'The Preferred departure field is required.',
-                    'rdate.required' => 'The Returned date field is required.',
-                    'prtime.required' => 'The Preferred returned field is required.',
-                    'pairline.required' => 'The Preferred airline field is required.',
-                    'fflyer.required' => 'The Frequent flayer field is required.',
-                    'pay_method.required' => 'The Payment Method  is required.',
-                    'service.required' => 'The Class of service is required.',
-                    'snotes.required' => 'The Special Note field is required.'
-                ];
-                $validation = [
-                    'dcity' => 'required',
-                    'ddate' => 'required',
-                    'pdtime' => 'required',
-                    'rdate' => 'required',
-                    'prtime' => 'required',
-                    'pairline' => 'required',
-                    'fflyer' => 'required',
-                    'pay_method' => 'required',
-                    'service' => 'required',
-                    'snotes' => 'required'
-                ];
-            } else {
+            /* if ($request->quote_airfare == 'yes') {
+                 $messages = [
+                     'dcity.required' => 'The Departure City field is required.',
+                     'ddate.required' => 'The Date field is required.',
+                     'pdtime.required' => 'The Preferred departure field is required.',
+                     'rdate.required' => 'The Returned date field is required.',
+                     'prtime.required' => 'The Preferred returned field is required.',
+                     'pairline.required' => 'The Preferred airline field is required.',
+                     'fflyer.required' => 'The Frequent flayer field is required.',
+                     'pay_method.required' => 'The Payment Method  is required.',
+                     'service.required' => 'The Class of service is required.',
+                     'snotes.required' => 'The Special Note field is required.'
+                 ];
+                 $validation = [
+                     'dcity' => 'required',
+                     'ddate' => 'required',
+                     'pdtime' => 'required',
+                     'rdate' => 'required',
+                     'prtime' => 'required',
+                     'pairline' => 'required',
+                     'fflyer' => 'required',
+                     'pay_method' => 'required',
+                     'service' => 'required',
+                     'snotes' => 'required'
+                 ];
+             } else {
 
-                $validation = [
-                    'quote_airfare' => 'required',
-                ];
-                $messages = [
-                    'quote_airfare.required' => 'The quote_airfare field is required.',
-                ];
-            $validator = Validator::make($request->all(), $validation, $messages);
-            if ($validator->fails()) {
-                return redirect('/flights')->withErrors($validator)->withInput();
-            }
-            }*/
+                 $validation = [
+                     'quote_airfare' => 'required',
+                 ];
+                 $messages = [
+                     'quote_airfare.required' => 'The quote_airfare field is required.',
+                 ];
+             $validator = Validator::make($request->all(), $validation, $messages);
+             if ($validator->fails()) {
+                 return redirect('/flights')->withErrors($validator)->withInput();
+             }
+             }*/
 
             $register = $this->register;
             $register->dpt_date = date('Y-m-d', strtotime($request->ddate));
@@ -406,6 +411,7 @@ class HomeController extends Controller
             foreach ($optionalInput as $key => $value) {
                 $register->$key = $request->$value;
             }
+
 
             if (!$register->save())
                 return redirect('/flights');
@@ -435,16 +441,42 @@ class HomeController extends Controller
                 $register->$key = $request->$value;
             }
 
-            if (!$register->save())
+            if ($register->airfare_quote == 'yes') {
+
+                $data = array(
+                    'comp_name'=>$register->comp_name,
+                    'fname' => $register->fname,
+                    'lname' => $register->lname,
+                    'tel' => $register->tel,
+                    'cell' => $register->cell,
+                    'email' => $register->email,
+                    'email_alt' => $register->email_alt,
+                    'address' => $register->address,
+                    'city' => $register->city,
+                    'state' => $register->state ,
+                    'zip' => $register->zip,
+                    'country' => $register->country,
+                    'emerg_contact' => $register->emerg_contact,
+                    'emerg_phone' => $register->emerg_phone
+                    );
+                //dd($data);
+                Mail::send('emails.mail', $data, function ($message) {
+                    $message->to('masterspa@yopmail.com', 'MasterSpa')
+                        ->subject('Testing mail');
+                    $message->from('arslkhan5@gmail.com', 'Arsl khan');
+
+                });
+            }
+            if (!$register->save()) {
                 return redirect('/agreement');
-            else{
+            } else {
                 if (!empty($request->url))
                     return redirect($request->url);
 
                 session()->put('register_id', $register->id);
-                
+
                 $requriedFieldMissing = $this->isRequiredFieldMissing();
-                
+
                 $registration = $this->register;
                 return view('/thankyou')->with(compact('registration', 'requriedFieldMissing'));
             }
@@ -453,22 +485,23 @@ class HomeController extends Controller
     }
 
 
-    public function isRequiredFieldMissing(){
+    public function isRequiredFieldMissing()
+    {
         $register = $this->register;
         $requiredFields = [
-                'all'=>['comp_name','fname','lname','tel','cell','email','address','city','state','zip','country','emerg_contact','emerg_phone','preference','special_need','meeting_participants','airfare_quote'],
-                'airfare_quote'=>['service_class','dpt_city','dpt_date','pref_dpt_time','ret_date','pref_ret_time','pref_airline','freq_flyer_no','payment_method','special_notes']
+            'all' => ['comp_name', 'fname', 'lname', 'tel', 'cell', 'email', 'address', 'city', 'state', 'zip', 'country', 'emerg_contact', 'emerg_phone', 'preference', 'special_need', 'meeting_participants', 'airfare_quote'],
+            'airfare_quote' => ['service_class', 'dpt_city', 'dpt_date', 'pref_dpt_time', 'ret_date', 'pref_ret_time', 'pref_airline', 'freq_flyer_no', 'payment_method', 'special_notes']
         ];
-        foreach($requiredFields as $key => $fields){
-            if($key == 'all'){
-               foreach($fields as $field){
-                    if(empty($register->$field))
+        foreach ($requiredFields as $key => $fields) {
+            if ($key == 'all') {
+                foreach ($fields as $field) {
+                    if (empty($register->$field))
                         return 'true';
                 }
             } else {
-                if($register->$key == 'yes'){
-                    foreach($fields as $field){
-                        if(empty($register->$field))
+                if ($register->$key == 'yes') {
+                    foreach ($fields as $field) {
+                        if (empty($register->$field))
                             return 'true';
                     }
                 }
@@ -482,7 +515,8 @@ class HomeController extends Controller
         return view('contact_us');
     }
 
-    public function termsAndCondition(){
+    public function termsAndCondition()
+    {
         return view('terms_and_conditions');
     }
 }
