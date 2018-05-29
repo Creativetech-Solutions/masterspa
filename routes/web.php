@@ -30,6 +30,7 @@ Route::get('/flights', 'HomeController@getflights');
 Route::get('/terms_and_condition', 'HomeController@termsAndCondition');
 Route::get('/admin', 'admin\HomeController@index');
 Route::get('/admin/registration/reg-list', 'admin\flightsController@index');
+Route::get('/submission', 'HomeController@submission');
 Route::any('/search','HomeController@searchResult');
 
 // post methods
@@ -66,6 +67,7 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::get('/guests', 'AttendeeController@index');
     Route::get('/guests/edit_guest/{id}', 'AttendeeController@editAttendee');
     Route::get('/guests/delete/{id}', 'AttendeeController@delete');
+    Route::get('/emails/edit_template/{id}','EmailController@getTemplate');
     Route::get('/registration/edit_form/{id}','RegistrationController@getregister');
     Route::get('/registration/delete/{id}','RegistrationController@delete');
     Route::get('/report/download_single/{id}','ReportController@downloadSingleReport');
@@ -76,6 +78,7 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::post('/emails', 'EmailController@index');
     Route::post('/profile','HomeController@getprofile');
     Route::post('/registration/edit_form/{id}','RegistrationController@getregister');
+    Route::post('/emails/update/{id}','EmailController@updateTemplate');
     Route::post('/report/defaultreport','ReportController@defaultReport');
     Route::post('/guests/edit_guest/{id}', 'AttendeeController@editAttendee');
     Route::post('/report/singleReport','ReportController@singleReport');

@@ -91,7 +91,8 @@
             <div class="col-md-6">
                 <input type="hidden" name="url" value="" />
                 <button class="btn btn-danger previous">&laquo; Previous</button>
-                <button type="submit" class="btn btn-primary">Submit Registration</button><br>
+                <button type="submit" class="btn btn-primary sub">Submit Registration</button>
+                <a href="{{url('/submission')}}" class="btn btn-default snc">Save and Complete Later</a><br>
             </div>
         </form>
     </div>
@@ -100,6 +101,9 @@
 @section('scripts')
         @include('layouts/script')
     <script type="text/javascript">
+        $(document).on('click','.sub', function(){
+            $('.snc').hide();
+        });
         $(document).on('click','.previous', function(e){
             e.preventDefault();
             previouspage('flights');

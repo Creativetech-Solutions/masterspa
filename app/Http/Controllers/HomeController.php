@@ -29,8 +29,7 @@ class HomeController extends Controller
     {
         if (!session()->has('register_id')) {
             $this->register = new Register;
-        }
-            else {
+        } else {
             if (empty($this->register = Register::find(session('register_id')))) {
                 $this->register = new Register();
             } else {
@@ -49,6 +48,7 @@ class HomeController extends Controller
         $registration = $this->register;
         $pre = 'index';
         $countries = Country::all()->sortBy("name");
+        //dd($countries);
         return view('index')->with(compact('registration', 'countries'));
     }
 
@@ -111,7 +111,7 @@ class HomeController extends Controller
             $register->emerg_phone = $request->emerg_phone;
             $register->unique_id = $unique_id;
             if (!$register->save())
-            return redirect('/');
+                return redirect('/');
             else {
                 session()->put('register_id', $register->id);
             }
@@ -430,7 +430,7 @@ class HomeController extends Controller
 
     public function submission(Request $request)
     {
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('get')) {
             $register = $this->register;
             $register->special_circumstances = $request->specialnotes;
             // optional inputs
@@ -439,12 +439,119 @@ class HomeController extends Controller
                 $register->$key = $request->$value;
             }
 
+            $update = array('status' => 'Pending');
+            Register::find($register->id)->update($update);
+            $status = Register::find($register->id);
+            $complete_data = array(
+                'comp_name' => $register->comp_name,
+                'fname' => $register->fname,
+                'lname' => $register->lname,
+                'tel' => $register->tel,
+                'cell' => $register->cell,
+                'email' => $register->email,
+                'email_alt' => $register->email_alt,
+                'address' => $register->address,
+                'city' => $register->city,
+                'state' => $register->state,
+                'zip' => $register->zip,
+                'country' => $register->country,
+                'emerg_contact' => $register->emerg_contact,
+                'emerg_phone' => $register->emerg_phone,
+                'dpt_city' => $register->dpt_city,
+                'dpt_date' => $register->dpt_date,
+                'pref_dpt_time' => $register->pref_dpt_time,
+                'ret_date' => $register->ret_date,
+                'pref_ret_time' => $register->pref_ret_time,
+                'preference' => $register->country,
+                'special_need' => $register->special_need,
+                'specify_need' => $register->specify_need,
+                'meeting_participants' => $register->meeting_participants,
+                'extend_trip' => $register->extend_trip,
+                'european_dealer' => $register->european_dealer,
+                'airfare_quote' => $register->airfare_quote,
+                'service_class' => $register->service_class,
+                'pref_airline' => $register->pref_airline,
+                'freq_flyer_no' => $register->freq_flyer_no,
+                'payment_method' => $register->payment_method,
+                'special_notes' => $register->special_notes,
+                'status' => $status->status
+            );
+            $template = Email_template::find(4);
+            $html = \View::make('emails.save_and_complete')->with(compact('complete_data'))->render();
+            $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
+                array($html, $register->fname, 'Master Spas'), $template->body);
+            $data = array('messageBody' => htmlspecialchars_decode($messageBody));
+            Mail::send('emails.show_temp', $data, function ($message) {
+                $message->to('masterspa@yopmail.com', 'MasterSpa')
+                    ->subject('Saved Form later');
+                $message->from('masterspa@yopmail.com', 'Master Spas');
+            });
+
+            return redirect('/agreement');
+        }
+        if ($request->isMethod('post')) {
+            $register = $this->register;
+            $register->special_circumstances = $request->specialnotes;
+            // optional inputs
+            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info'];
+            foreach ($optionalInput as $key => $value) {
+                $register->$key = $request->$value;
+            }
+            $update = array('status' => 'Registered');
+            Register::find($register->id)->update($update);
+            $status = Register::find($register->id);
+            $complete_data = array(
+                'comp_name' => $register->comp_name,
+                'fname' => $register->fname,
+                'lname' => $register->lname,
+                'tel' => $register->tel,
+                'cell' => $register->cell,
+                'email' => $register->email,
+                'email_alt' => $register->email_alt,
+                'address' => $register->address,
+                'city' => $register->city,
+                'state' => $register->state,
+                'zip' => $register->zip,
+                'country' => $register->country,
+                'emerg_contact' => $register->emerg_contact,
+                'emerg_phone' => $register->emerg_phone,
+                'dpt_city' => $register->dpt_city,
+                'dpt_date' => $register->dpt_date,
+                'pref_dpt_time' => $register->pref_dpt_time,
+                'ret_date' => $register->ret_date,
+                'pref_ret_time' => $register->pref_ret_time,
+                'preference' => $register->country,
+                'special_need' => $register->special_need,
+                'specify_need' => $register->specify_need,
+                'meeting_participants' => $register->meeting_participants,
+                'extend_trip' => $register->extend_trip,
+                'european_dealer' => $register->european_dealer,
+                'airfare_quote' => $register->airfare_quote,
+                'service_class' => $register->service_class,
+                'pref_airline' => $register->pref_airline,
+                'freq_flyer_no' => $register->freq_flyer_no,
+                'payment_method' => $register->payment_method,
+                'special_notes' => $register->special_notes,
+                'send_invoice' => $register->send_invoice,
+                'special_circumstances' => $register->special_circumstances,
+                'status' => $status->status,
+            );
+            $template = Email_template::find(4);
+            $html = \View::make('emails.complete_info_mail')->with(compact('complete_data'))->render();
+            $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
+                array($html, $register->fname, 'Master Spas'), $template->body);
+            $data = array('messageBody' => htmlspecialchars_decode($messageBody));
+            Mail::send('emails.show_temp', $data, function ($message) {
+                $message->to('masterspa@yopmail.com', 'MasterSpa')
+                    ->subject('Master Spas Registration');
+                $message->from('masterspa@yopmail.com', 'Master Spas');
+            });
+            /*$html = \View::make('emails.complete_info_mail')->render();
+            $save = htmlspecialchars($html);
+            dd($save);*/
             if ($register->airfare_quote == 'yes') {
-                /*$html = \View::make('emails.mail')->render();
-                $save = htmlspecialchars($html);
-                Email_template::where('id', '1')->update(array('body' => $save));*/
                 $av_data = array(
-                    'comp_name'=>$register->comp_name,
+                    'comp_name' => $register->comp_name,
                     'fname' => $register->fname,
                     'lname' => $register->lname,
                     'tel' => $register->tel,
@@ -452,7 +559,7 @@ class HomeController extends Controller
                     'email' => $register->email,
                     'address' => $register->address,
                     'city' => $register->city,
-                    'state' => $register->state ,
+                    'state' => $register->state,
                     'zip' => $register->zip,
                     'country' => $register->country,
                     'emerg_contact' => $register->emerg_contact,
@@ -462,16 +569,16 @@ class HomeController extends Controller
                     'pref_dpt_time' => $register->pref_dpt_time,
                     'ret_date' => $register->ret_date,
                     'pref_ret_time' => $register->pref_ret_time
-                    );
+                );
                 $template = Email_template::find(1);
-                $html = \View::make('emails.reg_incomplete')->with(compact('av_data'))->render();
+                $html = \View::make('emails.reg_incomplete')->with(compact('$av_data'))->render();
                 $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
                     array($html, $register->fname, 'Master Spas'), $template->body);
                 $data = array('messageBody' => htmlspecialchars_decode($messageBody));
                 Mail::send('emails.show_temp', $data, function ($message) {
                     $message->to('masterspa@yopmail.com', 'MasterSpa')
-                        ->subject('Testing mail');
-                    $message->from('arslkhan5@gmail.com', 'Arsl khan');
+                        ->subject('Informed Admin');
+                    $message->from('masterspa@yopmail.com', 'Master Spas');
                 });
             }
             if (!$register->save()) {
@@ -490,7 +597,6 @@ class HomeController extends Controller
         }
 
     }
-
 
     public function isRequiredFieldMissing()
     {
@@ -527,15 +633,17 @@ class HomeController extends Controller
         return view('terms_and_conditions');
     }
 
-    public function searchResult(){
-        $search = Input::get ( 'unique_id' );
+    public function searchResult()
+    {
+        $search = Input::get('unique_id');
         $registration = Register::where('unique_id', $search)->first();
-        if(!empty($registration)){
+        $countries = Country::all()->sortBy("name");
+        if (!empty($registration)) {
             session()->put('register_id', $registration->id);
             //redirect(back());
-            return view('/index')->with(compact('registration'))->withQuery ( $search );
+            return view('/index')->with(compact('registration','countries'))->withQuery($search);
         } else
-            return view ('/index')->withMessage('No Record found. Try to search again !');
+            return view('/index')->withMessage('No Record found. Try to search again !');
 
     }
 }

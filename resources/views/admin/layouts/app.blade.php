@@ -170,7 +170,9 @@
 
 
 <script src="{{asset('public/admin')}}/bower_components/jquery/dist/jquery.min.js"></script>
-  @yield('content')
+  <script src="{{asset('public/js/jquery.wysiwyg.js')}}"></script>
+  <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+@yield('content')
 
 
    <!-- /.content-wrapper -->
@@ -189,14 +191,13 @@
 </div>
 <!-- ./wrapper -->
 
+<script>
+$.widget.bridge('uibutton', $.ui.button)
 <!-- jQuery 3 -->
 <!-- jQuery UI 1.11.4 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
 <script src="{{asset('public/admin')}}/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('public/admin')}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->

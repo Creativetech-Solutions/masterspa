@@ -7,7 +7,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Saved Report List
+                Email Template Listing
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{ url('admin')}}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -40,7 +40,7 @@
                                         <td>{{$email->name}}</td>
                                         <td>{{$email->subject}}</td>
                                         <td>{{$email->help}}</td>
-                                        <td><a data-id="{{$email->id}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>Edit</a>
+                                        <td><a href="{{url('admin/emails/edit_template/'.$email->id)}}" data-id="{{$email->id}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

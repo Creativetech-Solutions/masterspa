@@ -189,12 +189,12 @@
                         <div class="col-xs-12"><br></div>
                         <select name="country" class="form-control">
                             <option value="0">Select Country</option>
-                            {{--{{print_r($countries)}}
+                            {{print_r($countries)}}
                             @foreach($countries as $key => $country)
 
                                 <option
                                         value="{{$country->id}}"{{ $registration->country ==  $country->id ? 'selected':''}}>{{$country->name}}</option>
-                            @endforeach--}}
+                            @endforeach
                         </select>
                     </div>
 
