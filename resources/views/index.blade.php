@@ -69,6 +69,18 @@
 
         <div class="container-page">
             @include('layouts/notify')
+            <form action="{{url('/search')}}" method="POST" role="search">
+                {{ csrf_field() }}
+                <div class="input-group col-xs-4 pull-right">
+                    <input type="text" class="form-control" name="unique_id"
+                           placeholder="Search Unique ID"> <span class="input-group-btn">
+            <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+                </div>
+            </form>
+
             <h3 class="dark-grey">Personal Details</h3>
 
             <form class="pref-form" action="{{ url('/prefrences') }}" method="POST">
@@ -104,7 +116,8 @@
 
                     <div class="form-group col-lg-4">
                         <label>Cell Phone for Reaching Attendee When Traveling:</label>
-                        <input type="text" name="cellphone" class="form-control" value="{{ $registration->cell }}" placeholder="Cell Phone"  id="Cell Phone">
+                        <input type="text" name="cellphone" class="form-control" value="{{ $registration->cell }}"
+                               placeholder="Cell Phone" id="Cell Phone">
                     </div>
 
                     <div class="form-group col-lg-4">
@@ -221,6 +234,8 @@
             $('input[name="url"]').val(url);
             $('.pref-form').submit();
         }
+        if ()
+            $('#unique_message')
 
     </script>
 @endsection
