@@ -26,7 +26,9 @@
                     <div class="row">
                         <form action="{{url('admin/registration/edit_form/'.$registration->id)}}" method="post">
                             {{ csrf_field() }}
-                            <h3>Personal Details</h3>
+                            <div class="col-lg-12">
+                                <h3>Personal Details</h3>
+                            </div>
                             <div class="col-md-6">
 
                                 <div class="form-group">
