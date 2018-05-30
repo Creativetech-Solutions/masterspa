@@ -45,6 +45,7 @@
     if(empty($registration->id)){ 
         $registration = new \stdClass();
         $registration->save_info = "";
+        $registration->need_invoice = "";
         $registration->send_invoice = "";
         $registration->special_circumstances = "";
     }
@@ -81,11 +82,13 @@
             </div>
 
             <div class="col-lg-12">
-                <div class="form-group col-xs-12">
+                <div class="form-group col-xs-06">
                 	<br>	
                     <label>Save Information:</label><br>
-                    <input type="checkbox" name="save_info" {{ $registration->save_info == 1 ? 'checked':'' }} value="1"> {Checking this option will save your information for future registrations}<br>
-                    
+                    <input type="checkbox" name="save_info" {{ $registration->save_info == 1 ? 'checked':'' }} value="1"> Checking this option will save your information for future registrations<br>
+                    <label>Need Invoice:</label><br>
+                    <input type="checkbox" name="need_invoice" {{ $registration->need_invoice == 1 ? 'checked':'' }} value="1"> Please click here if you need an invoice generated prior to payment<br>
+
                 </div>
             </div>
             <div class="col-md-6">

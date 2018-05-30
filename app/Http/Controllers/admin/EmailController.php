@@ -24,6 +24,6 @@ class EmailController extends Controller
         $template->help = $request->help;
         $template->body = $html;
         $template->save();
-        return redirect('admin/emails/email_listing');
+        return redirect('admin/emails');
     }
 }
