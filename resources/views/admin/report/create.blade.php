@@ -227,9 +227,14 @@
                                                   name="r___special_circumstances::Special_Circumstances"
                                                   {{ (in_array('r___special_circumstances::Special_Circumstances', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Special Circumstances or Notes </label><br>
-                                    <label><input type="checkbox" name="r___save_info::Save_Info"
+                                    <label>
+                                        <input type="checkbox" name="r___save_info::Save_Info"
                                                   {{ (in_array('r___save_info::Save_Info', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
                                         Save Info </label><br>
+                                    <label>
+                                    <input type="checkbox" name="r___need_invoice::Need_Invoice"
+                                           {{ (in_array('r___need_invoice::Need_Invoice', $db_checkboxes)) ? 'checked': '' }} class="flat-red">
+                                    Need Invoice </label><br>
                                 </div>
                             </div>
                         </div>

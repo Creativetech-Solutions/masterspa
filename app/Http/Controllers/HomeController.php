@@ -434,11 +434,10 @@ class HomeController extends Controller
             $register = $this->register;
             $register->special_circumstances = $request->specialnotes;
             // optional inputs
-            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info'];
+            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info','need_invoice' => 'need_invoice'];
             foreach ($optionalInput as $key => $value) {
                 $register->$key = $request->$value;
             }
-
             $update = array('status' => 'Pending');
             Register::find($register->id)->update($update);
             $status = Register::find($register->id);
@@ -481,8 +480,12 @@ class HomeController extends Controller
             $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
                 array($html, $register->fname, 'Master Spas'), $template->body);
             $data = array('messageBody' => htmlspecialchars_decode($messageBody));
-            Mail::send('emails.show_temp', $data, function ($message) {
-                $message->to('masterspa@yopmail.com', 'MasterSpa')
+            $email_info = array(
+                'email' => $register->email,
+                'name' => $register->fname,
+            );
+            Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
+                $message->to($email_info['email'],$email_info['name'])
                     ->subject('Saved Form later');
                 $message->from('masterspa@yopmail.com', 'Master Spas');
             });
@@ -493,7 +496,7 @@ class HomeController extends Controller
             $register = $this->register;
             $register->special_circumstances = $request->specialnotes;
             // optional inputs
-            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info'];
+            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info','need_invoice' => 'need_invoice'];
             foreach ($optionalInput as $key => $value) {
                 $register->$key = $request->$value;
             }
@@ -541,8 +544,12 @@ class HomeController extends Controller
             $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
                 array($html, $register->fname, 'Master Spas'), $template->body);
             $data = array('messageBody' => htmlspecialchars_decode($messageBody));
-            Mail::send('emails.show_temp', $data, function ($message) {
-                $message->to('masterspa@yopmail.com', 'MasterSpa')
+            $email_info = array(
+                'email' => $register->email,
+                'name' => $register->fname,
+            );
+            Mail::send('emails.show_temp', $data, function ($message) use ($email_info){
+                $message->to($email_info['email'], $email_info['name'])
                     ->subject('Master Spas Registration');
                 $message->from('masterspa@yopmail.com', 'Master Spas');
             });
@@ -571,7 +578,7 @@ class HomeController extends Controller
                     'pref_ret_time' => $register->pref_ret_time
                 );
                 $template = Email_template::find(1);
-                $html = \View::make('emails.reg_incomplete')->with(compact('$av_data'))->render();
+                $html = \View::make('emails.reg_incomplete')->with(compact('av_data'))->render();
                 $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
                     array($html, $register->fname, 'Master Spas'), $template->body);
                 $data = array('messageBody' => htmlspecialchars_decode($messageBody));
@@ -595,7 +602,6 @@ class HomeController extends Controller
                 return view('/thankyou')->with(compact('registration', 'requriedFieldMissing'));
             }
         }
-
     }
 
     public function isRequiredFieldMissing()
