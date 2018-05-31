@@ -8,6 +8,7 @@ use App\Attendee_extended_night;
 use App\Country;
 use App\Departure_date;
 use App\Email_template;
+use App\User;
 use Illuminate\Http\Request;
 use App\Register;
 use Illuminate\Support\Facades\App;
@@ -54,7 +55,9 @@ class HomeController extends Controller
 
     public function getprefrences(Request $request)
     {
-
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
         if ($request->isMethod('post')) {
             /*  $messages = [
                   'cname.required' => 'The Company Name field is required.',
@@ -84,7 +87,6 @@ class HomeController extends Controller
                   'emerg_contact' => 'required|max:191',
                   'emerg_phone' => 'required|max:191',
               ];*/
-            $unique_id = uniqid();
 
             $register = $this->register;
             if (!session()->has('register_id')) {
@@ -109,7 +111,10 @@ class HomeController extends Controller
             $register->country = $request->country;
             $register->emerg_contact = $request->emerg_contact;
             $register->emerg_phone = $request->emerg_phone;
-            $register->unique_id = $unique_id;
+            if (empty($register->unique_id)) {
+                $unique_id = uniqid();
+                $register->unique_id = $unique_id;
+            }
             if (!$register->save())
                 return redirect('/');
             else {
@@ -127,6 +132,9 @@ class HomeController extends Controller
 
     public function getguests(Request $request)
     {
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
         if ($request->isMethod('post')) {
             /*if($request->special_need == 'yes')
             {
@@ -180,6 +188,9 @@ class HomeController extends Controller
 
     public function getadditional(Request $request)
     {
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
         if ($request->isMethod('post')) {
 
             /* $messages = [
@@ -245,6 +256,9 @@ class HomeController extends Controller
 
     public function getmeeting(Request $request)
     {
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
         if ($request->isMethod('post')) {
             /*$validation = [
                 'attandees' => 'required'
@@ -271,6 +285,9 @@ class HomeController extends Controller
 
     public function gethotel(Request $request)
     {
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
         if ($request->isMethod('post')) {
             /* $message = [
                  'meeting.required' => 'The Meeting field is required.'
@@ -303,6 +320,9 @@ class HomeController extends Controller
 
     public function getflights(Request $request)
     {
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
         if ($request->isMethod('post')) {
             /* if ($request->eur_dealer == 'yes') {
                $messages = [
@@ -358,6 +378,9 @@ class HomeController extends Controller
 
     public function getagreement(Request $request)
     {
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
         if ($request->isMethod('post')) {
             /* if ($request->quote_airfare == 'yes') {
                  $messages = [
@@ -434,7 +457,7 @@ class HomeController extends Controller
             $register = $this->register;
             $register->special_circumstances = $request->specialnotes;
             // optional inputs
-            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info','need_invoice' => 'need_invoice'];
+            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info', 'need_invoice' => 'need_invoice'];
             foreach ($optionalInput as $key => $value) {
                 $register->$key = $request->$value;
             }
@@ -485,18 +508,17 @@ class HomeController extends Controller
                 'name' => $register->fname,
             );
             Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
-                $message->to($email_info['email'],$email_info['name'])
+                $message->to($email_info['email'], $email_info['name'])
                     ->subject('Saved Form later');
                 $message->from('masterspa@yopmail.com', 'Master Spas');
             });
-
-            return redirect('/agreement');
+            return view('/information_saved');
         }
         if ($request->isMethod('post')) {
             $register = $this->register;
             $register->special_circumstances = $request->specialnotes;
             // optional inputs
-            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info','need_invoice' => 'need_invoice'];
+            $optionalInput = ['send_invoice' => 'agreement', 'save_info' => 'save_info', 'need_invoice' => 'need_invoice'];
             foreach ($optionalInput as $key => $value) {
                 $register->$key = $request->$value;
             }
@@ -548,7 +570,7 @@ class HomeController extends Controller
                 'email' => $register->email,
                 'name' => $register->fname,
             );
-            Mail::send('emails.show_temp', $data, function ($message) use ($email_info){
+            Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
                 $message->to($email_info['email'], $email_info['name'])
                     ->subject('Master Spas Registration');
                 $message->from('masterspa@yopmail.com', 'Master Spas');
@@ -582,8 +604,13 @@ class HomeController extends Controller
                 $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
                     array($html, $register->fname, 'Master Spas'), $template->body);
                 $data = array('messageBody' => htmlspecialchars_decode($messageBody));
-                Mail::send('emails.show_temp', $data, function ($message) {
-                    $message->to('masterspa@yopmail.com', 'MasterSpa')
+                $admin_email = User::find(2);
+                $email_info = array(
+                    'email' => $admin_email->email,
+                    'name' => $admin_email->fname,
+                );
+                Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
+                    $message->to($email_info['email'], $email_info['name'])
                         ->subject('Informed Admin');
                     $message->from('masterspa@yopmail.com', 'Master Spas');
                 });
@@ -641,13 +668,13 @@ class HomeController extends Controller
 
     public function searchResult()
     {
+        $countries = Country::all()->sortBy("name");
         $search = Input::get('unique_id');
         $registration = Register::where('unique_id', $search)->first();
-        $countries = Country::all()->sortBy("name");
         if (!empty($registration)) {
             session()->put('register_id', $registration->id);
             //redirect(back());
-            return view('/index')->with(compact('registration','countries'))->withQuery($search);
+            return view('/index')->with(compact('registration', 'countries'))->withQuery($search);
         } else
             return view('/index')->withMessage('No Record found. Try to search again !');
 

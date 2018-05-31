@@ -21,7 +21,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/additional', 'HomeController@getadditional');
 Route::get('/agreement', 'HomeController@getagreement');
 Route::get('/guests', 'HomeController@getguests');
-
 Route::get('/hotel', 'HomeController@gethotel');
 Route::get('/meeting', 'HomeController@getmeeting');
 Route::get('/prefrences', 'HomeController@getprefrences');
@@ -37,7 +36,6 @@ Route::any('/search','HomeController@searchResult');
 
 Route::post('/prefrences', 'HomeController@getprefrences');
 Route::post('/guests', 'HomeController@getguests');
-
 Route::post('/', 'HomeController@index')->name('home');
 Route::post('/additional', 'HomeController@getadditional');
 Route::post('/agreement', 'HomeController@getagreement');

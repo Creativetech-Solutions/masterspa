@@ -3,7 +3,7 @@
 @section('header')
     <style id='activation-inline-css' type='text/css'>
         .site-header {
-            background-image: url({{ asset('public/images/WebPhotoHeader_08.jpg') }});
+            background-image: url({{ asset('public/images/WebPhotoHeader_09.jpg') }});
         }
 
         input[type=text], input[type=email] {

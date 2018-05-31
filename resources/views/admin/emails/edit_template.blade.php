@@ -46,7 +46,7 @@
                                             {{$email_template->help}}</textarea>
                                     </div>
                                     <div class="col-xs-12">
-                                        <textarea class="form-control" name="temp"
+                                        <textarea class="form-control" name="temp" rows="25"
                                                   id="summary-ckeditor">{{$email_template->body}}</textarea>
                                         <div class="label2 label-important">Do Not Replace Variables Between [ ]</div>
                                         <button type="submit" class="btn btn-primary pull-right">Update

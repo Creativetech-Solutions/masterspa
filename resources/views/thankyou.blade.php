@@ -117,7 +117,7 @@
         </div>
         @else
         <div class="alert alert-success">
-          <strong>Thank you for submitting your registration. </p>
+            <strong>Thank you for submitting your registration. </strong></p>
         </div>
 
         <a class="btn btn-primary" href="{{ url('/') }}" style="color:white">Review Registration</a>
