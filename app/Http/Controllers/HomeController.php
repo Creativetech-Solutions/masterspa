@@ -55,9 +55,9 @@ class HomeController extends Controller
 
     public function getprefrences(Request $request)
     {
-        if (empty(session('register_id'))) {
+        /*if (empty(session('register_id'))) {
             return redirect('/');
-        }
+        }*/
         if ($request->isMethod('post')) {
             /*  $messages = [
                   'cname.required' => 'The Company Name field is required.',

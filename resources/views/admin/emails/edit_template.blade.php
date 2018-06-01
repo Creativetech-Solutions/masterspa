@@ -28,9 +28,9 @@
                                 <form action="{{url('admin/emails/update/'.$email_template->id)}}" id="temp_update"
                                       method="post">
                                     {{csrf_field()}}
-                                    <header>Email Template Manager<span>Editing Email Template <i
+                                    {{--<header>Email Template Manager<span> Editing Email Template <i
                                                     class="icon-double-angle-right"></i> {{$email_template->name}}</span>
-                                    </header>
+                                    </header>--}}
                                     <div class="form-group col-xs-6">
                                         <label class="input">Template Title</label>
                                         <input type="text" class="form-control" placeholder="Template Title"
@@ -74,6 +74,6 @@
 
     <script>
         CKEDITOR.replace('summary-ckeditor');
-
+        CKEDITOR.resize( '100%', '650', true );
     </script>
 @endsection
