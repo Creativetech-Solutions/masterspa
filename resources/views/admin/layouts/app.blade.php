@@ -146,7 +146,7 @@
         </li>
         <li>
           <a href="{{url('admin/emails')}}">
-            <i class="fa fa-th"></i> <span>Email</span>
+            <i class="fa fa-th"></i> <span>Email Templates</span>
           </a>
         </li>
         <li class="treeview">

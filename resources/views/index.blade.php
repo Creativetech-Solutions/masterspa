@@ -3,7 +3,7 @@
 @section('header')
     <style type="text/css">
         .site-header {
-            background-image: url({{ asset('public/images/WebPhotoHeader_07.jpg') }});
+            background-image: url({{ asset('public/images/WebPhotoHeader_First.jpg') }});
         }
 
 
@@ -234,8 +234,5 @@
             $('input[name="url"]').val(url);
             $('.pref-form').submit();
         }
-        if ()
-            $('#unique_message')
-
     </script>
 @endsection

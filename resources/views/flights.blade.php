@@ -3,7 +3,7 @@
 @section('header')
     <style id='activation-inline-css' type='text/css'>
         .site-header {
-            background-image: url({{ asset('public/images/WebPhotoHeader_04.jpg') }});
+            background-image: url({{ asset('public/images/WebPhotoHeader_02.jpg') }});
         }
     </style>
     <div class="site-header-wrapper">
@@ -66,6 +66,9 @@
             <div class="col-sm pull-right">
                 <label>Your Unique ID:</label>
                 <input type="text" value="{{$registration->unique_id}}" readonly disabled>
+            </div>
+            <div style="background-color: lightgrey; padding: 8px" class="pull-left">
+                <p style="color: red; margin: 0px"><b>Please note and save your unique ID, in order to return and see your information.</b></p>
             </div>
             <h3 class="dark-grey">Flights</h3>
             <div class="col-xs-12">

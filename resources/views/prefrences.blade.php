@@ -3,7 +3,7 @@
 @section('header')
     <style id='activation-inline-css' type='text/css'>
         .site-header {
-            background-image: url({{ asset('public/images//WebPhotoHeader_01-1.jpg') }});
+            background-image: url({{ asset('public/images//WebPhotoHeader_07.jpg') }});
         }
     </style>
     <div class="site-header-wrapper">
@@ -45,13 +45,13 @@
 
 @section('content')
     @php
-        if(empty($registration->id)){
-            $registration = new \stdClass();
-            $registration->preference = "";
-            $registration->special_need = "";
-            $registration->specify_need = "";
-            $registration->unique_id ="";
-        }
+            if(empty($registration->id)){
+                $registration = new \stdClass();
+                $registration->preference = "";
+                $registration->special_need = "";
+                $registration->specify_need = "";
+                $registration->unique_id ="";
+            }
     @endphp
     <div class="container-fluid">
         <div class="container-page">
@@ -59,6 +59,9 @@
             <div class="col-sm pull-right">
             <label>Your unique ID:</label>
                 <input type="text" value="{{$registration->unique_id}}" readonly disabled>
+            </div>
+            <div style="background-color: lightgrey; padding: 8px" class="pull-left">
+                <p style="color: red; margin: 0px"><b>Please note and save your unique ID, in order to return and see your information.</b></p>
             </div>
                 <h3 class="dark-grey">Preferences</h3>
             <div class="col-xs-12">
