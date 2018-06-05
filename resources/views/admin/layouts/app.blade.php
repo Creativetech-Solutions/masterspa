@@ -168,7 +168,7 @@
     <!-- /.sidebar -->
   </aside>
 
-
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="{{asset('public/admin')}}/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="{{asset('public/js/jquery.wysiwyg.js')}}"></script>
   <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
@@ -191,8 +191,8 @@
 </div>
 <!-- ./wrapper -->
 
-<script>
-$.widget.bridge('uibutton', $.ui.button)
+
+/*$.widget.bridge('uibutton', $.ui.button)*/
 <!-- jQuery 3 -->
 <!-- jQuery UI 1.11.4 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>

@@ -25,6 +25,7 @@ class AttendeeController extends Controller
             $guest->middle_fname = $request->middle_name;
             $guest->lname = $request->last_name;
             $guest->tshirt_size = $request->gshirtsize;
+            $guest->age = $request->dob;
             $guest->save();
             return redirect('admin/guests');
         }

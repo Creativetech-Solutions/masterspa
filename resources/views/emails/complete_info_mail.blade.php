@@ -133,6 +133,52 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Status:</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['status']}}</td>
     </tr>
-
 </table>
-</tr>
+<h3>Price Details</h3>
+<table>
+    <tr>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Field Name</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Details</th>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Hotel Check In :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['hotel_check_in']}}</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Hotel Check Out :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['hotel_check_out']}}</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Total Hotel Nights :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['total_num_of_days']}}</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Included Hotel Nights :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['total_num_of_days'] - $price_info['num_of_days']}}</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Additional Nights :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['payment_method']}}</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Total Attendee</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['payment_method']}}</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Adults :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['adult']}}</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Above 5 Years :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['above_five']}}</td>
+    </tr>
+    {{--<tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Below 5 Years :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['below_five']}}</td>
+    </tr>--}}
+    <tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Total Price:<strong></strong></td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><strong>${{ $price_info['prices']}}</strong></td>
+    </tr>
+</table>
+<hr>

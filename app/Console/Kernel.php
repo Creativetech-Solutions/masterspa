@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('Reminder:IncompleteRegistrations')
-            ->weekly()->fridays()->at('07:00');
+            ->cron('0 0 */14 * *');
     }
 
     /**

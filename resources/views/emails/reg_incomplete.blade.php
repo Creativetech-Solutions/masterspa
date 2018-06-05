@@ -1,4 +1,3 @@
-<h2>Plese visit Master Spas and complete the below information:</h2>
 <h3>Personal Information</h3>
 <table style="font-family: Arial, Sans-Serif; border-collapse: collapse; width: 50% ">
     <tr>
@@ -59,35 +58,66 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['emerg_phone']}}</td>
     </tr>
 </table>
-<tr>
-    <tb>
-        <h3>Flights</h3>
-        <table style="font-family: Arial, Sans-Serif; border-collapse: collapse; width: 50% ">
-            <tr>
-                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Field Name</th>
-                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Details</th>
-            </tr>
+<table>
+    <tr>
+        <tb>
+            <h3>Flights</h3>
+            <table style="font-family: Arial, Sans-Serif; border-collapse: collapse; width: 50% ">
+                <tr>
+                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Field Name</th>
+                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Details</th>
+                </tr>
 
-            <tr>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Departure City:</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['dpt_city']}}</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Departure Date:</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['dpt_date']}}</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred Departure Time:</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['pref_dpt_time']}}</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Return Date: </td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['ret_date']}}</td>
-            </tr>
-            <tr>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred Return Time:</td>
-                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['pref_ret_time']}}</td>
-            </tr>
-        </table>
-    </tb>
-</tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Departure City:</td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['dpt_city']}}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Departure Date:</td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['dpt_date']}}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred Departure Time:
+                    </td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['pref_dpt_time']}}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Return Date:</td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['ret_date']}}</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred Return Time:</td>
+                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$av_data['pref_ret_time']}}</td>
+                </tr>
+            </table>
+        </tb>
+    </tr>
+</table>
+<table>
+    <tr>
+        <tb>
+            <h3>Guests</h3>
+            <table style="font-family: Arial, Sans-Serif; border-collapse: collapse; width: 50% ">
+                <tr>
+                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Field Name</th>
+                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Details</th>
+                </tr>
+                @foreach($guests as $guest)
+                    <tr>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest {{$count}} Name :</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$guest['badge_fname'].' '.$guest['middle_fname'].' '.$guest['lname']}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest {{$count}} D.O.B:</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$guest['age']}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest {{$count}} Size :</td>
+                        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$guest['tshirt_size']}}</td>
+                    </tr>
+                    $count++;
+                @endforeach
+            </table>
+        </tb>
+    </tr>
+</table>

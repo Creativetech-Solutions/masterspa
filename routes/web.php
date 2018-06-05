@@ -29,11 +29,12 @@ Route::get('/flights', 'HomeController@getflights');
 Route::get('/terms_and_condition', 'HomeController@termsAndCondition');
 Route::get('/admin', 'admin\HomeController@index');
 Route::get('/admin/registration/reg-list', 'admin\flightsController@index');
-Route::get('/submission', 'HomeController@submission');
+//Route::get('/submission', 'HomeController@submission');
 Route::any('/search','HomeController@searchResult');
 
 // post methods
 
+Route::post('/complete_later', 'HomeController@saveAndCompleteLater');
 Route::post('/prefrences', 'HomeController@getprefrences');
 Route::post('/guests', 'HomeController@getguests');
 Route::post('/', 'HomeController@index')->name('home');

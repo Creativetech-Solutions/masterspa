@@ -31,7 +31,7 @@
 
                                 <div class="form-group">
                                     <label>First Name:</label>
-                                        <input type="text" class="form-control" name="first_name"
+                                    <input type="text" class="form-control" name="first_name"
                                            value="{{ $guest->fname }}"
                                            style="width: 100%;"/>
                                 </div>
@@ -63,7 +63,14 @@
 
                                 <!-- /.form-group -->
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Date of birth:</label>
+                                    <input type="text" name="dob" class="form-control datepicker"
+                                           data-date-format="YYYY-MM-DD"
+                                           value="{{ $guest->age }}"/>
+                                </div>
                                 <div class="form-group">
                                     <label>T-shirt size:</label>
                                     <select name="gshirtsize" class="form-control">
@@ -71,8 +78,10 @@
                                         <option value="M" {{ $guest->tshirt_size == "M" ? 'selected':''}}>M</option>
                                         <option value="L" {{ $guest->tshirt_size == "L" ? 'selected':''}}>L</option>
                                         <option VALUE="XL" {{ $guest->tshirt_size == "XL" ? 'selected':''}}>XL</option>
-                                        <option value="2XL" {{ $guest->tshirt_size == "2XL" ? 'selected':''}}>2XL</option>
-                                        <option value="3XL" {{ $guest->tshirt_size == "3XL" ? 'selected':''}}>3XL</option>
+                                        <option value="2XL" {{ $guest->tshirt_size == "2XL" ? 'selected':''}}>2XL
+                                        </option>
+                                        <option value="3XL" {{ $guest->tshirt_size == "3XL" ? 'selected':''}}>3XL
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -98,30 +107,8 @@
 
 @section('scripts')
     <script type="text/javascript">
-        $(document).ready(function () {
-            console.log("Hello");
+        $(function () {
             $('.datepicker').datetimepicker({
-                format: 'L'
-
-            });
-        })
-
-
-        $(function () {
-            $('#datetimepicker3').datetimepicker({
-                format: 'HH:mm'
-            });
-        });
-        $(function () {
-            $('#datetimepicker2').datetimepicker({
-                format: 'HH:mm'
-            });
-        });
-
-        $(function () {
-        });
-        $(function () {
-            $('#datepicker1').datetimepicker({
                 format: 'L'
 
             });
