@@ -48,7 +48,7 @@ class HomeController extends Controller
     {
         $registration = $this->register;
         $pre = 'index';
-        $countries = Country::all()->sortBy("name")->sortByDesc("ordering");
+        $countries = Country::orderBy('ordering', 'DESC')->orderBy('name', 'ASC')->get();
         //dd($countries);
         return view('index')->with(compact('registration', 'countries'));
     }
@@ -376,7 +376,6 @@ class HomeController extends Controller
           if(isset($country->name) && !empty($country->name)){
               $country_name = $country->name;
           } else $country_name = "";
-          echo $country_name; exit;
             $complete_data = array(
                 'comp_name' => $register->comp_name,
                 'fname' => $register->fname,

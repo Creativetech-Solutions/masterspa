@@ -80,18 +80,28 @@
                    <div class="col-md-9">{{ $registration->hotel_check_in}}</div>
                    <div class="col-md-3">Hotel Check Out : </div>
                    <div class="col-md-9">{{ $registration->hotel_check_out}}</div>
-                   <div class="col-md-3">Total Nights : </div>
+                   <div class="col-md-3">Total Hotel Nights : </div>
                    <div class="col-md-9">{{ $price_info['total_num_of_days']}}</div>
-                   <div class="col-md-3">Free Nights : </div>
+                   <div class="col-md-3">Included Hotel Nights : </div>
                    <div class="col-md-9">{{ $price_info['total_num_of_days'] - $price_info['num_of_days']}}</div>
-                   <div class="col-md-3">Additional Attendees : </div>
+                   <div class="col-md-3">Your Additional Nights : </div>
+                   <div class="col-md-9">{{ $price_info['num_of_days']}} 
+                    @if($price_info['adult'] == 2)
+                        @ $265.00 per night
+                    @elseif($price_info['adult'] == 3)
+                        @ $300.00 per night
+                    @elseif($price_info['adult'] == 4)
+                        @ $335.00 per night
+                    @endif
+                   </div>
+                   <div class="col-md-3">Total Attendees : </div>
                    <div class="col-md-9">{{ $registration->num_of_travlers }}</div>
                    <div class="col-md-3">Adults : </div>
                    <div class="col-md-9">{{ $price_info['adult']}}</div>
-                   <div class="col-md-3">Above 5 Years : </div>
-                   <div class="col-md-9">{{ $price_info['above_five']}}</div>
+                   <!-- <div class="col-md-3">Above 5 Years : </div>
+                   <div class="col-md-9">{{ $price_info['above_five']}}</div> -->
                    <div class="col-md-3">Below 5 Years : </div>
-                   <div class="col-md-9">{{ $price_info['below_five']}}</div>
+                   <div class="col-md-9">{{ $price_info['below_five']}} @ $350.00 per child</div>
                    <div class="col-xs-12"><hr /></div>
                    <div class="col-md-3"><strong>Total Price</strong></div>
                    <div class="col-md-9"><strong>${{ $price_info['prices']}}</strong></div>
