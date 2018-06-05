@@ -180,7 +180,7 @@
                 <input type="hidden" name="url" value="" />
                 <button class="btn btn-danger previous">&laquo; Previous</button>
                 <button type="submit" class="btn btn-primary sub">Submit Registration</button>
-                <a href="{{url('/submission')}}" class="btn btn-default snc">Save and Complete Later</a><br>
+                <button type="submit" class="btn btn-default snc">Save and Complete Later</button><br>
             </div>
         </form>
     </div>
@@ -217,6 +217,7 @@
         {{--href="{{url('/complete_later')}}"--}}
             {{--action="{{ url('/submission') }}"--}}
         $(document).on('click', '.sub', function (e) {
+            e.preventDefault();
             var $ref = $('form');
             $ref.attr('action', '{{ url('/submission') }}');
             $ref.submit();
