@@ -58,39 +58,41 @@ class HomeController extends Controller
        
         if ($request->isMethod('post')) {
 
-            $register = $this->register;
-            if (!session()->has('register_id')) {
-                /*unique:registers|*/
-                $validation = ['email' => 'required|max:191'];
-                $register->email = $request->email;
-                $validator = Validator::make($request->all(), $validation);
-                if ($validator->fails()) {
-                    return redirect('/')->withErrors($validator)->withInput();
+            if($this->isEditable()){
+                $register = $this->register;
+                if (!session()->has('register_id')) {
+                    /*unique:registers|*/
+                    $validation = ['email' => 'required|max:191'];
+                    $register->email = $request->email;
+                    $validator = Validator::make($request->all(), $validation);
+                    if ($validator->fails()) {
+                        return redirect('/')->withErrors($validator)->withInput();
+                    }
                 }
-            }
 
-            $register->european_dealer = $request->eur_dealer;
-            $register->comp_name = $request->cname;
-            $register->fname = $request->cfname;
-            $register->lname = $request->clname;
-            $register->tel = $request->tphone;
-            $register->cell = $request->cellphone;
-            $register->email_alt = $request->email_alt;
-            $register->address = $request->address;
-            $register->city = $request->city;
-            $register->state = $request->region;
-            $register->zip = $request->pcode;
-            $register->country = $request->country;
-            $register->emerg_contact = $request->emerg_contact;
-            $register->emerg_phone = $request->emerg_phone;
-            if (empty($register->unique_id)) {
-                $unique_id = uniqid();
-                $register->unique_id = $unique_id;
-            }
-            if (!$register->save())
-                return redirect('/');
-            else {
-                session()->put('register_id', $register->id);
+                $register->european_dealer = $request->eur_dealer;
+                $register->comp_name = $request->cname;
+                $register->fname = $request->cfname;
+                $register->lname = $request->clname;
+                $register->tel = $request->tphone;
+                $register->cell = $request->cellphone;
+                $register->email_alt = $request->email_alt;
+                $register->address = $request->address;
+                $register->city = $request->city;
+                $register->state = $request->region;
+                $register->zip = $request->pcode;
+                $register->country = $request->country;
+                $register->emerg_contact = $request->emerg_contact;
+                $register->emerg_phone = $request->emerg_phone;
+                if (empty($register->unique_id)) {
+                    $unique_id = uniqid();
+                    $register->unique_id = $unique_id;
+                }
+                if (!$register->save())
+                    return redirect('/');
+                else {
+                    session()->put('register_id', $register->id);
+                }
             }
             if (!empty($request->url))
                 return redirect($request->url);
@@ -107,25 +109,27 @@ class HomeController extends Controller
         if (empty(session('register_id'))) {
             return redirect('/');
         }
+
         if ($request->isMethod('post')) {
            
+            if($this->isEditable()){
 
-            $register = $this->register;
-            if ($request->needs == 'yes') {
-                $register->specify_need = $request->specify_need;
+                $register = $this->register;
+                if ($request->needs == 'yes') {
+                    $register->specify_need = $request->specify_need;
+                }
+                $register->special_need = $request->needs;
+
+                if (isset($request['preference']))
+                    $register->preference = $request->preference;
+
+                $register->hotel_check_in = $request->hotel_check_in;
+                $register->hotel_check_out = $request->hotel_check_out;
+                if (!$register->save())
+                    return redirect('/prefrences');
+                else
+                    session()->put('register_id', $register->id);
             }
-            $register->special_need = $request->needs;
-
-            if (isset($request['preference']))
-                $register->preference = $request->preference;
-
-            $register->hotel_check_in = $request->hotel_check_in;
-            $register->hotel_check_out = $request->hotel_check_out;
-            if (!$register->save())
-                return redirect('/prefrences');
-            else
-                session()->put('register_id', $register->id);
-
 
             if (!empty($request->url))
                 return redirect($request->url);
@@ -163,43 +167,46 @@ class HomeController extends Controller
     public function getmeeting(Request $request)
     {
 
-         if (empty(session('register_id'))) {
+        if (empty(session('register_id'))) {
             return redirect('/');
         }
         if ($request->isMethod('post')) {
-           
-            $register = $this->register;
-            $register->num_of_travlers = $request->num_of_travler;
-            if (!$register->save())
-                return redirect('/guests');
-            else {
-                // delete extra if any
-                $ids = $register->attendees()->pluck('id')->toArray();
-                $extraIds = array_diff($ids, $request->attendie_ids);
-                \App\Attendees::destroy($extraIds);
 
-                session()->put('register_id', $register->id);
+            if($this->isEditable()){
+                $register = $this->register;
+                $register->num_of_travlers = $request->num_of_travler;
+                if (!$register->save())
+                    return redirect('/guests');
+                else {
+                    // delete extra if any
+                    $ids = $register->attendees()->pluck('id')->toArray();
+                    $extraIds = array_diff($ids, $request->attendie_ids);
+                    \App\Attendees::destroy($extraIds);
 
-                foreach ($request->gfname as $key => $val) {
-                    $attendieData = [
-                        'fname' => $request->gfname[$key],
-                        'badge_fname' => $request->gbadgefname[$key],
-                        'middle_fname' => $request->gmiddle_name[$key],
-                        'lname' => $request->glname[$key],
-                        'tshirt_size' => $request->gshirtsize[$key],
-                        'age' => $request->age[$key]
-                    ];
+                    session()->put('register_id', $register->id);
 
-                    if (empty($request->attendie_ids[$key])) {
-                        // insert when new attendee
-                        $register->attendees()->create($attendieData);
-                    } else {
-                        // update attendie on base of id
-                        $attendie = \App\Attendees::find($request->attendie_ids[$key])->update($attendieData);
+                    foreach ($request->gfname as $key => $val) {
+                        $attendieData = [
+                            'fname' => $request->gfname[$key],
+                            'badge_fname' => $request->gbadgefname[$key],
+                            'middle_fname' => $request->gmiddle_name[$key],
+                            'lname' => $request->glname[$key],
+                            'tshirt_size' => $request->gshirtsize[$key],
+                            'age' => $request->age[$key]
+                        ];
+
+                        if (empty($request->attendie_ids[$key])) {
+                            // insert when new attendee
+                            $register->attendees()->create($attendieData);
+                        } else {
+                            // update attendie on base of id
+                            $attendie = \App\Attendees::find($request->attendie_ids[$key])->update($attendieData);
+                        }
                     }
-                }
 
+                }
             }
+            
             if (!empty($request->url))
                 return redirect($request->url);
         }
@@ -243,19 +250,18 @@ class HomeController extends Controller
         }
         if ($request->isMethod('post')) {
             
-            $register = $this->register;
-            $register->meeting_participants = $request->meeting;
-            if (!$register->save())
-                return redirect('/meeting');
-            else
-                session()->put('register_id', $register->id);
+            if($this->isEditable()){
+                $register = $this->register;
+                $register->meeting_participants = $request->meeting;
+                if (!$register->save())
+                    return redirect('/meeting');
+                else
+                    session()->put('register_id', $register->id);
+            }
         }
         $registration = $this->register;
         if (!empty($request->url))
             return redirect($request->url);
-        $extended_nights = Attendee_extended_night::all();
-        $departure_dates = Departure_date::all();
-        $arrival_dates = Arrival_date::all();
         return view('flights')->with(compact('registration'));;
     }
 
@@ -266,28 +272,29 @@ class HomeController extends Controller
         }
         if ($request->isMethod('post')) {
            
-            $register = $this->register;
-            $register->dpt_date = date('Y-m-d', strtotime($request->ddate));
-            $register->dpt_city = $request->dcity;
-            $register->pref_dpt_time = date('Y-m-d h:i:s', strtotime($request->pdtime));
-            $register->ret_date = date('Y-m-d', strtotime($request->rdate));
-            $register->pref_ret_time = date('Y-m-d h:i:s', strtotime($request->prtime));
-            $register->pref_airline = $request->pairline;
-            $register->freq_flyer_no = $request->fflyer;
-            $register->special_notes = $request->snotes;
-            // optional inputs
-            $optionalInput = ['airfare_quote' => 'quote_airfare', 'service_class' => 'service', 'payment_method' => 'pay_method'];
-            foreach ($optionalInput as $key => $value) {
-                $register->$key = $request->$value;
+            if($this->isEditable()){
+                $register = $this->register;
+                $register->dpt_date = date('Y-m-d', strtotime($request->ddate));
+                $register->dpt_city = $request->dcity;
+                $register->pref_dpt_time = date('Y-m-d h:i:s', strtotime($request->pdtime));
+                $register->ret_date = date('Y-m-d', strtotime($request->rdate));
+                $register->pref_ret_time = date('Y-m-d h:i:s', strtotime($request->prtime));
+                $register->pref_airline = $request->pairline;
+                $register->freq_flyer_no = $request->fflyer;
+                $register->special_notes = $request->snotes;
+                // optional inputs
+                $optionalInput = ['airfare_quote' => 'quote_airfare', 'service_class' => 'service', 'payment_method' => 'pay_method'];
+                foreach ($optionalInput as $key => $value) {
+                    $register->$key = $request->$value;
+                }
+
+
+                if (!$register->save())
+                    return redirect('/flights');
+                else
+                    session()->put('register_id', $register->id);
+
             }
-
-
-            if (!$register->save())
-                return redirect('/flights');
-            else
-                session()->put('register_id', $register->id);
-
-
             if (!empty($request->url))
                 return redirect($request->url);
         }
@@ -519,7 +526,7 @@ class HomeController extends Controller
 
     public function searchResult()
     {
-        $countries = Country::all()->sortBy("name");
+        $countries = Country::orderBy('ordering', 'DESC')->orderBy('name', 'ASC')->get();
         $search = Input::get('unique_id');
         $registration = Register::where('unique_id', $search)->first();
         if (!empty($registration)) {
@@ -527,7 +534,7 @@ class HomeController extends Controller
             //redirect(back());
             return view('/index')->with(compact('registration', 'countries'))->withQuery($search);
         } else
-            return view('/index')->withMessage('No Record found. Try to search again !');
+            return view('/index')->with(compact('registration', 'countries'));
 
     }
 
@@ -587,5 +594,12 @@ class HomeController extends Controller
       ];
 
       return $priceInfo;
+    }
+
+    protected function isEditable(){
+        $register = $this->register;
+        if(isset($register->status) && $register->status != 'Registered')
+            return true;
+        else return false;
     }
 }

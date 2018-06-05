@@ -26,6 +26,7 @@ class HomeController extends Controller
             $userdata = Auth::user();
             $userdata->name = $request->user_name;
             $userdata->email = $request->email;
+            $userdata->email_alt = $request->email_alt;
             if (!empty($request->password)) {
                 $userdata->password = bcrypt($request->password);
             }

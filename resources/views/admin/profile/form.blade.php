@@ -34,10 +34,9 @@
                                     <input type="text" class="form-control" name="user_name"
                                            value="{{$userprofile->name}}" style="width: 100%;"/>
                                 </div>
-                                <!-- /.form-group -->
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="text" class="form-control" name="password" value=""
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" name="email" value="{{$userprofile->email}}"
                                            style="width: 100%;"/>
                                 </div>
 
@@ -45,19 +44,31 @@
                             </div>
                             <!-- /.col -->
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="text" class="form-control" name="email" value="{{$userprofile->email}}"
-                                           style="width: 100%;"/>
-                                </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="text" class="form-control" name="password" value=""
+                                           style="width: 100%;"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Second Email</label>
+                                    <input type="text" class="form-control" name="email_alt" value="{{$userprofile->email_alt}}"
+                                           style="width: 100%;"/>
+                                </div>
+
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-12 row">
+                                <!-- /.form-group -->
+                                <div class="form-group col-md-6">
                                     <label>Created at</label>
                                     <input type="text" class="form-control" name="created_at" readonly="readonly"
                                            value="{{$userprofile->created_at}}" style="width: 100%;"/>
                                 </div>
                                 <!-- /.form-group -->
+                                <div class="form-group col-md-6"><br>
                                 <button type="submit"  class="btn btn-primary pull-right">Update</button>
+                                </div>
 
                             </div>
                         </form>

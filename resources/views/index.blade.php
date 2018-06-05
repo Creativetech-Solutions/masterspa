@@ -73,7 +73,7 @@
             <form action="{{url('/search')}}" method="POST" role="search">
                 {{ csrf_field() }}
                 <div class="input-group col-xs-4 pull-right">
-                    <input type="text" class="form-control" name="unique_id"
+                    <input type="text" class="form-control unique_id" name="unique_id"
                            placeholder="Search Unique ID"> <span class="input-group-btn">
             <button type="submit" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span>
@@ -197,7 +197,7 @@
                         <label>Country:</label>
                         <select name="country" class="form-control">
                             <option value="0">Select Country</option>
-                            {{print_r($countries)}}
+                            
                             @foreach($countries as $key => $country)
 
                                 <option

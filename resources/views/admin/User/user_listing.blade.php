@@ -29,6 +29,7 @@
                                     <th>Reg Id</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Second Email</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -38,6 +39,7 @@
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
+                                        <td>{{$user->email_alt}}</td>
                                         <td><a  href="{{url('admin/profile')}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                 @endforeach
@@ -47,6 +49,7 @@
                                     <th>Reg Id</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Second Email</th>
                                     <th>Action</th>
                                 </tr>
                                 </tfoot>
