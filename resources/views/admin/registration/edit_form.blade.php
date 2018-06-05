@@ -30,13 +30,24 @@
                                 <h3>Personal Details</h3>
                             </div>
                             <div class="col-md-6">
-
+                                <div class="form-group">
+                                    <label>Are you a European Dealer:</label>
+                                    <select name="eur_dealer" class="form-control">
+                                        <option value=""></option>
+                                        <option {{ $registration->european_dealer == 'Yes' ? 'selected':''}} value="Yes">Yes</option>
+                                        <option {{ $registration->european_dealer == 'No' ? 'selected':''}} value="No">No</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>Company Name:</label>
                                     <input type="text" class="form-control" name="cname"
                                            value="{{ $registration->comp_name }}"
                                            style="width: 100%;"/>
                                 </div>
+
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Contact First Name:</label>
@@ -44,16 +55,16 @@
                                            value="{{ $registration->fname }}"
                                            style="width: 100%;"/>
                                 </div>
-
-                                <!-- /.form-group -->
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Contact Last Name:</label>
                                     <input type="text" class="form-control" name="clname"
                                            value="{{ $registration->lname }}"
                                            style="width: 100%;"/>
                                 </div>
+
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Telephone:</label>
@@ -61,16 +72,16 @@
                                            value="{{ $registration->tel }}"
                                            style="width: 100%;"/>
                                 </div>
-
-                                <!-- /.form-group -->
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Cell Phone for Reaching Attendee When Traveling:</label>
                                     <input type="text" class="form-control" name="cell"
                                            value="{{ $registration->cell }}"
                                            style="width: 100%;"/>
                                 </div>
+
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Email Address:</label>
@@ -78,16 +89,17 @@
                                            value="{{ $registration->email }}"
                                            style="width: 100%;"/>
                                 </div>
-
-                                <!-- /.form-group -->
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Second Email:</label>
                                     <input type="text" class="form-control" name="email_alt"
                                            value="{{ $registration->email_alt }}"
                                            style="width: 100%;"/>
                                 </div>
+
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
+
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Address:</label>
@@ -95,11 +107,6 @@
                                            value="{{ $registration->address }}"
                                            style="width: 100%;"/>
                                 </div>
-
-                                <!-- /.form-group -->
-                            </div>
-                            <div class="col-md-6">
-
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>City:</label>
@@ -107,6 +114,10 @@
                                            value="{{ $registration->city }}"
                                            style="width: 100%;"/>
                                 </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
+
                                 <div class="form-group">
                                     <label>State:</label>
                                     <input type="text" class="form-control" name="state"
@@ -114,25 +125,21 @@
                                            style="width: 100%;"/>
                                 </div>
                                 <!-- /.form-group -->
-                            </div>
-                            <div class="col-md-6">
-
-                                <!-- /.form-group -->
                                 <div class="form-group">
                                     <label>Zip:</label>
                                     <input type="text" class="form-control" name="zip" value="{{ $registration->zip }}"
                                            style="width: 100%;"/>
                                 </div>
+
+                                <!-- /.form-group -->
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Emergency Contact: </label>
                                     <input type="text" class="form-control" name="emerg_contact"
                                            value="{{ $registration->emerg_contact }}"
                                            style="width: 100%;"/>
                                 </div>
-
-                                <!-- /.form-group -->
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Country:</label>
                                     <select name="country" class="form-control">
@@ -194,7 +201,7 @@
                             <div class="col-lg-12">
                                 <h3><a href="{{url('admin/guests/'.$registration->id)}}">Guests</a></h3>
                             </div>
-                            <div class="col-lg-12">
+                            <!-- <div class="col-lg-12">
                                 <h3>Additional Attendee's</h3>
                                 <div class="form-group col-xs-12">
                                     <label>I am registering additional attendees for program dates
@@ -210,7 +217,7 @@
                                         <label>{{$ad_attendee->rate}}</label>
                                     </div>
                                 @endforeach
-                            </div>
+                            </div> -->
                             <!-- /.col -->
                             <div class="col-md-12">
                                 <h3>Meeting</h3>
@@ -221,7 +228,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-12">
+                           <!--  <div class="col-md-12">
                                 <h3>Hotel</h3>
                                 <div class="form-group col-xs-12 col-sm-6">
 
@@ -305,7 +312,7 @@
                                         <label>{{$ex_night->rate}}</label>
                                     </div>
                                 @endforeach
-                            </div>
+                            </div> -->
                             <div class="col-lg-12">
                                 <h3>Flights</h3>
                                 <div class="form-group col-lg-6">
@@ -385,7 +392,7 @@
                                            value="{{ $registration->freq_flyer_no }}" placeholder="">
                                 </div>
 
-                                <div class="form-group col-lg-8 quote">
+                               <!--  <div class="form-group col-lg-8 quote">
                                     <br>
                                     <label>Method of Payment:</label><br>
                                     <input type="radio" name="pay_method"
@@ -396,7 +403,7 @@
                                     Credit Card<br>
 
 
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="col-lg-12 quote">

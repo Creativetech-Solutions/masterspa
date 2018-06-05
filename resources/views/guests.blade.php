@@ -72,11 +72,16 @@
             <h3 class="dark-grey">Guest Details</h3>
             <div class="col-xs-12">
                 <label>
-                    <h4>Please enter names of all guests attending below.
+                    <h4>
+                    <p>Please enter names of all guests attending below.
                         Please use names exactly as they appear on the documents you are using for identification.
                         Please type carefully using correct capitalization and
                         <spelling class=""></spelling>
-                        Your trip documents will be created from your input.<br>The cost for a 3rd or 4th person in the room, over the age of 5 is  $750.00 per person. Guests 5 years old and under are an additional $350.00
+                        Your trip documents will be created from your input.
+                    </p>
+                    <p>
+                        The cost for a 3rd or 4th person in the room, over the age of 5 is  $750.00 per person. Guests 5 years old and under are an additional $350.00
+                    </p>
                     </h4>
                 </label>
                 <br>

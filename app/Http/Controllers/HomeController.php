@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use PHPUnit\Framework\Constraint\Count;
 use Validator;
 
 class HomeController extends Controller
@@ -50,49 +49,51 @@ class HomeController extends Controller
     {
         $registration = $this->register;
         $pre = 'index';
-        $countries = Country::all()->sortBy("name")->sortByDesc("ordering");
+        $countries = Country::orderBy('ordering', 'DESC')->orderBy('name', 'ASC')->get();
         //dd($countries);
         return view('index')->with(compact('registration', 'countries'));
     }
 
     public function getprefrences(Request $request)
     {
-
+       
         if ($request->isMethod('post')) {
 
-            $register = $this->register;
-            if (!session()->has('register_id')) {
-                /*unique:registers|*/
-                $validation = ['email' => 'required|max:191'];
-                $register->email = $request->email;
-                $validator = Validator::make($request->all(), $validation);
-                if ($validator->fails()) {
-                    return redirect('/')->withErrors($validator)->withInput();
+            if($this->isEditable()){
+                $register = $this->register;
+                if (!session()->has('register_id')) {
+                    /*unique:registers|*/
+                    $validation = ['email' => 'required|max:191'];
+                    $register->email = $request->email;
+                    $validator = Validator::make($request->all(), $validation);
+                    if ($validator->fails()) {
+                        return redirect('/')->withErrors($validator)->withInput();
+                    }
                 }
-            }
 
-            $register->european_dealer = $request->eur_dealer;
-            $register->comp_name = $request->cname;
-            $register->fname = $request->cfname;
-            $register->lname = $request->clname;
-            $register->tel = $request->tphone;
-            $register->cell = $request->cellphone;
-            $register->email_alt = $request->email_alt;
-            $register->address = $request->address;
-            $register->city = $request->city;
-            $register->state = $request->region;
-            $register->zip = $request->pcode;
-            $register->country = $request->country;
-            $register->emerg_contact = $request->emerg_contact;
-            $register->emerg_phone = $request->emerg_phone;
-            if (empty($register->unique_id)) {
-                $unique_id = uniqid();
-                $register->unique_id = $unique_id;
-            }
-            if (!$register->save())
-                return redirect('/');
-            else {
-                session()->put('register_id', $register->id);
+                $register->european_dealer = $request->eur_dealer;
+                $register->comp_name = $request->cname;
+                $register->fname = $request->cfname;
+                $register->lname = $request->clname;
+                $register->tel = $request->tphone;
+                $register->cell = $request->cellphone;
+                $register->email_alt = $request->email_alt;
+                $register->address = $request->address;
+                $register->city = $request->city;
+                $register->state = $request->region;
+                $register->zip = $request->pcode;
+                $register->country = $request->country;
+                $register->emerg_contact = $request->emerg_contact;
+                $register->emerg_phone = $request->emerg_phone;
+                if (empty($register->unique_id)) {
+                    $unique_id = uniqid();
+                    $register->unique_id = $unique_id;
+                }
+                if (!$register->save())
+                    return redirect('/');
+                else {
+                    session()->put('register_id', $register->id);
+                }
             }
             if (!empty($request->url))
                 return redirect($request->url);
@@ -109,25 +110,27 @@ class HomeController extends Controller
         if (empty(session('register_id'))) {
             return redirect('/');
         }
+
         if ($request->isMethod('post')) {
 
+            if($this->isEditable()){
 
-            $register = $this->register;
-            if ($request->needs == 'yes') {
-                $register->specify_need = $request->specify_need;
+                $register = $this->register;
+                if ($request->needs == 'yes') {
+                    $register->specify_need = $request->specify_need;
+                }
+                $register->special_need = $request->needs;
+
+                if (isset($request['preference']))
+                    $register->preference = $request->preference;
+
+                $register->hotel_check_in = $request->hotel_check_in;
+                $register->hotel_check_out = $request->hotel_check_out;
+                if (!$register->save())
+                    return redirect('/prefrences');
+                else
+                    session()->put('register_id', $register->id);
             }
-            $register->special_need = $request->needs;
-
-            if (isset($request['preference']))
-                $register->preference = $request->preference;
-
-            $register->hotel_check_in = $request->hotel_check_in;
-            $register->hotel_check_out = $request->hotel_check_out;
-            if (!$register->save())
-                return redirect('/prefrences');
-            else
-                session()->put('register_id', $register->id);
-
 
             if (!empty($request->url))
                 return redirect($request->url);
@@ -138,29 +141,29 @@ class HomeController extends Controller
         return view('guests')->with(compact('registration'));
     }
 
-    /* public function getadditional(Request $request)
-       {
+ /* public function getadditional(Request $request)
+    {
+       
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
+        if ($request->isMethod('post')) {
 
-           if (empty(session('register_id'))) {
-               return redirect('/');
-           }
-           if ($request->isMethod('post')) {
+            $register = $this->register;
+           
+            $register->attendee_date_id = $request->attandees;
+            if (!$register->save())
+                return redirect('/');
+            else
+                session()->put('register_id', $register->id);
 
-               $register = $this->register;
+            if (!empty($request->url))
+                return redirect($request->url);
+        }
+        $registration = $this->register;
 
-               $register->attendee_date_id = $request->attandees;
-               if (!$register->save())
-                   return redirect('/');
-               else
-                   session()->put('register_id', $register->id);
-
-               if (!empty($request->url))
-                   return redirect($request->url);
-           }
-           $registration = $this->register;
-
-           return view('meeting')->with(compact('registration'));
-       }*/
+        return view('meeting')->with(compact('registration'));
+    }*/
 
     public function getmeeting(Request $request)
     {
@@ -170,38 +173,41 @@ class HomeController extends Controller
         }
         if ($request->isMethod('post')) {
 
-            $register = $this->register;
-            $register->num_of_travlers = $request->num_of_travler;
-            if (!$register->save())
-                return redirect('/guests');
-            else {
-                // delete extra if any
-                $ids = $register->attendees()->pluck('id')->toArray();
-                $extraIds = array_diff($ids, $request->attendie_ids);
-                \App\Attendees::destroy($extraIds);
+            if($this->isEditable()){
+                $register = $this->register;
+                $register->num_of_travlers = $request->num_of_travler;
+                if (!$register->save())
+                    return redirect('/guests');
+                else {
+                    // delete extra if any
+                    $ids = $register->attendees()->pluck('id')->toArray();
+                    $extraIds = array_diff($ids, $request->attendie_ids);
+                    \App\Attendees::destroy($extraIds);
 
-                session()->put('register_id', $register->id);
+                    session()->put('register_id', $register->id);
 
-                foreach ($request->gfname as $key => $val) {
-                    $attendieData = [
-                        'fname' => $request->gfname[$key],
-                        'badge_fname' => $request->gbadgefname[$key],
-                        'middle_fname' => $request->gmiddle_name[$key],
-                        'lname' => $request->glname[$key],
-                        'tshirt_size' => $request->gshirtsize[$key],
-                        'age' => $request->age[$key]
-                    ];
+                    foreach ($request->gfname as $key => $val) {
+                        $attendieData = [
+                            'fname' => $request->gfname[$key],
+                            'badge_fname' => $request->gbadgefname[$key],
+                            'middle_fname' => $request->gmiddle_name[$key],
+                            'lname' => $request->glname[$key],
+                            'tshirt_size' => $request->gshirtsize[$key],
+                            'age' => $request->age[$key]
+                        ];
 
-                    if (empty($request->attendie_ids[$key])) {
-                        // insert when new attendee
-                        $register->attendees()->create($attendieData);
-                    } else {
-                        // update attendie on base of id
-                        $attendie = \App\Attendees::find($request->attendie_ids[$key])->update($attendieData);
+                        if (empty($request->attendie_ids[$key])) {
+                            // insert when new attendee
+                            $register->attendees()->create($attendieData);
+                        } else {
+                            // update attendie on base of id
+                            $attendie = \App\Attendees::find($request->attendie_ids[$key])->update($attendieData);
+                        }
                     }
-                }
 
+                }
             }
+
             if (!empty($request->url))
                 return redirect($request->url);
         }
@@ -210,31 +216,31 @@ class HomeController extends Controller
         return view('meeting')->with(compact('registration'));
     }
 
-    /*  public function gethotel(Request $request)
-      {
+  /*  public function gethotel(Request $request)
+    {
+       
+        if (empty(session('register_id'))) {
+            return redirect('/');
+        }
+        if ($request->isMethod('post')) {
+           
+            $register = $this->register;
+            $register->arrival_date_id = $request->arrival_date;
+            $register->departure_date_id = $request->departure;
+            $register->attende_ext_night_id = $request->extended_night;
+            $register->extend_trip = $request->extend_trip;
+            $register->european_dealer = $request->eur_dealer;
+            if (!$register->save())
+                return redirect('/hotel');
+            else
+                session()->put('register_id', $register->id);
+        }
+        $registration = $this->register;
+        if (!empty($request->url))
+            return redirect($request->url);
 
-          if (empty(session('register_id'))) {
-              return redirect('/');
-          }
-          if ($request->isMethod('post')) {
-
-              $register = $this->register;
-              $register->arrival_date_id = $request->arrival_date;
-              $register->departure_date_id = $request->departure;
-              $register->attende_ext_night_id = $request->extended_night;
-              $register->extend_trip = $request->extend_trip;
-              $register->european_dealer = $request->eur_dealer;
-              if (!$register->save())
-                  return redirect('/hotel');
-              else
-                  session()->put('register_id', $register->id);
-          }
-          $registration = $this->register;
-          if (!empty($request->url))
-              return redirect($request->url);
-
-          return view('flights')->with(compact('registration'));
-      }*/
+        return view('flights')->with(compact('registration'));
+    }*/
 
 
     public function getflights(Request $request)
@@ -244,20 +250,19 @@ class HomeController extends Controller
             return redirect('/');
         }
         if ($request->isMethod('post')) {
-
-            $register = $this->register;
-            $register->meeting_participants = $request->meeting;
-            if (!$register->save())
-                return redirect('/meeting');
-            else
-                session()->put('register_id', $register->id);
+            
+            if($this->isEditable()){
+                $register = $this->register;
+                $register->meeting_participants = $request->meeting;
+                if (!$register->save())
+                    return redirect('/meeting');
+                else
+                    session()->put('register_id', $register->id);
+            }
         }
         $registration = $this->register;
         if (!empty($request->url))
             return redirect($request->url);
-        $extended_nights = Attendee_extended_night::all();
-        $departure_dates = Departure_date::all();
-        $arrival_dates = Arrival_date::all();
         return view('flights')->with(compact('registration'));;
     }
 
@@ -267,36 +272,37 @@ class HomeController extends Controller
             return redirect('/');
         }
         if ($request->isMethod('post')) {
+           
+            if($this->isEditable()){
+                $register = $this->register;
+                $register->dpt_date = date('Y-m-d', strtotime($request->ddate));
+                $register->dpt_city = $request->dcity;
+                $register->pref_dpt_time = date('Y-m-d h:i:s', strtotime($request->pdtime));
+                $register->ret_date = date('Y-m-d', strtotime($request->rdate));
+                $register->pref_ret_time = date('Y-m-d h:i:s', strtotime($request->prtime));
+                $register->pref_airline = $request->pairline;
+                $register->freq_flyer_no = $request->fflyer;
+                $register->special_notes = $request->snotes;
+                // optional inputs
+                $optionalInput = ['airfare_quote' => 'quote_airfare', 'service_class' => 'service', 'payment_method' => 'pay_method'];
+                foreach ($optionalInput as $key => $value) {
+                    $register->$key = $request->$value;
+                }
 
-            $register = $this->register;
-            $register->dpt_date = date('Y-m-d', strtotime($request->ddate));
-            $register->dpt_city = $request->dcity;
-            $register->pref_dpt_time = date('Y-m-d h:i:s', strtotime($request->pdtime));
-            $register->ret_date = date('Y-m-d', strtotime($request->rdate));
-            $register->pref_ret_time = date('Y-m-d h:i:s', strtotime($request->prtime));
-            $register->pref_airline = $request->pairline;
-            $register->freq_flyer_no = $request->fflyer;
-            $register->special_notes = $request->snotes;
-            // optional inputs
-            $optionalInput = ['airfare_quote' => 'quote_airfare', 'service_class' => 'service', 'payment_method' => 'pay_method'];
-            foreach ($optionalInput as $key => $value) {
-                $register->$key = $request->$value;
+
+                if (!$register->save())
+                    return redirect('/flights');
+                else
+                    session()->put('register_id', $register->id);
+
             }
-
-
-            if (!$register->save())
-                return redirect('/flights');
-            else
-                session()->put('register_id', $register->id);
-
-
             if (!empty($request->url))
                 return redirect($request->url);
         }
 
         $registration = $this->register;
         $price_info = $this->calculatePrices($this->register);
-        return view('agreement')->with(compact('registration', 'price_info'));
+        return view('agreement')->with(compact('registration','price_info'));
     }
 
     public function submission(Request $request)
@@ -543,7 +549,7 @@ class HomeController extends Controller
 
     public function searchResult()
     {
-        $countries = Country::all()->sortBy("name");
+        $countries = Country::orderBy('ordering', 'DESC')->orderBy('name', 'ASC')->get();
         $search = Input::get('unique_id');
         $registration = Register::where('unique_id', $search)->first();
         if (!empty($registration)) {
@@ -551,65 +557,72 @@ class HomeController extends Controller
             //redirect(back());
             return view('/index')->with(compact('registration', 'countries'))->withQuery($search);
         } else
-            return view('/index')->withMessage('No Record found. Try to search again !');
+            return view('/index')->with(compact('registration', 'countries'));
 
     }
 
-    protected function calculatePrices($register)
-    {
-        $htl_chkin = $register->hotel_check_in;
-        $htl_chkout = $register->hotel_check_out;
-        if ($register->european_dealer == 'Yes')
-            $start = 1;
-        else $start = 2;
+    protected function calculatePrices($register){
+      $htl_chkin = $register->hotel_check_in;
+      $htl_chkout = $register->hotel_check_out;
+      if($register->european_dealer == 'Yes') 
+        $start = 1;
+      else $start = 2;
 
-        $num_of_days = $total_num_of_days = round((strtotime($htl_chkout) - strtotime($htl_chkin)) / (60 * 60 * 24)) + 1;
+      $num_of_days = $total_num_of_days = round((strtotime($htl_chkout) - strtotime($htl_chkin))/ (60 * 60 * 24))+1;
 
-        for ($i = $start; $i <= 5; $i++) {
-            $date = '2018-11-0' . $i;
-            if (($date >= $htl_chkin) && ($date <= $htl_chkout)) {
-                $num_of_days -= 1;
-            }
+      for($i = $start; $i <= 5; $i++){
+        $date = '2018-11-0'.$i;
+        if (($date >= $htl_chkin) && ($date <= $htl_chkout)){
+          $num_of_days -= 1;
         }
+      }
 
-        $prices = $guest_adult = $count = $above_five = $below_five = 0;
-        foreach ($register->attendees as $guest) {
-            $count++;
+      $prices = $guest_adult = $count = $above_five = $below_five = 0;
+      foreach($register->attendees as $guest){
+        $count++;
 
-            $years = round((time() - strtotime($guest->age)) / (3600 * 24 * 365.25));
-            if ($years >= 12)
-                $guest_adult += 1;
+        $years = round((time()-strtotime($guest->age))/(3600*24*365.25));
+        if($years >= 12)
+          $guest_adult += 1;
 
-            if ($count <= 2) continue;
+        if ($count <= 2) continue;
 
-            $guest_age_yr = date('Y', strtotime($guest->age));
-            if ($guest_age_yr >= 2013) {
-                $prices += 350;
-                $below_five += 1;
-            } else {
-                $prices += 750;
-                $above_five += 1;
-            }
+        $guest_age_yr = date('Y', strtotime($guest->age));
+        if($guest_age_yr >= 2013){
+          $prices += 350;
+          $below_five += 1;
         }
+        else {
+          $prices += 750;
+          $above_five += 1;
+        }
+      }
 
-        if ($guest_adult == 2)
-            $prices += 265.00 * $num_of_days;
-        elseif ($guest_adult == 3)
-            $prices += 300.00 * $num_of_days;
-        elseif ($guest_adult == 4)
-            $prices += 335.00 * $num_of_days;
+      if($guest_adult == 2)
+        $prices += 265.00 * $num_of_days;
+      elseif($guest_adult == 3)
+        $prices += 300.00 * $num_of_days;
+      elseif($guest_adult == 4)
+        $prices += 335.00 * $num_of_days;
 
-        //$no_of_guests = $register->num_of_travlers;
+      //$no_of_guests = $register->num_of_travlers;
 
-        $priceInfo = [
-            'num_of_days' => $num_of_days,
-            'total_num_of_days' => $total_num_of_days,
-            'adult' => $guest_adult,
-            'prices' => $prices,
-            'above_five' => $above_five,
-            'below_five' => $below_five,
-        ];
+      $priceInfo = [
+        'num_of_days' => $num_of_days,
+        'total_num_of_days' => $total_num_of_days,
+        'adult' => $guest_adult,
+        'prices' => $prices,
+        'above_five' => $above_five,
+        'below_five' => $below_five,
+      ];
 
-        return $priceInfo;
+      return $priceInfo;
+    }
+
+    protected function isEditable(){
+        $register = $this->register;
+        if(isset($register->status) && $register->status != 'Registered')
+            return true;
+        else return false;
     }
 }
