@@ -69,13 +69,6 @@
         <div class="container-page">
 
             @include('layouts/notify')
-            <div class="col-sm pull-right">
-                <label>Your Unique ID:</label>
-                <input type="text" value="{{$registration->unique_id}}" readonly disabled>
-            </div>
-            <div style="background-color: lightgrey; padding: 8px" class="pull-left">
-                <p style="color: red; margin: 0px"><b>Please note and save your unique ID, in order to return and see your information.</b></p>
-            </div>
             <h3 class="dark-grey">Guest Details</h3>
             <div class="col-xs-12">
                 <label>
@@ -83,12 +76,12 @@
                         Please use names exactly as they appear on the documents you are using for identification.
                         Please type carefully using correct capitalization and
                         <spelling class=""></spelling>
-                        Your trip documents will be created from your input.
+                        Your trip documents will be created from your input.<br>The cost for a 3rd or 4th person in the room, over the age of 5 is  $750.00 per person. Guests 5 years old and under are an additional $350.00
                     </h4>
                 </label>
                 <br>
             </div>
-            <form action="{{ url('/additional') }}" method="POST" class="pref-form">
+            <form action="{{ url('/meeting') }}" method="POST" class="pref-form">
                 {{ csrf_field() }}
                 <div class="col-lg-12">
                     <div class="form-group col-xs-12">
@@ -106,7 +99,10 @@
                     <div class="main-attendi-wrapper">
                         @foreach($attendes as $key => $val)
                             <div id="attendi_{{$key+1}}" class="col-xs-12 attendi-wraper">
-                                <div class="col-xs-12 heading"><h4>Attendee <span class="attendi-num">{{$key+1}}</span>
+                                <div class="col-xs-12 heading">
+                                <h4>Attendee 
+                                <span class="attendi-num">{{$key+1}}</span>
+                                <span class="main-att-cntnt"> - Primary Participant</span>
                                     </h4></div>
                                 <input type="hidden" name="attendie_ids[]" class="attendie_id" value="{{ $val->id }}">
                                 <div class="col-lg-12">
@@ -124,7 +120,7 @@
 
                                     <div class="form-group col-lg-4">
                                         <label>Middle Name AS ON ID:</label>
-                                        <input type="text" name="gmiddle_name[]" class="form-control" required
+                                        <input type="text" name="gmiddle_name[]" class="form-control"
                                                placeholder="Middle Name" value="{{ $val->middle_fname }}">
                                     </div>
                                 </div>
@@ -135,9 +131,8 @@
                                                placeholder="Last Name" value="{{ $val->lname }}">
                                     </div>
                                     <div class="form-group col-lg-4">
-                                        <label>Age:</label>
-                                        <input type="number" name="age[]" min="0" required class="form-control"
-                                                   placeholder="Age" value="{{ $val->age }}">
+                                        <label>Date of Birth:</label>
+                                        <input type="text" name="age[]" required class="form-control datepicker"  data-date-format="YYYY-MM-DD" placeholder="Date of Birth" value="{{ $val->age }}">
                                     </div>
                                     <div class="form-group col-lg-4">
                                         <label>T-shirt size:</label>
@@ -187,9 +182,16 @@
             } else {
                 for (var i = currAttendi; i < val; i++) {
                     var attendi = $('#attendi_1').clone().prop('id', 'attendi_' + (i + 1));
+                    attendi.find(".datepicker")
+                        .removeClass('hasDatepicker')
+                        .removeData('datepicker')
+                        .unbind()
+                        .datetimepicker();
                     $('.main-attendi-wrapper').append(attendi);
                     $('#attendi_' + (i + 1)).find('.attendi-num').html(i + 1);
                     $('#attendi_' + (i + 1)).find('.attendie_id').val("");
+                    $('#attendi_' + (i + 1)).find('.main-att-cntnt').remove();
+                    $('#attendi_' + (i + 1)).find('input').val("");
                 }
             }
         });
@@ -199,5 +201,11 @@
             previouspage('prefrences');
         });
 
+        $(function () {
+            $('.datepicker').datetimepicker({
+                format: 'L'
+
+            });
+        });
     </script>
 @endsection

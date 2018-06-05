@@ -62,6 +62,7 @@
                     $registration->country = "";
                     $registration->emerg_contact = "";
                     $registration->emerg_phone = "";
+                    $registration->european_dealer = "";
             }
     @endphp
 
@@ -86,6 +87,15 @@
             <form class="pref-form" action="{{ url('/prefrences') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="col-lg-12">
+
+                    <div class="form-group col-lg-4">
+                        <label>Are you a European Dealer:</label>
+                        <select name="eur_dealer" class="form-control">
+                            <option value=""></option>
+                            <option {{ $registration->european_dealer == 'Yes' ? 'selected':''}} value="Yes">Yes</option>
+                            <option {{ $registration->european_dealer == 'No' ? 'selected':''}} value="No">No</option>
+                        </select>
+                    </div>
                     <div class="form-group col-lg-4">
                         <label>Company Name:</label>
                         <input type="text" name="cname" class="form-control" value="{{ $registration->comp_name }}"
@@ -97,16 +107,17 @@
                         <input type="text" name="cfname" class="form-control" required id=""
                                value="{{ $registration->fname }}" placeholder="First Name">
                     </div>
-
-                    <div class="form-group col-lg-4">
-                        <label>Contact Last Name:</label>
-                        <input type="text" name="clname" class="form-control" required id=""
-                               value="{{ $registration->lname }}" placeholder="Last Name">
-                    </div>
                 </div>
 
 
                 <div class="col-lg-12">
+
+                    <div class="form-group col-lg-4">
+                        <label>Contact Last Name:</label>
+                        <div class="col-xs-12"><br></div>
+                        <input type="text" name="clname" class="form-control" required id=""
+                               value="{{ $registration->lname }}" placeholder="Last Name">
+                    </div>
                     <div class="form-group col-lg-4 ">
                         <label>Telephone:</label>
                         <br class="col-xs-12"></br>
@@ -120,16 +131,17 @@
                                placeholder="Cell Phone" id="Cell Phone">
                     </div>
 
+
+                </div>
+
+                <div class="col-lg-12">
                     <div class="form-group col-lg-4">
+                        <div class="col-xs-12"><br></div>
                         <label>Email Address</label>
                         <br class="col-xs-12"></br>
                         <input type="email" required name="email" class="form-control"
                                value="{{ $registration->email }}" placeholder="Email Address">
                     </div>
-
-                </div>
-
-                <div class="col-lg-12">
                     <div class="form-group col-lg-4">
                         <div class="col-xs-12"><br></div>
                         <label>Retype Email Address</label>
@@ -145,18 +157,16 @@
                                placeholder="second Email">
                     </div>
 
-                    <div class="form-group col-lg-4">
-                        <div class="col-xs-12"><br></div>
-                        <label>Please retype your second email address:</label>
-                        <div class="col-xs-12"><br></div>
-                        <input type="email" name="re_email_alt" class="form-control" id=""
-                               value="{{ $registration->email_alt }}" placeholder="Retype second email">
-                    </div>
-
                 </div>
 
 
                 <div class="col-lg-12">
+
+                    <div class="form-group col-lg-4">
+                        <label>Please retype your second email address:</label>
+                        <input type="email" name="re_email_alt" class="form-control" id=""
+                               value="{{ $registration->email_alt }}" placeholder="Retype second email">
+                    </div>
                     <div class="form-group col-lg-4">
                         <label>Address:</label>
                         <input type="text" name="address" required class="form-control" id=""
@@ -169,24 +179,22 @@
                                value="{{ $registration->city }}" placeholder="City">
                     </div>
 
+                </div>
+                <div class="col-lg-12">
+
                     <div class="form-group col-lg-4">
                         <label>State/Province/Region:</label>
                         <input type="text" name="region" required class="form-control" id=""
                                value="{{ $registration->state }}" placeholder="State/Province/Region">
                     </div>
-
-                </div>
-                <div class="col-lg-12">
                     <div class="form-group col-lg-4">
                         <label>Zip/Postal Code:</label>
-                        <div class="col-xs-12"><br></div>
                         <input class="form-control" type="text" required name="pcode" value="{{ $registration->zip }}"
                                id="pcode" placeholder="Zip Code">
                     </div>
 
                     <div class="form-group col-lg-4">
                         <label>Country:</label>
-                        <div class="col-xs-12"><br></div>
                         <select name="country" class="form-control">
                             <option value="0">Select Country</option>
                             {{print_r($countries)}}
@@ -197,6 +205,9 @@
                             @endforeach
                         </select>
                     </div>
+                </div>
+
+                <div class="col-lg-12">
 
                     <div class="form-group col-lg-4">
                         <label>Emergency Contact ( Someone NOT Traveling with you ):</label>
@@ -204,11 +215,9 @@
                                placeholder="Emergency contact" id="emerg_contact"
                                value="{{ $registration->emerg_contact }}">
                     </div>
-                </div>
-
-                <div class="col-lg-12">
                     <div class="form-group col-lg-4">
                         <label>Emergency Contact's Phone Number:</label>
+                        <div class="col-xs-12"><br></div>
                         <input type="text" name="emerg_phone" required class="form-control"
                                value="{{ $registration->emerg_phone }}" placeholder="phone number">
                     </div>

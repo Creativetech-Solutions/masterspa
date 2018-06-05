@@ -53,13 +53,6 @@
     <div class="container-fluid">
         <div class="container-page">
             @include('layouts/notify')
-            <div class="col-sm pull-right">
-                <label>Your Unique ID:</label>
-                <input type="text" value="{{$registration->unique_id}}" readonly disabled>
-            </div>
-            <div style="background-color: lightgrey; padding: 8px" class="pull-left">
-                <p style="color: red; margin: 0px"><b>Please note and save your unique ID, in order to return and see your information.</b></p>
-            </div>
             <h3 class="dark-grey">Additional Attendees</h3>
             <div class="col-xs-12">
                 <label><h4>Master Spas is covering the cost for 2 persons per room.

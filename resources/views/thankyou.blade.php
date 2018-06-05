@@ -25,7 +25,7 @@
                     <header class="page-header">
 
 
-                        <h1 class="page-title">Prefrences</h1>
+                        <h1 class="page-title">Submitted</h1>
 
 
                     </header><!-- .entry-header -->

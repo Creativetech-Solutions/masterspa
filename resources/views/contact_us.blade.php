@@ -98,7 +98,8 @@ Ok, the BGI box is now running, the hamachi url is http://25.68.206.199/bumblebe
                         <a target="_blank" href="https://www.google.com/maps/place/2140+NW+188th+Terrace,+Pembroke+Pines,+FL+33029,+USA/@26.0212295,-80.4029975,17z/data=!3m1!4b1!4m5!3m4!1s0x88d9a171be361a97:0xd77e8543f391a8bb!8m2!3d26.0212295!4d-80.4008088">2140
                             NW 188th Terrace</a>
                         <h5>Pembroke Pines</h5>
-                        <h5>FL 33029</h5>
+                        <h5>FL 33029 USA</h5>
+                        <h5>Tel: 508 808 9571</h5>
                     </label>
                     <div class="col-xs-12 text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>

@@ -45,24 +45,27 @@
 
 @section('content')
     @php
-            if(empty($registration->id)){
-                $registration = new \stdClass();
-                $registration->preference = "";
-                $registration->special_need = "";
-                $registration->specify_need = "";
-                $registration->unique_id ="";
-            }
+        if(empty($registration->id)){
+            $registration = new \stdClass();
+            $registration->preference = "";
+            $registration->special_need = "";
+            $registration->specify_need = "";
+            $registration->unique_id ="";
+            $registration->hotel_check_in ="";
+            $registration->hotel_check_out ="";
+        }
+
+            
+        if($registration->hotel_check_in == '1970-01-01' || $registration->hotel_check_in == '0000-00-00')
+            $registration->hotel_check_in = "";
+            
+        if($registration->hotel_check_out == '1970-01-01' || $registration->hotel_check_out == '0000-00-00')
+            $registration->hotel_check_out = "";
     @endphp
     <div class="container-fluid">
         <div class="container-page">
             @include('layouts/notify')
-            <div class="col-sm pull-right">
-            <label>Your unique ID:</label>
-                <input type="text" value="{{$registration->unique_id}}" readonly disabled>
-            </div>
-            <div style="background-color: lightgrey; padding: 8px" class="pull-left">
-                <p style="color: red; margin: 0px"><b>Please note and save your unique ID, in order to return and see your information.</b></p>
-            </div>
+            
                 <h3 class="dark-grey">Preferences</h3>
             <div class="col-xs-12">
                 <label><h4>Bed types are based on availability, and are not guaranteed.
@@ -98,6 +101,31 @@
 
                 </div>
 
+
+                <div class="form-group col-xs-12">
+                    <br>
+                    <label>
+                        <h4 class="dark-grey">Room Reservation Dates</h4>
+                    </label><br>
+
+                    If you would like to extend your stay at Sheraton Grand at WildHorse Pass, please indicate your dates below. Master Spas has special rates 3 days before and 3 days after the program, however rooms are based on availability. Rates include all taxes and fees. Meals are not included on extended nights. For pre and post rooms all children under the age of 12 years are free in the room with 2 adults. Please do not book any flights for additional nights prior to receiving confirmation that the room is available. Please Note any extension pre or post your program dates for guests 12 years old and over, will incur the following charges: SINGLE/DOUBLE Occupancy $265 Per Room Per Night. TRIPLE Occupancy $300 Per Room Per Night. QUAD Occupancy $335 Per Room Per Night.
+
+                </div>
+                <div class="form-group col-lg-12">
+                    <div class="form-group col-lg-4">
+                        <label>Hotel Check-In Date:</label>
+                        <input type="text" name="hotel_check_in" class="form-control datepicker" data-date-format="YYYY-MM-DD"
+                                value="{{ $registration->hotel_check_in }}"
+                        >
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label>Hotel Check-Out Date:</label>
+                        <input type="text" name="hotel_check_out" class="form-control datepicker" data-date-format="YYYY-MM-DD"
+                               value="{{ $registration->hotel_check_out }}"
+                        >
+                    </div>
+                </div>
                 <div class="col-md-8">
                     <button class="btn btn-danger previous">&laquo; Previous</button>
                     <button type="submit" class="btn btn-primary">Next</button>
@@ -121,6 +149,12 @@
         $(document).on('click', '.previous', function (e) {
             e.preventDefault();
             previouspage('/');
+        });
+         $(function () {
+            $('.datepicker').datetimepicker({
+                format: 'L'
+
+            });
         });
     </script>
 @endsection

@@ -231,9 +231,9 @@
     <meta name="msapplication-TileImage"
           content="{{ asset('public/images/') }}/Favicon2-300x300.jpg"/>
 
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="{{ asset("public/css/bootstrap-datetimepicker.css") }}"/>
 
 </head>
@@ -302,8 +302,7 @@
 
                 <div class="site-info-text">
 
-                    Copyright &copy; 2018 Group Registration &mdash; Activation WordPress theme by <a
-                            href="https://www.godaddy.com/" rel="author nofollow">GoDaddy</a>
+                    Copyright &copy; 2018 The Island Services
                 </div>
 
             </div><!-- .site-info-inner -->

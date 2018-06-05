@@ -4,6 +4,7 @@
 <style id='activation-inline-css' type='text/css'>
 
 .site-header{background-image:url({{ asset('public/images/WebPhotoHeader_01-1.jpg') }});}
+.req-attr{border: 1px solid red;border-radius: 4px;}
 </style>
 <div class="site-header-wrapper">
 
@@ -26,7 +27,7 @@
     <header class="page-header">
 
         
-        <h1 class="page-title">Agreement</h1>
+        <h1 class="page-title">Payment</h1>
 
         
     </header><!-- .entry-header -->
@@ -53,19 +54,9 @@
 <div class="container-fluid">
     <div class="container-page">  
             @include('layouts/notify')
-        <div class="col-sm pull-right">
-            <label>Your Unique ID:</label>
-            <input type="text" value="{{$registration->unique_id}}" readonly disabled>
-        </div>
-        <div style="background-color: lightgrey; padding: 8px" class="pull-left">
-            <p style="color: red; margin: 0px"><b>Please note and save your unique ID, in order to return and see your information.</b></p>
-        </div>
-        <h3 class="dark-grey">Agreement</h3>
+        <h3 class="dark-grey">Payment</h3>
         <div class="col-xs-12">
-            <label><h4>Cancellations are subject to charges:
-                120-61 days prior to conference: 1 night per person charge;
-                60-31 days prior: 2 nights per person charge;
-                30 days and less: 100% charge.</h4></label>
+            <label><h4><strong>Cancellations:</strong> Cancellations must be received in writing and are subject to the following charges: Cancellations before Aug 29 - no fee (except airline tickets if already booked). Cancellations received from Aug 30 - Sept 30: 2 nights per person charge; Cancellations received after October 1: 100% charge.</h4></label>
             <br>
         </div>
         <form action="{{ url('/submission') }}" method="POST" class="pref-form">
@@ -78,6 +69,34 @@
                     <input type="radio" name="agreement" {{ $registration->send_invoice == 1 ? 'checked':'' }} value="1"> I agree to Pay The Charges Based on My Selections Once Available and Approved.<br>
                 </div>
             </div>
+
+            <div class="col-xs-12">
+                
+                <div class="form-group col-xs-12">
+                    <label>Prices Detail:</label>
+                </div>
+                <div class="form-group col-xs-12">
+                   <div class="col-md-3">Hotel Check In : </div>
+                   <div class="col-md-9">{{ $registration->hotel_check_in}}</div>
+                   <div class="col-md-3">Hotel Check Out : </div>
+                   <div class="col-md-9">{{ $registration->hotel_check_out}}</div>
+                   <div class="col-md-3">Total Nights : </div>
+                   <div class="col-md-9">{{ $price_info['total_num_of_days']}}</div>
+                   <div class="col-md-3">Free Nights : </div>
+                   <div class="col-md-9">{{ $price_info['total_num_of_days'] - $price_info['num_of_days']}}</div>
+                   <div class="col-md-3">Additional Attendees : </div>
+                   <div class="col-md-9">{{ $registration->num_of_travlers }}</div>
+                   <div class="col-md-3">Adults : </div>
+                   <div class="col-md-9">{{ $price_info['adult']}}</div>
+                   <div class="col-md-3">Above 5 Years : </div>
+                   <div class="col-md-9">{{ $price_info['above_five']}}</div>
+                   <div class="col-md-3">Below 5 Years : </div>
+                   <div class="col-md-9">{{ $price_info['below_five']}}</div>
+                   <div class="col-xs-12"><hr /></div>
+                   <div class="col-md-3"><strong>Total Price</strong></div>
+                   <div class="col-md-9"><strong>${{ $price_info['prices']}}</strong></div>
+                </div>
+            </div>
             <div class="col-xs-12">
                 
                 <div class="form-group col-xs-12 col-sm-6">
@@ -87,7 +106,6 @@
                     <textarea name="specialnotes" class="form-control" id="" placeholder="">{{ $registration->special_circumstances }}</textarea>
                 </div>
             </div>
-
             <div class="col-lg-12">
                 <div class="form-group col-xs-06">
                 	<br>	
@@ -107,13 +125,44 @@
         </form>
     </div>
 </div>
+
+<!-- popup to ask for agreement -->
+<div class="modal agree-fr-pay" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>You must have to agree to pay the charges.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 @section('scripts')
         @include('layouts/script')
     <script type="text/javascript">
-        $(document).on('click','.sub', function(){
-            $('.snc').hide();
+        $(document).on('click','.sub', function(e){
+            e.preventDefault();
+            if($('input[name="agreement"]').is(':checked'))
+                $('.pref-form').submit();
+            else {
+                $('input[name="agreement"]').parents('.form-group').addClass('req-attr');
+                $('.agree-fr-pay').modal('show');
+            }
+            //$('.snc').hide();
         });
+
+        $(document).on('change','input[name="agreement"]', function(e){
+            if($(this).is(':checked'))
+                $(this).parents('.req-attr').removeClass('req-attr');
+            else
+                $(this).parents('.form-group').addClass('req-attr');
+            
+        })
+
         $(document).on('click','.previous', function(e){
             e.preventDefault();
             previouspage('flights');

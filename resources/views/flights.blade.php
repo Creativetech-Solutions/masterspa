@@ -57,19 +57,19 @@
             $registration->payment_method = "";
             $registration->special_notes = "";
         }
+
+        if($registration->dpt_date == '1970-01-01' || $registration->dpt_date == '0000-00-00')
+            $registration->dpt_date = "";
+            
+        if($registration->ret_date == '1970-01-01' || $registration->ret_date == '0000-00-00')
+            $registration->ret_date = "";
+            
     @endphp
 
 
     <div class="container-fluid">
         <div class="container-page">
             @include('layouts/notify')
-            <div class="col-sm pull-right">
-                <label>Your Unique ID:</label>
-                <input type="text" value="{{$registration->unique_id}}" readonly disabled>
-            </div>
-            <div style="background-color: lightgrey; padding: 8px" class="pull-left">
-                <p style="color: red; margin: 0px"><b>Please note and save your unique ID, in order to return and see your information.</b></p>
-            </div>
             <h3 class="dark-grey">Flights</h3>
             <div class="col-xs-12">
                 <label><h4>
@@ -85,7 +85,7 @@
                     </h4>
                 </label>
             </div>
-            <form action="{{ url('/agreement') }}" method="POST" class="pref-form">
+            <form action="{{ url('/payment') }}" method="POST" class="pref-form">
                 {{ csrf_field() }}
                 <div class="col-lg-12">
                     <div class="form-group col-lg-6">
@@ -165,7 +165,7 @@
                         <input type="text" name="fflyer" class="form-control" id=""
                                value="{{ $registration->freq_flyer_no }}" placeholder="">
                     </div>
-
+<!-- 
                     <div class="form-group col-lg-8 quote">
                         <br>
                         <label>Method of Payment:</label><br>
@@ -177,7 +177,7 @@
                         Credit Card<br>
 
 
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="col-lg-12 quote" style="display: {{$registration->airfare_quote == 'yes' ?'block':'none'}}">
@@ -242,7 +242,7 @@
          });*/
         $(document).on('click', '.previous', function (e) {
             e.preventDefault();
-            previouspage('hotel');
+            previouspage('meeting');
         });
 
     </script>

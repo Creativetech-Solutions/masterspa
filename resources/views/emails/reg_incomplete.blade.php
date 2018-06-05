@@ -2,8 +2,8 @@
 <h3>Personal Information</h3>
 <table style="font-family: Arial, Sans-Serif; border-collapse: collapse; width: 50% ">
     <tr>
-        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Column Name</th>
-        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Value</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Field Name</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Details</th>
     </tr>
 
     <tr>
@@ -64,8 +64,8 @@
         <h3>Flights</h3>
         <table style="font-family: Arial, Sans-Serif; border-collapse: collapse; width: 50% ">
             <tr>
-                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Column Name</th>
-                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Value</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Field Name</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Details</th>
             </tr>
 
             <tr>
