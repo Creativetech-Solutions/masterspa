@@ -13,4 +13,7 @@ class Attendees extends Model
     public function registration(){
         return $this->belongsTo('App\Register');
     }
+    public function flights(){
+        return $this->hasMany('App\Flights','guest_id');
+    }
 }
