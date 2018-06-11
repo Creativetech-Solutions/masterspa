@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Library\Elavon;
 use Validator;
 
 class HomeController extends Controller
@@ -535,6 +536,16 @@ class HomeController extends Controller
                 ->subject('Master Spas Registration Saved To Complete Later');
             $message->from('masterspa@yopmail.com', 'Master Spas');
         });
+
+        $trans_data = [
+            'cc_num' => $request->cc_num,
+            'cc_num' => $request->cc_num,
+            'cc_num' => $request->cc_num,
+        ];
+
+        $elavon = new Elavon();
+        $elavon->saleTransaction($trans_data);
+
         return view('/information_saved');
     }
 
