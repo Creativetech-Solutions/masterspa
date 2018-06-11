@@ -23,10 +23,22 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="panel-heading">
+                        <h3 class="page-title-container">Attendee</h3>
+                        <div class="form-group pull-right">
+                            <a type="button" href="{{url('admin/guests_flight/'.$guest->id)}}"
+                               class="btn btn-default pull-right">View
+                                Flights</a>
+                            <button class="btn btn-primary pull-right" data-id="{{$guest->id}}" data-toggle="modal"
+                                    data-target="#modalAddFlight">Add Flights
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <form action="{{url('admin/guests/edit_guest/'.$guest->id)}}" method="post">
                             {{ csrf_field() }}
-                            <h3 class="page-title-container">Attendee's</h3>
+
                             <div class="col-md-6">
 
                                 <div class="form-group">
@@ -98,6 +110,49 @@
                         </form>
                     </div>
                     <!-- /.box-body -->
+                    <!-- Add Flights modal -->
+                    <div class="modal fade" id="modalAddFlight" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">Add Flight</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{url('admin/guests/add_guest_flight/'.$guest->id)}}" method="post">
+                                    {{csrf_field()}}
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form mb-5">
+                                            <label for="arrival_flight">Arrival Flight:</label>
+                                            <input type="text" name="arrival_flight" class="form-control">
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label for="arrival_time">Arrival time:</label>
+                                            <input type="text" name="arrival_time" class="form-control ">
+                                        </div>
+
+                                        <div class="md-form mb-5">
+                                            <label for="departure_flight">Departure Flight:</label>
+                                            <input type="text" name="departure_flight" class="form-control">
+                                        </div>
+
+                                        <div class="md-form md-5">
+                                            <label for="departure_time">Departure Time:</label>
+                                            <input type="text" name="departure_time" class="md-textarea form-control">
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-default">Submit</i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

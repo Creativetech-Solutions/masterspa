@@ -219,6 +219,7 @@
             //$('.snc').hide();
         });
         $(document).on('click', '.sub', function (e) {
+            e.preventDefault();
             var $ref = $('form');
             $ref.attr('action', '{{ url('/submission') }}');
             $ref.submit();

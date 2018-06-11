@@ -63,6 +63,8 @@ Ok, the BGI box is now running, the hamachi url is http://25.68.206.199/bumblebe
             <h3 class="dark-grey">Contact Us</h3>
             <div class="col-xs-12">
                 <label><h4>
+                        If you'd prefer to give us a call, please contact Patty Kleiner with Lattitude Events Inc at 215 369 2404.
+
                         Contact us with any questions that you might have &#8211; we&#8217;ll be in touch within 24
                         hours. We look forward to hearing from you! <br>
                     </h4>
