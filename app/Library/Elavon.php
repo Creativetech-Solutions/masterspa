@@ -14,10 +14,10 @@ class Elavon {
         <ssl_pin>'.$this->pin.'</ssl_pin>
         <ssl_test_mode>'.$this->test_mode.'</ssl_test_mode>
         <ssl_transaction_type>ccsale</ssl_transaction_type>
-        <ssl_card_number>5472063333333330</ssl_card_number>
-        <ssl_exp_ date>1215</ssl_exp_date>
-        <ssl_amount>10.00</ssl_amount>
-        <ssl_first_name>Test</ssl_first_name>
+        <ssl_card_number>'.$trans_data->card_number.'</ssl_card_number>
+        <ssl_exp_date>'.$trans_data->cc_mon.' '.$trans_data->cc_yr.'</ssl_exp_date>
+        <ssl_amount>'.$trans_data->total.'/ssl_amount>
+        <ssl_first_name>'.$trans_data->first_name.'</ssl_first_name>
         </txn>';
         return $this->sendRequest($xmldata);
 	}

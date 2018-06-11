@@ -18,4 +18,7 @@ class Register extends Model
     public function country(){
         return $this->belongsTo('App\Register');
     }
+    public function payment(){
+        return $this->hasOne('App\Payments');
+    }
 }

@@ -9,6 +9,7 @@ use App\Attendees;
 use App\Country;
 use App\Departure_date;
 use App\Email_template;
+use App\Payments;
 use App\User;
 use Illuminate\Http\Request;
 use App\Register;
@@ -309,7 +310,6 @@ class HomeController extends Controller
     public function submission(Request $request)
     {
         if ($request->isMethod('post')) {
-
             $register = $this->register;
             $register->special_circumstances = $request->specialnotes;
             // optional inputs
@@ -426,6 +426,21 @@ class HomeController extends Controller
                     $message->from('masterspa@yopmail.com', 'Master Spas');
                 });
             }
+            $trans_data = [
+                'first_name' => $request->first_name,
+                'car_number' => $request->cc_num,
+                'ccv' => $request->ccv,
+                'cc_mon' => $request->cc_mon,
+                'cc_yr' => $request->cc_yr,
+                'total' => $request->total
+            ];
+
+            $elavon = new Elavon();
+            $elavon->saleTransaction($trans_data);
+
+            $payment_data = new Payments();
+            $payment_data->first_name ;
+
             if (!$register->save()) {
                 return redirect('/agreement');
             } else {
@@ -538,9 +553,11 @@ class HomeController extends Controller
         });
 
         $trans_data = [
-            'cc_num' => $request->cc_num,
-            'cc_num' => $request->cc_num,
-            'cc_num' => $request->cc_num,
+            'first_name' => $request->first_name,
+            'car_number' => $request->cc_num,
+            'ccv' => $request->ccv,
+            'cc_mon' => $request->cc_mon,
+            'cc_yr' => $request->cc_yr,
         ];
 
         $elavon = new Elavon();
