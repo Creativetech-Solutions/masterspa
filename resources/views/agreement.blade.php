@@ -76,13 +76,13 @@
                 </div>
                 <div class="form-group col-xs-12">
                    <div class="col-md-3">Hotel Check In : </div>
-                   <div class="col-md-9">{{ $registration->hotel_check_in}}</div>
+                   <div class="col-md-9">{{ $registration->hotel_check_in}}</div><br>
                    <div class="col-md-3">Hotel Check Out : </div>
-                   <div class="col-md-9">{{ $registration->hotel_check_out}}</div>
+                   <div class="col-md-9">{{ $registration->hotel_check_out}}</div><br>
                    <div class="col-md-3">Total Hotel Nights : </div>
-                   <div class="col-md-9">{{ $price_info['total_num_of_days']}}</div>
+                   <div class="col-md-9">{{ $price_info['total_num_of_days']}}</div><br>
                    <div class="col-md-3">Included Hotel Nights : </div>
-                   <div class="col-md-9">{{ $price_info['total_num_of_days'] - $price_info['num_of_days']}}</div>
+                   <div class="col-md-9">{{ $price_info['total_num_of_days'] - $price_info['num_of_days']}}</div><br>
                    <div class="col-md-3">Your Additional Nights : </div>
                    <div class="col-md-9">{{ $price_info['num_of_days']}}
                     @if($price_info['adult'] == 2)
@@ -92,20 +92,21 @@
                     @elseif($price_info['adult'] == 4)
                         @ $335.00 per night
                     @endif
-                   </div>
+                   </div><br>
                    <div class="col-md-3">Total Attendees : </div>
-                   <div class="col-md-9">{{ $registration->num_of_travlers }}</div>
+                   <div class="col-md-9">{{ $registration->num_of_travlers }}</div><br>
                    <div class="col-md-3">Adults : </div>
-                   <div class="col-md-9">{{ $price_info['adult']}}</div>
+                   <div class="col-md-9">{{ $price_info['adult']}}</div><br>
                    <!-- <div class="col-md-3">Above 5 Years : </div>
                    <div class="col-md-9">{{ $price_info['above_five']}}</div> -->
                    <div class="col-md-3">Below 5 Years : </div>
-                   <div class="col-md-9">{{ $price_info['below_five']}} @ $350.00 per child</div>
+                   <div class="col-md-9">{{ $price_info['below_five']}} @ $350.00 per child</div><br>
                    <div class="col-xs-12"><hr /></div>
-                   <div class="col-md-3"><strong>Total Price</strong></div>
+                   <div class="col-md-3"><strong>Total Price</strong></div><br>
                    <div class="col-md-2"><strong><input value="${{ $price_info['prices']}}" class="form-control" readonly/></strong></div>
                 </div>
             </div>
+            @if($registration->status != 'Registered')
             <div class="col-xs-12">
                 <span class="card-imgs" style="background-image: url({{ asset('public/images/creditcards.svg') }})"></span>
             </div>
@@ -153,6 +154,7 @@
                     </select>
                 </div>
             </div>
+            @endif
             <div class="col-xs-12">
 
                 <div class="form-group col-xs-12 col-sm-6">
@@ -179,8 +181,10 @@
             <div class="col-md-6">
                 <input type="hidden" name="url" value="" />
                 <button class="btn btn-danger previous">&laquo; Previous</button>
+                @if($registration->status != 'Registered')
                 <button type="submit" class="btn btn-primary sub">Submit Registration</button>
                 <a href="{{url('/submission')}}" class="btn btn-default snc">Save and Complete Later</a><br>
+                @endif
             </div>
         </form>
     </div>
@@ -214,8 +218,6 @@
             }
             //$('.snc').hide();
         });
-        {{--href="{{url('/complete_later')}}"--}}
-            {{--action="{{ url('/submission') }}"--}}
         $(document).on('click', '.sub', function (e) {
             var $ref = $('form');
             $ref.attr('action', '{{ url('/submission') }}');

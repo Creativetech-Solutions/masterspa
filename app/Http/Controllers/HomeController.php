@@ -522,6 +522,7 @@ class HomeController extends Controller
         );
         $template = Email_template::find(4);
         $html = \View::make('emails.save_and_complete')->with(compact('complete_data','guests'))->render();
+        $header_img = '<img src="'.asset('/public/images/emailheader.jpg').'"></img>';
         $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
             array($html, $register->fname, 'Master Spas'), $template->body);
         $data = array('messageBody' => htmlspecialchars_decode($messageBody));
@@ -588,7 +589,7 @@ class HomeController extends Controller
         if ($count <= 2) continue;
 
         $guest_age_yr = date('Y', strtotime($guest->age));
-        if($guest_age_yr >= 2013){
+        if($guest_age_yr > 2013){
           $prices += 350;
           $below_five += 1;
         }
@@ -621,7 +622,7 @@ class HomeController extends Controller
 
     protected function isEditable(){
         $register = $this->register;
-        if(isset($register->status) && $register->status != 'Registered')
+        if(!isset($register->status) || $register->status != 'Registered')
             return true;
         else return false;
     }

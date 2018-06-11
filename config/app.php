@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost/masterspa'),
+    'url' => env('APP_URL', 'http://groupregistration.net'),
 
     /*
     |--------------------------------------------------------------------------
