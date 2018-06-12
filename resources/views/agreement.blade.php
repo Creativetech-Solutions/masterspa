@@ -65,6 +65,7 @@
             $registration->need_invoice = "";
             $registration->send_invoice = "";
             $registration->special_circumstances = "";
+            $registration->first_name = "";
         }
     @endphp
     <div class="container-fluid">
@@ -144,7 +145,7 @@
                     <div class="col-xs-12">
                         <div class="form-group col-xs-12 col-sm-5">
                             <label>Name</label>
-                            <input type="text" name="first_name" class="form-control"/>
+                            <input type="text" name="first_name" class="form-control" />
                         </div>
                         <div class="form-group col-xs-12 col-sm-5">
                             <label>Credit Card Number</label>
@@ -176,6 +177,9 @@
                             <label>Year</label>
                             <select name="cc_yr" class="form-control">
                                 <option></option>
+                                <option value="15">2015</option>
+                                <option value="16">2016</option>
+                                <option value="17">2017</option>
                                 <option value="18">2018</option>
                                 <option value="19">2019</option>
                                 <option value="20">2020</option>

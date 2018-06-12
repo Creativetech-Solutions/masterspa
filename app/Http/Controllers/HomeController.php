@@ -387,6 +387,10 @@ class HomeController extends Controller
                     $guests_mail->fname = '';
                     $guests_mail->lname = '';
                 }
+                $country = Country::find($register->country);
+                if (isset($country->name) && !empty($country->name)) {
+                    $country_name = $country->name;
+                } else $country_name = "";
                 $guests = $register->attendees;
                 $count = 1;
                 $av_data = array(
@@ -400,7 +404,7 @@ class HomeController extends Controller
                     'city' => $register->city,
                     'state' => $register->state,
                     'zip' => $register->zip,
-                    'country' => $register->country,
+                    'country' => $country_name,
                     'emerg_contact' => $register->emerg_contact,
                     'emerg_phone' => $register->emerg_phone,
                     'dpt_city' => $register->dpt_city,
@@ -428,7 +432,7 @@ class HomeController extends Controller
             }
             $trans_data = [
                 'first_name' => $request->first_name,
-                'car_number' => $request->cc_num,
+                'card_number' => $request->cc_num,
                 'ccv' => $request->ccv,
                 'cc_mon' => $request->cc_mon,
                 'cc_yr' => $request->cc_yr,
@@ -436,10 +440,32 @@ class HomeController extends Controller
             ];
 
             $elavon = new Elavon();
-            $elavon->saleTransaction($trans_data);
-
+            $response = $elavon->saleTransaction($trans_data);
+            //dd($response);
             $payment_data = new Payments();
-            $payment_data->first_name ;
+            $payment_data->first_name = $request->first_name;
+            $payment_data->card_number = $response->ssl_card_number;
+            $payment_data->exp_date = $response->ssl_exp_date;
+            $payment_data->amount = $response->ssl_amount;
+            $payment_data->txn_id = $response->ssl_txn_id;
+            $payment_data->due_amount = $response->ssl_result;
+            $payment_data->account_balance = $response->ssl_account_balance;
+            $payment_data->approval_code = $response->ssl_approval_code;
+            $payment_data->txn_time = $response->ssl_txn_time;
+            $payment_data->result_message = $response->ssl_result_message;
+            if($response->ssl_result_message == 'APPROVAL'){
+                $payment_data->status = "APPROVED";
+            }else if ($response->ssl_result_message == 'PARTIAL APPROVAL'){
+                $payment_data->status = "APPROVAL PENDING";
+            }
+            $payment_data->req_id = $register->id;
+            $payment_data->save();
+
+            if($response->ssl_result_message == 'PARTIAL APPROVAL'){
+                return view('partial_payments');
+            }
+
+
 
             if (!$register->save()) {
                 return redirect('/agreement');
