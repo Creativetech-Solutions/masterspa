@@ -58,10 +58,10 @@ class HomeController extends Controller
 
     public function getprefrences(Request $request)
     {
-       
+
         if ($request->isMethod('post')) {
 
-            if($this->isEditable()){
+            if ($this->isEditable()) {
                 $register = $this->register;
                 if (!session()->has('register_id')) {
                     /*unique:registers|*/
@@ -115,7 +115,7 @@ class HomeController extends Controller
 
         if ($request->isMethod('post')) {
 
-            if($this->isEditable()){
+            if ($this->isEditable()) {
 
                 $register = $this->register;
                 if ($request->needs == 'yes') {
@@ -143,29 +143,29 @@ class HomeController extends Controller
         return view('guests')->with(compact('registration'));
     }
 
- /* public function getadditional(Request $request)
-    {
-       
-        if (empty(session('register_id'))) {
-            return redirect('/');
-        }
-        if ($request->isMethod('post')) {
+    /* public function getadditional(Request $request)
+       {
 
-            $register = $this->register;
-           
-            $register->attendee_date_id = $request->attandees;
-            if (!$register->save())
-                return redirect('/');
-            else
-                session()->put('register_id', $register->id);
+           if (empty(session('register_id'))) {
+               return redirect('/');
+           }
+           if ($request->isMethod('post')) {
 
-            if (!empty($request->url))
-                return redirect($request->url);
-        }
-        $registration = $this->register;
+               $register = $this->register;
 
-        return view('meeting')->with(compact('registration'));
-    }*/
+               $register->attendee_date_id = $request->attandees;
+               if (!$register->save())
+                   return redirect('/');
+               else
+                   session()->put('register_id', $register->id);
+
+               if (!empty($request->url))
+                   return redirect($request->url);
+           }
+           $registration = $this->register;
+
+           return view('meeting')->with(compact('registration'));
+       }*/
 
     public function getmeeting(Request $request)
     {
@@ -175,7 +175,7 @@ class HomeController extends Controller
         }
         if ($request->isMethod('post')) {
 
-            if($this->isEditable()){
+            if ($this->isEditable()) {
                 $register = $this->register;
                 $register->num_of_travlers = $request->num_of_travler;
                 if (!$register->save())
@@ -218,31 +218,31 @@ class HomeController extends Controller
         return view('meeting')->with(compact('registration'));
     }
 
-  /*  public function gethotel(Request $request)
-    {
-       
-        if (empty(session('register_id'))) {
-            return redirect('/');
-        }
-        if ($request->isMethod('post')) {
-           
-            $register = $this->register;
-            $register->arrival_date_id = $request->arrival_date;
-            $register->departure_date_id = $request->departure;
-            $register->attende_ext_night_id = $request->extended_night;
-            $register->extend_trip = $request->extend_trip;
-            $register->european_dealer = $request->eur_dealer;
-            if (!$register->save())
-                return redirect('/hotel');
-            else
-                session()->put('register_id', $register->id);
-        }
-        $registration = $this->register;
-        if (!empty($request->url))
-            return redirect($request->url);
+    /*  public function gethotel(Request $request)
+      {
 
-        return view('flights')->with(compact('registration'));
-    }*/
+          if (empty(session('register_id'))) {
+              return redirect('/');
+          }
+          if ($request->isMethod('post')) {
+
+              $register = $this->register;
+              $register->arrival_date_id = $request->arrival_date;
+              $register->departure_date_id = $request->departure;
+              $register->attende_ext_night_id = $request->extended_night;
+              $register->extend_trip = $request->extend_trip;
+              $register->european_dealer = $request->eur_dealer;
+              if (!$register->save())
+                  return redirect('/hotel');
+              else
+                  session()->put('register_id', $register->id);
+          }
+          $registration = $this->register;
+          if (!empty($request->url))
+              return redirect($request->url);
+
+          return view('flights')->with(compact('registration'));
+      }*/
 
 
     public function getflights(Request $request)
@@ -252,8 +252,8 @@ class HomeController extends Controller
             return redirect('/');
         }
         if ($request->isMethod('post')) {
-            
-            if($this->isEditable()){
+
+            if ($this->isEditable()) {
                 $register = $this->register;
                 $register->meeting_participants = $request->meeting;
                 if (!$register->save())
@@ -274,8 +274,8 @@ class HomeController extends Controller
             return redirect('/');
         }
         if ($request->isMethod('post')) {
-           
-            if($this->isEditable()){
+
+            if ($this->isEditable()) {
                 $register = $this->register;
                 $register->dpt_date = date('Y-m-d', strtotime($request->ddate));
                 $register->dpt_city = $request->dcity;
@@ -304,7 +304,7 @@ class HomeController extends Controller
 
         $registration = $this->register;
         $price_info = $this->calculatePrices($this->register);
-        return view('agreement')->with(compact('registration','price_info'));
+        return view('agreement')->with(compact('registration', 'price_info'));
     }
 
     public function submission(Request $request)
@@ -317,8 +317,50 @@ class HomeController extends Controller
             foreach ($optionalInput as $key => $value) {
                 $register->$key = $request->$value;
             }
-            $update = array('status' => 'Registered');
-            Register::find($register->id)->update($update);
+            $trans_data = [
+                'first_name' => $request->first_name,
+                'card_number' => $request->cc_num,
+                'ccv' => $request->ccv,
+                'cc_mon' => $request->cc_mon,
+                'cc_yr' => $request->cc_yr,
+                'total' => $request->total
+            ];
+
+            $elavon = new Elavon();
+            $response = $elavon->saleTransaction($trans_data);
+            //dd($response);
+            $payment_data = new Payments();
+            $payment_data->first_name = $request->first_name;
+            $payment_data->card_number = $response->ssl_card_number;
+            $payment_data->exp_date = $response->ssl_exp_date;
+            $payment_data->amount = $response->ssl_amount;
+            $payment_data->txn_id = $response->ssl_txn_id;
+            $payment_data->due_amount = $response->ssl_result;
+            $payment_data->account_balance = $response->ssl_account_balance;
+            $payment_data->approval_code = $response->ssl_approval_code;
+            $payment_data->txn_time = $response->ssl_txn_time;
+            $payment_data->result_message = $response->ssl_result_message;
+            $payment_data->req_id = $register->id;
+            $payment_data->save();
+            $payment_status = Payments::find($register->id);
+            //dd($payment_status);
+            if ($payment_status['result_message'] == 'APPROVAL') {
+                $update = array('status' => 'Registered');
+                Register::find($register->id)->update($update);
+            }
+            if ($response->ssl_result_message == 'PARTIAL APPROVAL') {
+                $partial_response = [
+                    'first_name' => $request->first_name,
+                    'card_number' => $response->ssl_card_number,
+                    'amount' => $response->ssl_amount,
+                    'requested_amount' => $response->ssl_requested_amount,
+                    'due_amount' => $response->ssl_balance_due,
+                    'account_balance' => $response->ssl_account_balance,
+                ];
+                $registration = $this->register;
+                $price_info = $this->calculatePrices($this->register);
+                return view('partial_payment')->with(compact('price_info', 'registration', 'partial_response'));
+            }
             $status = Register::find($register->id);
             $price_info = $this->calculatePrices($this->register);
             $country = Country::find($register->country);
@@ -365,7 +407,7 @@ class HomeController extends Controller
                 'status' => $status->status,
             );
             $template = Email_template::find(4);
-            $html = \View::make('emails.complete_info_mail')->with(compact('complete_data','price_info'))->render();
+            $html = \View::make('emails.complete_info_mail')->with(compact('complete_data', 'price_info'))->render();
             $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
                 array($html, $register->fname, 'Master Spas'), $template->body);
             $data = array('messageBody' => htmlspecialchars_decode($messageBody));
@@ -373,17 +415,17 @@ class HomeController extends Controller
                 'email' => $register->email,
                 'name' => $register->fname,
             );
-            Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
+            /*Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
                 $message->to($email_info['email'], $email_info['name'])
                     ->subject('Master Spas Registration');
                 $message->from('masterspa@yopmail.com', 'Master Spas');
-            });
+            });*/
             /*$html = \View::make('emails.complete_info_mail')->render();
             $save = htmlspecialchars($html);
             dd($save);*/
             if ($register->airfare_quote == 'yes') {
                 $guests_mail = $register->attendees()->first();
-                if($guests_mail == ''){
+                if ($guests_mail == '') {
                     $guests_mail->fname = '';
                     $guests_mail->lname = '';
                 }
@@ -415,56 +457,21 @@ class HomeController extends Controller
                 );
                 $template = Email_template::find(6);
                 //dd($template->body);
-                $html = \View::make('emails.reg_incomplete')->with(compact('av_data','guests','count'))->render();
-                    $messageBody = str_replace(array('[BODY]', '[GuestFirstName]','[GuestLastName]','[GuestUniqueID]', '[SITE_NAME]'),
-                    array($html, $guests_mail->fname,$guests_mail->lname,$register->unique_id, 'Master Spas'), $template->body);
+                $html = \View::make('emails.reg_incomplete')->with(compact('av_data', 'guests', 'count'))->render();
+                $messageBody = str_replace(array('[BODY]', '[GuestFirstName]', '[GuestLastName]', '[GuestUniqueID]', '[SITE_NAME]'),
+                    array($html, $guests_mail->fname, $guests_mail->lname, $register->unique_id, 'Master Spas'), $template->body);
                 $data = array('messageBody' => htmlspecialchars_decode($messageBody));
                 $admin_email = User::find(2);
                 $email_info = array(
                     'email' => $admin_email->email,
                     'name' => $admin_email->fname,
                 );
-                Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
+                /*Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
                     $message->to($email_info['email'], $email_info['name'])
                         ->subject('Informed Admin');
                     $message->from('masterspa@yopmail.com', 'Master Spas');
-                });
+                });*/
             }
-            $trans_data = [
-                'first_name' => $request->first_name,
-                'card_number' => $request->cc_num,
-                'ccv' => $request->ccv,
-                'cc_mon' => $request->cc_mon,
-                'cc_yr' => $request->cc_yr,
-                'total' => $request->total
-            ];
-
-            $elavon = new Elavon();
-            $response = $elavon->saleTransaction($trans_data);
-            //dd($response);
-            $payment_data = new Payments();
-            $payment_data->first_name = $request->first_name;
-            $payment_data->card_number = $response->ssl_card_number;
-            $payment_data->exp_date = $response->ssl_exp_date;
-            $payment_data->amount = $response->ssl_amount;
-            $payment_data->txn_id = $response->ssl_txn_id;
-            $payment_data->due_amount = $response->ssl_result;
-            $payment_data->account_balance = $response->ssl_account_balance;
-            $payment_data->approval_code = $response->ssl_approval_code;
-            $payment_data->txn_time = $response->ssl_txn_time;
-            $payment_data->result_message = $response->ssl_result_message;
-            if($response->ssl_result_message == 'APPROVAL'){
-                $payment_data->status = "APPROVED";
-            }else if ($response->ssl_result_message == 'PARTIAL APPROVAL'){
-                $payment_data->status = "APPROVAL PENDING";
-            }
-            $payment_data->req_id = $register->id;
-            $payment_data->save();
-
-            if($response->ssl_result_message == 'PARTIAL APPROVAL'){
-                return view('partial_payments');
-            }
-
 
 
             if (!$register->save()) {
@@ -483,12 +490,76 @@ class HomeController extends Controller
         }
     }
 
+    public function completePayment(Request $request)
+    {
+        $register = $this->register;
+        $trans_data = [
+            'first_name' => $request->first_name,
+            'card_number' => $request->cc_num,
+            'ccv' => $request->ccv,
+            'cc_mon' => $request->cc_mon,
+            'cc_yr' => $request->cc_yr,
+            'total' => $request->total
+        ];
+        $elavon = new Elavon();
+        $response = $elavon->CompleteTransaction($trans_data);
+        $payment_data = $register->payment;
+        $payment_data->first_name = $request->first_name;
+        $payment_data->card_number = $response->ssl_card_number;
+        $payment_data->exp_date = $response->ssl_exp_date;
+        $payment_data->amount = $response->ssl_amount;
+        $payment_data->txn_id = $response->ssl_txn_id;
+        $payment_data->due_amount = $response->ssl_result;
+        $payment_data->account_balance = $response->ssl_account_balance;
+        $payment_data->approval_code = $response->ssl_approval_code;
+        $payment_data->txn_time = $response->ssl_txn_time;
+        $payment_data->result_message = $response->ssl_result_message;
+        $payment_data->req_id = $register->id;
+        $payment_data->save();
+        $payment_status = Payments::find($register->id);
+        //dd($payment_status);
+        if ($payment_status['result_message'] == 'APPROVAL') {
+            $update = array('status' => 'Registered');
+            Register::find($register->id)->update($update);
+        }
+        if ($response->ssl_result_message == 'PARTIAL APPROVAL') {
+            $partial_response = [
+                'first_name' => $request->first_name,
+                'card_number' => $response->ssl_card_number,
+                'amount' => $response->ssl_amount,
+                'requested_amount' => $response->ssl_requested_amount,
+                'due_amount' => $response->ssl_balance_due,
+                'account_balance' => $response->ssl_account_balance,
+            ];
+            $registration = $this->register;
+            $price_info = $this->calculatePrices($this->register);
+            return view('partial_payment')->with(compact('price_info', 'registration', 'partial_response'));
+        } else {
+            return redirect('/payment');
+        }
+    }
+
+    public function cancelPayment($id)
+    {
+        $delete_partial_payment = Payments::find($id);
+        $trans_data = [
+            'txn_id' => $delete_partial_payment->txn_id
+        ];
+        $elavon = new Elavon();
+        $response = $elavon->deleteTransaction($trans_data);
+        $delete_payment = Payments::find($id);
+        $delete_payment->is_deleted = '1';
+        $delete_payment->txn_id = $response->ssl_txn_id;
+        $delete_payment->save();
+        return redirect('/payment');
+    }
+
     public function isRequiredFieldMissing()
     {
         $register = $this->register;
         $requiredFields = [
             'all' => ['comp_name', 'fname', 'lname', 'tel', 'cell', 'email', 'address', 'city', 'state', 'zip', 'country', 'emerg_contact', 'emerg_phone', 'preference', 'special_need', 'meeting_participants', 'airfare_quote'],
-            'airfare_quote' => ['service_class', 'dpt_city', 'dpt_date', 'pref_dpt_time', 'ret_date', 'pref_ret_time', 'pref_airline', 'freq_flyer_no', 'payment_method', 'special_notes']
+            'airfare_quote' => ['service_class', 'dpt_city', 'dpt_date', 'pref_dpt_time', 'ret_date', 'pref_ret_time', 'pref_airline', 'freq_flyer_no', 'special_notes']
         ];
         foreach ($requiredFields as $key => $fields) {
             if ($key == 'all') {
@@ -563,8 +634,8 @@ class HomeController extends Controller
             'status' => $status->status
         );
         $template = Email_template::find(4);
-        $html = \View::make('emails.save_and_complete')->with(compact('complete_data','guests'))->render();
-        $header_img = '<img src="'.asset('/public/images/emailheader.jpg').'"></img>';
+        $html = \View::make('emails.save_and_complete')->with(compact('complete_data', 'guests'))->render();
+        $header_img = '<img src="' . asset('/public/images/emailheader.jpg') . '"></img>';
         $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
             array($html, $register->fname, 'Master Spas'), $template->body);
         $data = array('messageBody' => htmlspecialchars_decode($messageBody));
@@ -616,67 +687,68 @@ class HomeController extends Controller
 
     }
 
-    protected function calculatePrices($register){
-      $htl_chkin = $register->hotel_check_in;
-      $htl_chkout = $register->hotel_check_out;
-      if($register->european_dealer == 'Yes') 
-        $start = 1;
-      else $start = 2;
+    protected function calculatePrices($register)
+    {
+        $htl_chkin = $register->hotel_check_in;
+        $htl_chkout = $register->hotel_check_out;
+        if ($register->european_dealer == 'Yes')
+            $start = 1;
+        else $start = 2;
 
-      $num_of_days = $total_num_of_days = round((strtotime($htl_chkout) - strtotime($htl_chkin))/ (60 * 60 * 24))+1;
+        $num_of_days = $total_num_of_days = round((strtotime($htl_chkout) - strtotime($htl_chkin)) / (60 * 60 * 24)) + 1;
 
-      for($i = $start; $i <= 5; $i++){
-        $date = '2018-11-0'.$i;
-        if (($date >= $htl_chkin) && ($date <= $htl_chkout)){
-          $num_of_days -= 1;
+        for ($i = $start; $i <= 5; $i++) {
+            $date = '2018-11-0' . $i;
+            if (($date >= $htl_chkin) && ($date <= $htl_chkout)) {
+                $num_of_days -= 1;
+            }
         }
-      }
 
-      $prices = $guest_adult = $count = $above_five = $below_five = 0;
-      foreach($register->attendees as $guest){
-        $count++;
+        $prices = $guest_adult = $count = $above_five = $below_five = 0;
+        foreach ($register->attendees as $guest) {
+            $count++;
 
-        $years = round((time()-strtotime($guest->age))/(3600*24*365.25));
-        if($years >= 12)
-          $guest_adult += 1;
+            $years = round((time() - strtotime($guest->age)) / (3600 * 24 * 365.25));
+            if ($years >= 12)
+                $guest_adult += 1;
 
-        if ($count <= 2) continue;
+            if ($count <= 2) continue;
 
-        $guest_age_yr = date('Y', strtotime($guest->age));
-        if($guest_age_yr > 2013){
-          $prices += 350;
-          $below_five += 1;
+            $guest_age_yr = date('Y', strtotime($guest->age));
+            if ($guest_age_yr > 2013) {
+                $prices += 350;
+                $below_five += 1;
+            } else {
+                $prices += 750;
+                $above_five += 1;
+            }
         }
-        else {
-          $prices += 750;
-          $above_five += 1;
-        }
-      }
 
-      if($guest_adult == 2)
-        $prices += 265.00 * $num_of_days;
-      elseif($guest_adult == 3)
-        $prices += 300.00 * $num_of_days;
-      elseif($guest_adult == 4)
-        $prices += 335.00 * $num_of_days;
+        if ($guest_adult == 2)
+            $prices += 265.00 * $num_of_days;
+        elseif ($guest_adult == 3)
+            $prices += 300.00 * $num_of_days;
+        elseif ($guest_adult == 4)
+            $prices += 335.00 * $num_of_days;
 
-      //$no_of_guests = $register->num_of_travlers;
+        //$no_of_guests = $register->num_of_travlers;
 
-      $priceInfo = [
-        'num_of_days' => $num_of_days,
-        'total_num_of_days' => $total_num_of_days,
-        'adult' => $guest_adult,
-        'prices' => $prices,
-        'above_five' => $above_five,
-        'below_five' => $below_five,
-      ];
+        $priceInfo = [
+            'num_of_days' => $num_of_days,
+            'total_num_of_days' => $total_num_of_days,
+            'adult' => $guest_adult,
+            'prices' => $prices,
+            'above_five' => $above_five,
+            'below_five' => $below_five,
+        ];
 
-      return $priceInfo;
+        return $priceInfo;
     }
 
-    protected function isEditable(){
+    protected function isEditable()
+    {
         $register = $this->register;
-        if(!isset($register->status) || $register->status != 'Registered')
+        if (!isset($register->status) || $register->status != 'Registered')
             return true;
         else return false;
     }

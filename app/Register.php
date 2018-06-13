@@ -19,6 +19,6 @@ class Register extends Model
         return $this->belongsTo('App\Register');
     }
     public function payment(){
-        return $this->hasOne('App\Payments');
+        return $this->hasOne('App\Payments','req_id');
     }
 }

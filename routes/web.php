@@ -32,7 +32,8 @@ Route::get('/admin/registration/reg-list', 'admin\flightsController@index');
 Route::any('/search','HomeController@searchResult');
 
 // post methods
-
+Route::post('/complete_payment','HomeController@completePayment');
+Route::post('/cancel_payment/{id}','HomeController@cancelPayment');
 Route::post('/complete_later', 'HomeController@saveAndCompleteLater');
 Route::post('/prefrences', 'HomeController@getprefrences');
 Route::post('/guests', 'HomeController@getguests');

@@ -28,18 +28,38 @@ class Elavon
 
         return simplexml_load_string($this->sendRequest($xmldata));
     }
-
-    /*public function deleteTransaction(){
+    /*<ssl_amount>' . $trans_data['total'] . '</ssl_amount>*/
+    public function CompleteTransaction($trans_data)
+    {
         $xmldata = '<txn>
-        <ssl_merchant_id>'.$this->marchantID.'</ssl_merchant_id>
-        <ssl_user_id>'.$this->userId.'</ssl_user_id>
-        <ssl_pin>'.$this->pin.'</ssl_pin>
-        <ssl_test_mode>'.$this->test_mode.'</ssl_test_mode>
+         <ssl_merchant_id>' . $this->marchantID . '</ssl_merchant_id>
+         <ssl_user_id>' . $this->userId . '</ssl_user_id>
+         <ssl_pin>' . $this->pin . '</ssl_pin>
+         <ssl_test_mode>' . $this->test_mode . '</ssl_test_mode>
+         <ssl_transaction_type>ccsale</ssl_transaction_type>
+         <ssl_card_number>' . $trans_data['card_number'] . '</ssl_card_number>
+         <ssl_exp_date>' . $trans_data['cc_mon'] . $trans_data['cc_yr'] . '</ssl_exp_date>
+         <ssl_amount>1.00</ssl_amount>
+         <ssl_cvv2cvc2_indicator>1</ssl_cvv2cvc2_indicator> 
+        <ssl_cvv2cvc2>' . $trans_data['ccv'] . '</ssl_cvv2cvc2>
+         <ssl_first_name>' . $trans_data['first_name'] . '</ssl_first_name>
+         </txn>';
+
+        return simplexml_load_string($this->sendRequest($xmldata));
+    }
+
+    public function deleteTransaction($trans_data)
+    {
+        $xmldata = '<txn>
+        <ssl_merchant_id>' . $this->marchantID . '</ssl_merchant_id>
+        <ssl_user_id>' . $this->userId . '</ssl_user_id>
+        <ssl_pin>' . $this->pin . '</ssl_pin>
+        <ssl_test_mode>' . $this->test_mode . '</ssl_test_mode>
         <ssl_transaction_type>ccdelete</ssl_transaction_type>
-        <ssl_card_number>'.$trans_data->card_number.'</ssl_card_number>
+        <ssl_txn_id>'.$trans_data['txn_id'].'</ssl_txn_id>
         </txn>';
-        return $this->sendRequest($xmldata);
-    }*/
+        return simplexml_load_string($this->sendRequest($xmldata));
+    }
 
     public function sendRequest($xmldata)
     {

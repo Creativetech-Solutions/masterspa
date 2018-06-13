@@ -141,11 +141,11 @@
                         <span class="card-imgs"
                               style="background-image: url({{ asset('public/images/creditcards.svg') }})"></span>
                     </div>
-                <input type="hidden" name="total" value="{{ $price_info['prices']}}">
+                    <input type="hidden" name="total" value="{{ $price_info['prices']}}">
                     <div class="col-xs-12">
                         <div class="form-group col-xs-12 col-sm-5">
                             <label>Name</label>
-                            <input type="text" name="first_name" class="form-control" />
+                            <input type="text" name="first_name" class="form-control"/>
                         </div>
                         <div class="form-group col-xs-12 col-sm-5">
                             <label>Credit Card Number</label>
