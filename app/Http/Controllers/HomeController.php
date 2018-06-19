@@ -317,52 +317,9 @@ class HomeController extends Controller
             foreach ($optionalInput as $key => $value) {
                 $register->$key = $request->$value;
             }
-            $trans_data = [
-                'first_name' => $request->first_name,
-                'card_number' => $request->cc_num,
-                'ccv' => $request->ccv,
-                'cc_mon' => $request->cc_mon,
-                'cc_yr' => $request->cc_yr,
-                'total' => $request->total
-            ];
 
-            $elavon = new Elavon();
-            $response = $elavon->saleTransaction($trans_data);
-            //dd($response);
-            $payment_data = new Payments();
-            $payment_data->first_name = $request->first_name;
-            $payment_data->card_number = $response->ssl_card_number;
-            $payment_data->exp_date = $response->ssl_exp_date;
-            $payment_data->amount = $response->ssl_amount;
-            $payment_data->txn_id = $response->ssl_txn_id;
-            $payment_data->due_amount = $response->ssl_result;
-            $payment_data->account_balance = $response->ssl_account_balance;
-            $payment_data->approval_code = $response->ssl_approval_code;
-            $payment_data->txn_time = $response->ssl_txn_time;
-            $payment_data->result_message = $response->ssl_result_message;
-            $payment_data->req_id = $register->id;
-            $payment_data->save();
-            $payment_status = Payments::find($register->id);
-            //dd($payment_status);
-            if ($payment_status['result_message'] == 'APPROVAL') {
-                $update = array('status' => 'Registered');
-                Register::find($register->id)->update($update);
-            }
-            if ($response->ssl_result_message == 'PARTIAL APPROVAL') {
-                $partial_response = [
-                    'first_name' => $request->first_name,
-                    'card_number' => $response->ssl_card_number,
-                    'amount' => $response->ssl_amount,
-                    'requested_amount' => $response->ssl_requested_amount,
-                    'due_amount' => $response->ssl_balance_due,
-                    'account_balance' => $response->ssl_account_balance,
-                ];
-                $registration = $this->register;
-                $price_info = $this->calculatePrices($this->register);
-                return view('partial_payment')->with(compact('price_info', 'registration', 'partial_response'));
-            }
+
             $status = Register::find($register->id);
-            $price_info = $this->calculatePrices($this->register);
             $country = Country::find($register->country);
             if (isset($country->name) && !empty($country->name)) {
                 $country_name = $country->name;
@@ -406,6 +363,7 @@ class HomeController extends Controller
                 'hotel_check_out' => $status->hotel_check_out,
                 'status' => $status->status,
             );
+            $price_info = $this->calculatePrices($this->register);
             $template = Email_template::find(4);
             $html = \View::make('emails.complete_info_mail')->with(compact('complete_data', 'price_info'))->render();
             $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]'),
@@ -484,6 +442,10 @@ class HomeController extends Controller
 
                 $requriedFieldMissing = $this->isRequiredFieldMissing();
 
+                if($requriedFieldMissing == 'false'){
+                    return $this->processPayment($request,'saleTransaction',$price_info);
+                }
+
                 $registration = $this->register;
                 return view('/thankyou')->with(compact('registration', 'requriedFieldMissing'));
             }
@@ -492,51 +454,8 @@ class HomeController extends Controller
 
     public function completePayment(Request $request)
     {
-        $register = $this->register;
-        $trans_data = [
-            'first_name' => $request->first_name,
-            'card_number' => $request->cc_num,
-            'ccv' => $request->ccv,
-            'cc_mon' => $request->cc_mon,
-            'cc_yr' => $request->cc_yr,
-            'total' => $request->total
-        ];
-        $elavon = new Elavon();
-        $response = $elavon->CompleteTransaction($trans_data);
-        $payment_data = $register->payment;
-        $payment_data->first_name = $request->first_name;
-        $payment_data->card_number = $response->ssl_card_number;
-        $payment_data->exp_date = $response->ssl_exp_date;
-        $payment_data->amount = $response->ssl_amount;
-        $payment_data->txn_id = $response->ssl_txn_id;
-        $payment_data->due_amount = $response->ssl_result;
-        $payment_data->account_balance = $response->ssl_account_balance;
-        $payment_data->approval_code = $response->ssl_approval_code;
-        $payment_data->txn_time = $response->ssl_txn_time;
-        $payment_data->result_message = $response->ssl_result_message;
-        $payment_data->req_id = $register->id;
-        $payment_data->save();
-        $payment_status = Payments::find($register->id);
-        //dd($payment_status);
-        if ($payment_status['result_message'] == 'APPROVAL') {
-            $update = array('status' => 'Registered');
-            Register::find($register->id)->update($update);
-        }
-        if ($response->ssl_result_message == 'PARTIAL APPROVAL') {
-            $partial_response = [
-                'first_name' => $request->first_name,
-                'card_number' => $response->ssl_card_number,
-                'amount' => $response->ssl_amount,
-                'requested_amount' => $response->ssl_requested_amount,
-                'due_amount' => $response->ssl_balance_due,
-                'account_balance' => $response->ssl_account_balance,
-            ];
-            $registration = $this->register;
-            $price_info = $this->calculatePrices($this->register);
-            return view('partial_payment')->with(compact('price_info', 'registration', 'partial_response'));
-        } else {
-            return redirect('/payment');
-        }
+        $price_info = $this->calculatePrices($this->register);
+        $this->processPayment($request, 'CompleteTransaction', $price_info);
     }
 
     public function cancelPayment($id)
@@ -554,30 +473,6 @@ class HomeController extends Controller
         return redirect('/payment');
     }
 
-    public function isRequiredFieldMissing()
-    {
-        $register = $this->register;
-        $requiredFields = [
-            'all' => ['comp_name', 'fname', 'lname', 'tel', 'cell', 'email', 'address', 'city', 'state', 'zip', 'country', 'emerg_contact', 'emerg_phone', 'preference', 'special_need', 'meeting_participants', 'airfare_quote'],
-            'airfare_quote' => ['service_class', 'dpt_city', 'dpt_date', 'pref_dpt_time', 'ret_date', 'pref_ret_time', 'pref_airline', 'freq_flyer_no', 'special_notes']
-        ];
-        foreach ($requiredFields as $key => $fields) {
-            if ($key == 'all') {
-                foreach ($fields as $field) {
-                    if (empty($register->$field))
-                        return 'true';
-                }
-            } else {
-                if ($register->$key == 'yes') {
-                    foreach ($fields as $field) {
-                        if (empty($register->$field))
-                            return 'true';
-                    }
-                }
-            }
-        }
-        return 'false';
-    }
 
     public function saveAndCompleteLater(Request $request)
     {
@@ -649,16 +544,8 @@ class HomeController extends Controller
             $message->from('masterspa@yopmail.com', 'Master Spas');
         });
 
-        $trans_data = [
-            'first_name' => $request->first_name,
-            'car_number' => $request->cc_num,
-            'ccv' => $request->ccv,
-            'cc_mon' => $request->cc_mon,
-            'cc_yr' => $request->cc_yr,
-        ];
-
-        $elavon = new Elavon();
-        $elavon->saleTransaction($trans_data);
+        //$price_info = $this->calculatePrices($this->register);
+        //$this->processPayment($request, 'saleTransaction', $price_info);
 
         return view('/information_saved');
     }
@@ -687,13 +574,94 @@ class HomeController extends Controller
 
     }
 
+    protected function processPayment($request, $method, $price_info){
+        $trans_data = [
+            'first_name' => $request->first_name,
+            'card_number' => $request->cc_num,
+            'ccv' => $request->ccv,
+            'cc_mon' => $request->cc_mon,
+            'cc_yr' => $request->cc_yr,
+            'total' => $request->total,
+            'amount' => $price_info['prices']
+        ];
+
+        $elavon = new Elavon();
+        $response = $elavon->$method($trans_data);
+        dd($response);
+
+        switch($method){
+            case 'saleTransaction':
+                $payment_data = new Payments();
+                break;
+            case 'CompleteTransaction':
+                $payment_data = $this->register->payment;
+                break;
+        }
+        $payment_data->first_name = $request->first_name;
+        $payment_data->card_number = $response->ssl_card_number;
+        $payment_data->exp_date = $response->ssl_exp_date;
+        $payment_data->amount = $response->ssl_amount;
+        $payment_data->txn_id = $response->ssl_txn_id;
+        $payment_data->due_amount = $response->ssl_result;
+        $payment_data->account_balance = $response->ssl_account_balance;
+        $payment_data->approval_code = $response->ssl_approval_code;
+        $payment_data->txn_time = date('Y-m-d h:i:s', strtotime($response->ssl_txn_time));
+        $payment_data->result_message = $response->ssl_result_message;
+        $payment_data->req_id = $this->register->id;
+        $payment_data->save();
+
+        //dd($payment_status);
+        if ($payment_data->result_message == 'APPROVAL') {
+            $update = array('status' => 'Registered');
+            Register::find($this->register->id)->update($update);
+        }
+        else if ($payment_data->result_message == 'PARTIAL APPROVAL') {
+            $partial_response = [
+                'first_name' => $request->first_name,
+                'card_number' => $response->ssl_card_number,
+                'amount' => $response->ssl_amount,
+                'requested_amount' => $response->ssl_requested_amount,
+                'due_amount' => $response->ssl_balance_due,
+                'account_balance' => $response->ssl_account_balance,
+            ];
+            $registration = $this->register;
+            return view('partial_payment')->with(compact('price_info', 'registration', 'partial_response'));
+        } else {
+            return redirect('/payment');
+        }
+    }
+
+    protected function isRequiredFieldMissing()
+    {
+        $register = $this->register;
+        $requiredFields = [
+            'all' => ['comp_name', 'fname', 'lname', 'tel', 'cell', 'email', 'address', 'city', 'state', 'zip', 'country', 'emerg_contact', 'emerg_phone', 'preference', 'special_need', 'meeting_participants', 'airfare_quote'],
+            'airfare_quote' => ['service_class', 'dpt_city', 'dpt_date', 'pref_dpt_time', 'ret_date', 'pref_ret_time', 'pref_airline', 'freq_flyer_no', 'special_notes']
+        ];
+        foreach ($requiredFields as $key => $fields) {
+            if ($key == 'all') {
+                foreach ($fields as $field) {
+                    if (empty($register->$field))
+                        return 'true';
+                }
+            } else {
+                if ($register->$key == 'yes') {
+                    foreach ($fields as $field) {
+                        if (empty($register->$field))
+                            return 'true';
+                    }
+                }
+            }
+        }
+        return 'false';
+    }
     protected function calculatePrices($register)
     {
         $htl_chkin = $register->hotel_check_in;
         $htl_chkout = $register->hotel_check_out;
-        if ($register->european_dealer == 'Yes')
+        if ($register->european_dealer == 'Yes') // euorpean dealer days start from 1 nov
             $start = 1;
-        else $start = 2;
+        else $start = 2; // else days start from 2 nov
 
         $num_of_days = $total_num_of_days = round((strtotime($htl_chkout) - strtotime($htl_chkin)) / (60 * 60 * 24)) + 1;
 

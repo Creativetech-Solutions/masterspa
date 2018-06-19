@@ -94,19 +94,19 @@
                         <label>Prices Detail:</label>
                     </div>
                     <div class="form-group col-xs-12">
-                        <div class="col-md-3"><b>Hotel Check In : </b></div>
-                        <div class="col-md-9">{{ $registration->hotel_check_in}}</div>
-                        <div class="col-md-3">Hotel Check Out :</div>
-                        <div class="col-md-9">{{ $registration->hotel_check_out}}</div>
+                        <div class="col-md-3 col-sm-6 col-xs-6"><b>Hotel Check In : </b></div>
+                        <div class="col-md-9 col-sm-6 col-xs-6">{{ $registration->hotel_check_in}}</div><br>
+                        <div class="col-md-3 col-sm-6 col-xs-6">Hotel Check Out :</div>
+                        <div class="col-md-9 col-sm-6 col-xs-6">{{ $registration->hotel_check_out}}</div>
                         <br>
-                        <div class="col-md-3">Total Hotel Nights :</div>
-                        <div class="col-md-9">{{ $price_info['total_num_of_days']}}</div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">Total Hotel Nights :</div>
+                        <div class="col-md-9 col-sm-6 col-xs-6">{{ $price_info['total_num_of_days']}}</div>
                         <br>
-                        <div class="col-md-3">Included Hotel Nights :</div>
-                        <div class="col-md-9">{{ $price_info['total_num_of_days'] - $price_info['num_of_days']}}</div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">Included Hotel Nights :</div>
+                        <div class="col-md-9 col-sm-6 col-xs-6">{{ $price_info['total_num_of_days'] - $price_info['num_of_days']}}</div>
                         <br>
-                        <div class="col-md-3">Your Additional Nights :</div>
-                        <div class="col-md-9">{{ $price_info['num_of_days']}}
+                        <div class="col-md-3 col-sm-6 col-xs-6">Your Additional Nights :</div>
+                        <div class="col-md-9 col-sm-6 col-xs-6">{{ $price_info['num_of_days']}}
                             @if($price_info['adult'] == 2)
                                 @ $265.00 per night
                             @elseif($price_info['adult'] == 3)
@@ -116,27 +116,32 @@
                             @endif
                         </div>
                         <br>
-                        <div class="col-md-3">Total Attendees :</div>
-                        <div class="col-md-9">{{ $registration->num_of_travlers }}</div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">Total Attendees :</div>
+                        <div class="col-md-9 col-sm-6 col-xs-6">{{ $registration->num_of_travlers }}</div>
                         <br>
-                        <div class="col-md-3">Adults :</div>
-                        <div class="col-md-9">{{ $price_info['adult']}}</div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">Adults :</div>
+                        <div class="col-md-9 col-sm-6 col-xs-6">{{ $price_info['adult']}}</div>
                         <br>
                     <!-- <div class="col-md-3">Above 5 Years : </div>
                    <div class="col-md-9">{{ $price_info['above_five']}}</div> -->
-                        <div class="col-md-3">Below 5 Years :</div>
-                        <div class="col-md-9">{{ $price_info['below_five']}} @ $350.00 per child</div>
+                        <div class="col-md-3 col-sm-6 col-xs-6">Below 5 Years :</div>
+                        <div class="col-md-9 col-sm-6 col-xs-6">{{ $price_info['below_five']}} @ $350.00 per child</div>
                         <br>
                         <div class="col-xs-12">
                             <hr/>
                         </div>
-                        <div class="col-md-3"><strong>Total Price</strong></div>
-                        <br>
-                        <div class="col-md-2"><strong><input value="{{ $price_info['prices']}}" class="form-control"
+                        <div class="col-md-3 col-sm-6 col-xs-6"><strong>Total Price</strong></div>
+                        <div class="col-md-2 col-sm-6 col-xs-6"><strong><input value="$ {{ $price_info['prices']}}" class="form-control"
                                                              readonly/></strong></div>
+                        @if($registration->status == 'Registered' && $price_info['prices'] > 0)                                     
+                        <div class="col-xs-12 col-sm-12 col-md-7">
+                            <a class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> You Have Paid</a>
+                        </div>
+                        @endif
+
                     </div>
                 </div>
-                @if($registration->status != 'Registered')
+                @if($registration->status != 'Registered' && $price_info['prices'] > 0)
                     <div class="col-xs-12">
                         <span class="card-imgs"
                               style="background-image: url({{ asset('public/images/creditcards.svg') }})"></span>
@@ -271,6 +276,7 @@
             $ref.submit();
         });
         $(document).on('click', '.snc', function (e) {
+            e.preventDefault();
             var $ref = $('form');
             $ref.attr('action', '{{url('/complete_later')}}');
             $ref.submit();
