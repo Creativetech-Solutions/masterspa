@@ -4,21 +4,21 @@ namespace App\Library;
 
 class Elavon
 {
-    //protected $url = "https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do";
+    protected $url = "https://api.demo.convergepay.com/VirtualMerchantDemo/processxml.do";
     /*protected $userId = "devportal";
     protected $marchantID = "009005";
     protected $pin = "BDDZY5KOUDCNPV4L3821K7PETO4Z7TPYOJB06TYBI1CW771IDHXBVBP51HZ6ZANJ";
-    protected $test_mode = false;*//*
+    protected $test_mode = false;*/
     protected $userId = "webpage";
     protected $marchantID = "005454";
     protected $pin = "Y5KSOF";
-    protected $test_mode = false;*/
+    protected $test_mode = false;
 
-    protected $url = "https://api.convergepay.com/VirtualMerchant/processxml.do";
+    /*protected $url = "https://api.convergepay.com/VirtualMerchant/processxml.do";
     protected $userId = "ISWEB";
     protected $marchantID = "871772";
     protected $pin = "R9TEB4P4M2PZXG4WQN06O493DWMSQ6Q9JT8EQO3PSAL1PFC3KDCUCYQ46G71AFD5";
-    protected $test_mode = true;
+    protected $test_mode = true;*/
 
     public function saleTransaction($trans_data)
     {

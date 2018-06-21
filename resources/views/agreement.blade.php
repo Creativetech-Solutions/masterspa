@@ -234,7 +234,7 @@
                     <button class="btn btn-danger previous">&laquo; Previous</button>
                     @if($registration->status != 'Registered')
                         <button type="submit" class="btn btn-primary sub">Submit Registration</button>
-                        <a href="{{url('/submission')}}" class="btn btn-default snc">Save and Complete Later</a><br>
+                        <a class="btn btn-default snc">Save and Complete Later</a><br>
                     @endif
                 </div>
             </form>
@@ -261,24 +261,21 @@
     <script type="text/javascript">
         $(document).on('click', '.sub', function (e) {
             e.preventDefault();
-            if ($('input[name="agreement"]').is(':checked'))
+            if ($('input[name="agreement"]').is(':checked')){
+                var $ref = $('form');
+                $ref.attr('action', '{{ url('/submission') }}');
                 $('.pref-form').submit();
+            }
             else {
                 $('input[name="agreement"]').parents('.form-group').addClass('req-attr');
                 $('.agree-fr-pay').modal('show');
             }
             //$('.snc').hide();
         });
-        $(document).on('click', '.sub', function (e) {
-            e.preventDefault();
-            var $ref = $('form');
-            $ref.attr('action', '{{ url('/submission') }}');
-            $ref.submit();
-        });
         $(document).on('click', '.snc', function (e) {
             e.preventDefault();
             var $ref = $('form');
-            $ref.attr('action', '{{url('/complete_later')}}');
+            $ref.attr('action', "{{url('/complete_later')}}");
             $ref.submit();
         });
 

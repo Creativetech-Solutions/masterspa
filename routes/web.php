@@ -50,7 +50,7 @@ Route::post('/submission', 'HomeController@submission');
 
 //admin routes
 Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth'], function (){
-    Route::get('/', 'HomeController@index');
+    Route::get('/dashboard', 'HomeController@index');
     Route::get('/registrations', 'RegistrationController@index');
     Route::get('/createReport', 'ReportController@index');
     Route::get('/saveReport', 'ReportController@savedReports');

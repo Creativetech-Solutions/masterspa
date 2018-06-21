@@ -114,10 +114,6 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['freq_flyer_no']}}</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Payment Method:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['payment_method']}}</td>
-    </tr>
-    <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Special Notes:</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['special_notes']}}</td>
     </tr>
@@ -158,11 +154,11 @@
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Additional Nights :</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['payment_method']}}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$price_info['num_of_days']}}</td>
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Total Attendee</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['payment_method']}}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['num_of_travlers']}}</td>
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Adults :</td>

@@ -90,10 +90,6 @@
         </tr>
     @endif
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Payment Method:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['payment_method']}}</td>
-    </tr>
-    <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Special Circumstances:</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['special_notes']}}</td>
     </tr>
@@ -109,7 +105,11 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Status:</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['status']}}</td>
     </tr>
+    @php $count = 1 @endphp
     @foreach($guests as $guest)
+        <tr>
+            <td colspan="2" style="border: 1px solid #dddddd; text-align: left; padding: 8px;font-weight:bold">Guest {{ $count }}</td>
+        </tr>
         <tr>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest Name:</td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$guest['badge_fname'].' '.$guest['middle_fname'].' '.$guest['lname']}}</td>
@@ -122,6 +122,7 @@
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest Size:</td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$guest['tshirt_size']}}</td>
         </tr>
+        @php $count++ @endphp
         @endforeach
 </table>
 </tr>
