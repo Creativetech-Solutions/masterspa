@@ -82,7 +82,7 @@
                         <input type="radio" name="preference"
                                {{ $registration->preference == 'king' ? 'checked':'' }} value="king"/> King<br>
                         <input type="radio" name="preference"
-                               {{ $registration->preference=='beds' ? 'checked':'' }} value="beds"/> 2 Beds<br>
+                               {{ $registration->preference=='beds' ? 'checked':'' }} value="2 beds"/> 2 Beds<br>
                     </div>
 
                     <div class="form-group col-lg-4">

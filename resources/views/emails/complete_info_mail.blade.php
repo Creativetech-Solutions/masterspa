@@ -11,12 +11,8 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['comp_name']}}</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">First Name</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['fname']}}</td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Last Name:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['lname']}}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Name</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['fname'].' '.$complete_data['lname']}}</td>
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Telephone</td>
@@ -40,23 +36,7 @@
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Address:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['address']}}</td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">City:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['city']}}</td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">State:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['state']}}</td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Zip</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['zip']}}</td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Country:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['country']}}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['address'] .' - '.$complete_data['city'].' - '. $complete_data['state'] .' - '.$complete_data['zip'].' - '.$complete_data['country']}}</td>
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preference:</td>
@@ -71,15 +51,11 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['meeting_participants']}}</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Extend Trip:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['extend_trip']}}</td>
-    </tr>
-    <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">European Dealer:</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['european_dealer']}}</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Qoute:</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Air Qoute:</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['airfare_quote']}}</td>
     </tr>
     <tr>
@@ -90,20 +66,12 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['dpt_city']}}</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Departure Date:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['dpt_date']}}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred Departure Date & Time:</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['dpt_date'] .' '.$complete_data['pref_dpt_time']}}</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred departure time:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['pref_dpt_time']}}</td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Return Date:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['ret_date']}}</td>
-    </tr>
-    <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred Return Time:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['pref_ret_time']}}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred Return Date & Time:</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['ret_date'] .' '.$complete_data['pref_ret_time']}}</td>
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preferred Airline:</td>
@@ -129,6 +97,25 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Status:</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['status']}}</td>
     </tr>
+    @php $count = 1 @endphp
+    @foreach($guests as $guest)
+        <tr>
+            <td colspan="2" style="border: 1px solid #dddddd; text-align: left; padding: 8px;font-weight:bold">Guest {{ $count }}</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest Name:</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$guest['badge_fname'].' '.$guest['middle_fname'].' '.$guest['lname']}}</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest D.O.B:</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$guest['age']}}</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest Size:</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$guest['tshirt_size']}}</td>
+        </tr>
+        @php $count++ @endphp
+    @endforeach
 </table>
 <h3>Price Details</h3>
 <table>
@@ -154,7 +141,7 @@
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Your Additional Nights :</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$price_info['num_of_days']}}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$price_info['num_of_days']}} @ $265.00 per night</td>
     </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Total Attendee</td>
@@ -165,13 +152,13 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['adult']}}</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Above 5 Years :</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['above_five']}}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Additional Attendees :</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['above_five']}} @ $750.00 for everyone over 5</td>
     </tr>
-    {{--<tr>
+    <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Below 5 Years :</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['below_five']}}</td>
-    </tr>--}}
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ $price_info['below_five']}} @ $350.00 per child</td>
+    </tr>
     <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Total Price:<strong></strong></td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><strong>${{ $price_info['prices']}}</strong></td>

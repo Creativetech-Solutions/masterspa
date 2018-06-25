@@ -52,10 +52,6 @@
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['meeting_participants']}}</td>
     </tr>
     <tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Extend Trip:</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['extend_trip']}}</td>
-    </tr>
-    <tr>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">European Dealer:</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{$complete_data['european_dealer']}}</td>
     </tr>

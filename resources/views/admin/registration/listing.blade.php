@@ -31,6 +31,7 @@
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
+                  <th>Lock</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -47,6 +48,7 @@
                   <td>{{$reg->fname}}</td>
                   <td>{{$reg->lname}}</td>
                   <td>{{$reg->email}}</td>
+                    <td><input type="checkbox" id="block" class="checkbox lock" data-id="{{$reg->id}}"></td>
                   <td>
                   <a title="Edit" href="{{url('admin/registration/edit_form/'.$reg->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                   <a title="Delete" href="{{url('admin/registration/delete/'.$reg->id)}}" class="btn btn-xs btn-danger delete-reservation"><i class="fa fa-trash"></i></a>
@@ -61,6 +63,7 @@
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
+                  <th>Lock</th>
                   <th>Action</th>
                 </tr>
                 </tfoot>
@@ -91,6 +94,21 @@
       }
     });
   })
+  $("#block").change(function () {
+      var regID = $(this).attr('data-id');
+      $.ajax({
+          type: "POST",
+          url: "{{url('admin/registration/lock')}}"/+regID,
+          async: true,
+          success: function (msg) {
+              alert('Success');
+              notify('success','Record Successfully Locked');
+              if (msg != 'success') {
+                  notify('locked','Record Successfully Unlocked');
+              }
+          }
+      });
+  });
 </script>
 @endsection
 

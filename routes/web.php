@@ -73,6 +73,7 @@ Route::group( ['prefix' => 'admin', 'namespace' => 'admin','middleware' => 'auth
     Route::get('/emails/edit_template/{id}','EmailController@getTemplate');
     Route::get('/registration/edit_form/{id}','RegistrationController@getregister');
     Route::get('/registration/delete/{id}','RegistrationController@delete');
+    Route::post('/registration/lock/{id}','RegistrationController@lock');
     Route::get('/report/download_single/{id}','ReportController@downloadSingleReport');
     Route::get('/report/download_default/{id}','ReportController@downloadDefaultReport');
 

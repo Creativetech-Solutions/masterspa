@@ -318,27 +318,98 @@ class HomeController extends Controller
                 foreach ($optionalInput as $key => $value) {
                     $register->$key = $request->$value;
                 }
-                
-                if (!$register->save()) {
-                    return redirect('/agreement');
-                } else {
 
-                    if (!empty($request->url))
-                        return redirect($request->url);
+                $register->save();
 
+                $country = Country::find($register->country);
+                if (isset($country->name) && !empty($country->name)) {
+                    $country_name = $country->name;
+                } else $country_name = "";
+                /*echo $country_name; exit;*/
+                $guests = $register->attendees;
+                if($register->send_invoice == '1'){
+                    $send_invoice = 'Yes';
+                }else{
+                    $send_invoice = 'No';
+                }
+                $count = 1;
+                $complete_data = array(
+                    'comp_name' => $register->comp_name,
+                    'fname' => $register->fname,
+                    'lname' => $register->lname,
+                    'tel' => $register->tel,
+                    'cell' => $register->cell,
+                    'email' => $register->email,
+                    'email_alt' => $register->email_alt,
+                    'address' => $register->address,
+                    'city' => $register->city,
+                    'state' => $register->state,
+                    'zip' => $register->zip,
+                    'country' => $country_name,
+                    'emerg_contact' => $register->emerg_contact,
+                    'emerg_phone' => $register->emerg_phone,
+                    'dpt_city' => $register->dpt_city,
+                    'dpt_date' => $register->dpt_date,
+                    'pref_dpt_time' => $register->pref_dpt_time,
+                    'ret_date' => $register->ret_date,
+                    'pref_ret_time' => $register->pref_ret_time,
+                    'preference' => $register->preference,
+                    'special_need' => $register->special_need,
+                    'specify_need' => $register->specify_need,
+                    'meeting_participants' => $register->meeting_participants,
+                    'extend_trip' => $register->extend_trip,
+                    'european_dealer' => $register->european_dealer,
+                    'airfare_quote' => $register->airfare_quote,
+                    'service_class' => $register->service_class,
+                    'pref_airline' => $register->pref_airline,
+                    'freq_flyer_no' => $register->freq_flyer_no,
+                    'special_notes' => $register->special_notes,
+                    'send_invoice' => $send_invoice,
+                    'special_circumstances' => $register->special_circumstances,
+                    'hotel_check_in' => $register->hotel_check_in,
+                    'hotel_check_out' => $register->hotel_check_out,
+                    'num_of_travlers' => $register->num_of_travlers,
+                    'status' => $register->status,
+                );
+                $price_info = $this->calculatePrices($this->register);
+                $template = Email_template::find(4);
+                $html = \View::make('emails.complete_info_mail')->with(compact('complete_data', 'price_info','guests','count'))->render();
+                $header_img = '<img src="'.asset('/public/images/emailheader.jpg').'"></img>';
+                $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]', '[HEADER]', '[URL]'),
+                    array($html, $register->fname, 'Master Spas',$header_img, url('/')), $template->body);
+                $data = array('messageBody' => htmlspecialchars_decode($messageBody));
+                $email_info = array(
+                    'email' => $register->email,
+                    'name' => $register->fname,
+                );
+
+                Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
+                    $message->to($email_info['email'], $email_info['name'])
+                        ->subject('Master Spas Registration');
+                    $message->from('masterspas@groupregistration.net ', 'Master Spas');
+                });
+                /*$html = \View::make('emails.complete_info_mail')->render();
+                $save = htmlspecialchars($html);
+                dd($save);*/
+                if ($register->airfare_quote == 'yes') {
+                    $guests_mail = $register->attendees()->first();
+                    if ($guests_mail == '') {
+                        $guests_mail->fname = '';
+                        $guests_mail->lname = '';
+                    }
                     $country = Country::find($register->country);
                     if (isset($country->name) && !empty($country->name)) {
                         $country_name = $country->name;
                     } else $country_name = "";
-                    /*echo $country_name; exit;*/
-                    $complete_data = array(
+                    $guests = $register->attendees;
+                    $count = 1;
+                    $av_data = array(
                         'comp_name' => $register->comp_name,
                         'fname' => $register->fname,
                         'lname' => $register->lname,
                         'tel' => $register->tel,
                         'cell' => $register->cell,
                         'email' => $register->email,
-                        'email_alt' => $register->email_alt,
                         'address' => $register->address,
                         'city' => $register->city,
                         'state' => $register->state,
@@ -350,95 +421,33 @@ class HomeController extends Controller
                         'dpt_date' => $register->dpt_date,
                         'pref_dpt_time' => $register->pref_dpt_time,
                         'ret_date' => $register->ret_date,
-                        'pref_ret_time' => $register->pref_ret_time,
-                        'preference' => $register->preference,
-                        'special_need' => $register->special_need,
-                        'specify_need' => $register->specify_need,
-                        'meeting_participants' => $register->meeting_participants,
-                        'extend_trip' => $register->extend_trip,
-                        'european_dealer' => $register->european_dealer,
-                        'airfare_quote' => $register->airfare_quote,
-                        'service_class' => $register->service_class,
-                        'pref_airline' => $register->pref_airline,
-                        'freq_flyer_no' => $register->freq_flyer_no,
-                        'special_notes' => $register->special_notes,
-                        'send_invoice' => $register->send_invoice,
-                        'special_circumstances' => $register->special_circumstances,
-                        'hotel_check_in' => $register->hotel_check_in,
-                        'hotel_check_out' => $register->hotel_check_out,
-                        'num_of_travlers' => $register->num_of_travlers,
-                        'status' => $register->status,
+                        'pref_ret_time' => $register->pref_ret_time
                     );
-                    $price_info = $this->calculatePrices($this->register);
-                    $template = Email_template::find(4);
-                    $html = \View::make('emails.complete_info_mail')->with(compact('complete_data', 'price_info'))->render();
+                    $template = Email_template::find(6);
+                    //dd($template->body);
+                    $html = \View::make('emails.reg_incomplete')->with(compact('av_data','guests','count'))->render();
                     $header_img = '<img src="'.asset('/public/images/emailheader.jpg').'"></img>';
-                    $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]', '[HEADER]', '[URL]'),
-                        array($html, $register->fname, 'Master Spas',$header_img, url('/')), $template->body);
+                    $messageBody = str_replace(array('[BODY]', '[GuestFirstName]','[GuestLastName]','[GuestUniqueID]', '[SITE_NAME]', '[HEADER]'),
+                        array($html, $guests_mail->fname,$guests_mail->lname,$register->unique_id, 'Master Spas',$header_img), $template->body);
                     $data = array('messageBody' => htmlspecialchars_decode($messageBody));
+                    $admin_email = User::find(2);
                     $email_info = array(
-                        'email' => $register->email,
-                        'name' => $register->fname,
+                        'email' => $admin_email->email,
+                        'name' => $admin_email->fname,
                     );
-                    
                     Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
                         $message->to($email_info['email'], $email_info['name'])
-                            ->subject('Master Spas Registration');
+                            ->subject('Informed Admin');
                         $message->from('masterspas@groupregistration.net ', 'Master Spas');
                     });
-                    /*$html = \View::make('emails.complete_info_mail')->render();
-                    $save = htmlspecialchars($html);
-                    dd($save);*/
-                    if ($register->airfare_quote == 'yes') {
-                        $guests_mail = $register->attendees()->first();
-                        if ($guests_mail == '') {
-                            $guests_mail->fname = '';
-                            $guests_mail->lname = '';
-                        }
-                        $country = Country::find($register->country);
-                        if (isset($country->name) && !empty($country->name)) {
-                            $country_name = $country->name;
-                        } else $country_name = "";
-                        $guests = $register->attendees;
-                        $count = 1;
-                        $av_data = array(
-                            'comp_name' => $register->comp_name,
-                            'fname' => $register->fname,
-                            'lname' => $register->lname,
-                            'tel' => $register->tel,
-                            'cell' => $register->cell,
-                            'email' => $register->email,
-                            'address' => $register->address,
-                            'city' => $register->city,
-                            'state' => $register->state,
-                            'zip' => $register->zip,
-                            'country' => $country_name,
-                            'emerg_contact' => $register->emerg_contact,
-                            'emerg_phone' => $register->emerg_phone,
-                            'dpt_city' => $register->dpt_city,
-                            'dpt_date' => $register->dpt_date,
-                            'pref_dpt_time' => $register->pref_dpt_time,
-                            'ret_date' => $register->ret_date,
-                            'pref_ret_time' => $register->pref_ret_time
-                        );
-                        $template = Email_template::find(6);
-                        //dd($template->body);
-                        $html = \View::make('emails.reg_incomplete')->with(compact('av_data','guests','count'))->render();
-                        $header_img = '<img src="'.asset('/public/images/emailheader.jpg').'"></img>';
-                            $messageBody = str_replace(array('[BODY]', '[GuestFirstName]','[GuestLastName]','[GuestUniqueID]', '[SITE_NAME]', '[HEADER]'),
-                            array($html, $guests_mail->fname,$guests_mail->lname,$register->unique_id, 'Master Spas',$header_img), $template->body);
-                        $data = array('messageBody' => htmlspecialchars_decode($messageBody));
-                        $admin_email = User::find(2);
-                        $email_info = array(
-                            'email' => $admin_email->email,
-                            'name' => $admin_email->fname,
-                        );
-                        Mail::send('emails.show_temp', $data, function ($message) use ($email_info) {
-                            $message->to($email_info['email'], $email_info['name'])
-                                ->subject('Informed Admin');
-                            $message->from('masterspas@groupregistration.net ', 'Master Spas');
-                        });
-                    }
+                }
+
+
+                if (!$register->save()) {
+                    return redirect('/agreement');
+                } else {
+                    if (!empty($request->url))
+                        return redirect($request->url);
 
                     session()->put('register_id', $register->id);
 
@@ -446,18 +455,18 @@ class HomeController extends Controller
 
 
                     if($requriedFieldMissing == 'false'){
-                        if($price_info['prices'] > 0)
+                        /*if($price_info['prices'] > 0)
                             $this->processPayment($request,'saleTransaction',$price_info);
-                        else { 
+                        else {
                             $register->status = 'Registered';
                             $register->save();
-                        }
+                        }*/
                     }
 
                     $registration = $this->register;
                     return view('/thankyou')->with(compact('registration', 'requriedFieldMissing'));
                 }
-            } 
+            }
             else {
                 if (!empty($request->url))
                     return redirect($request->url);
@@ -470,7 +479,7 @@ class HomeController extends Controller
     public function completePayment(Request $request)
     {
         $price_info = $this->calculatePrices($this->register);
-        $this->processPayment($request, 'CompleteTransaction', $price_info);
+        /*$this->processPayment($request, 'CompleteTransaction', $price_info);*/
     }
 
     public function cancelPayment($id)
@@ -508,6 +517,11 @@ class HomeController extends Controller
             $country_name = $country->name;
         } else $country_name = "";
         $guests = $register->attendees;
+        if($register->send_invoice == '1'){
+            $send_invoice = 'Yes';
+        }else{
+            $send_invoice = 'No';
+        }
         $complete_data = array(
             'unique_id' => $register->unique_id,
             'comp_name' => $register->comp_name,
@@ -534,10 +548,9 @@ class HomeController extends Controller
             'pref_ret_time' => $register->pref_ret_time,
             'specify_need' => $register->specify_need,
             'meeting_participants' => $register->meeting_participants,
-            'extend_trip' => $register->extend_trip,
             'european_dealer' => $register->european_dealer,
             'airfare_quote' => $register->airfare_quote,
-            'send_invoice' => $register->send_invoice,
+            'send_invoice' => $send_invoice,
             'special_circumstances' => $register->special_circumstances,
             'pref_airline' => $register->pref_airline,
             'freq_flyer_no' => $register->freq_flyer_no,
@@ -545,7 +558,7 @@ class HomeController extends Controller
             'num_of_travlers' => $register->num_of_travlers,
             'status' => $register->status
         );
-        $template = Email_template::find(4);
+        $template = Email_template::find(1);
         $html = \View::make('emails.save_and_complete')->with(compact('complete_data','guests'))->render();
         $header_img = '<img src="'.asset('/public/images/emailheader.jpg').'"></img>';
         $messageBody = str_replace(array('[BODY]', '[NAME]', '[SITE_NAME]', '[HEADER]', '[URL]'),
@@ -592,7 +605,7 @@ class HomeController extends Controller
 
     }
 
-    protected function processPayment($request, $method, $price_info){
+    /*protected function processPayment($request, $method, $price_info){
         $rules = [
             'first_name' => 'required',
             'cc_num' => 'required',
@@ -626,7 +639,10 @@ class HomeController extends Controller
 
         switch($method){
             case 'saleTransaction':
-                $payment_data = new Payments();
+                $payment_data = Payments::where('req_id', $this->register->id)->first();
+                if($payment_data == '') {
+                    $payment_data = new Payments();
+                }
                 break;
             case 'CompleteTransaction':
                 $payment_data = $this->register->payment;
@@ -664,7 +680,7 @@ class HomeController extends Controller
         } else {
             return redirect('/payment');
         }
-    }
+    }*/
 
     protected function isRequiredFieldMissing()
     {
