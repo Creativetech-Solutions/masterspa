@@ -12,7 +12,7 @@ class Elavon
     protected $userId = "webpage";
     protected $marchantID = "005454";
     protected $pin = "Y5KSOF";
-    protected $test_mode = false;
+    protected $test_mode = true;
 
     /*protected $url = "https://api.convergepay.com/VirtualMerchant/processxml.do";
     protected $userId = "ISWEB";

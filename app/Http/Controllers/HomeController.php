@@ -623,7 +623,7 @@ class HomeController extends Controller
         ];
         $elavon = new Elavon();
         $response = $elavon->$method($trans_data);
-
+        
         switch($method){
             case 'saleTransaction':
                 $payment_data = new Payments();
